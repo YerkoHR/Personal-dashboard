@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchDataAnime } from "../redux/ducks/animeReducer";
 import PropTypes from "prop-types";
+import AnimeList from "./AnimeList";
 
 export class Main extends Component {
   constructor() {
@@ -10,38 +11,20 @@ export class Main extends Component {
       input: ""
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
-    this.setState({ input: e.target.value });
-  }
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.fetchDataAnime(this.state.input);
+    this.setState({ input: e.target.value }, () => {
+      this.props.fetchDataAnime(this.state.input);
+    });
   }
   render() {
     return (
       <div>
         <h2>Anilist API</h2>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            value={this.state.input}
-            onChange={this.handleChange}
-          />
-          <input type="submit" value="Submit" />
-        </form>
-        {this.props.animeList.error && (
-          <p>Error with the API, try again later. </p>
-        )}
-        {this.props.animeList.anime && (
-          <ul>
-            {this.props.animeList.anime.map(anime => (
-              <li key={anime.id}>{anime.title.romaji}</li>
-            ))}
-          </ul>
-        )}
+        <input type="text" onChange={this.handleChange} />
+        {this.props.error && <p>Error with the API, try again later. </p>}
+        <AnimeList data={this.props.animeList} />
       </div>
     );
   }
@@ -49,24 +32,20 @@ export class Main extends Component {
 
 Main.propTypes = {
   fetchDataAnime: PropTypes.func.isRequired,
-  animeList: PropTypes.shape({
-    error: PropTypes.string,
-    anime: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        title: PropTypes.shape({
-          romaji: PropTypes.string.isRequired
-        })
+  animeList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.shape({
+        romaji: PropTypes.string.isRequired
       })
-    )
-  })
+    })
+  )
 };
 
-function mapStateToProps(state) {
-  return {
-    animeList: state.animeReducer
-  };
-}
+mapStateToProps = state => ({
+  animeList: state.animeReducer.anime,
+  error: state.animeReducer.error
+});
 
 export default connect(
   mapStateToProps,

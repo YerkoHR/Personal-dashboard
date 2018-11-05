@@ -2,14 +2,18 @@ import React from "react";
 import { shallow } from "enzyme";
 import { Main } from "../../components/Main";
 
-describe("Main", () => {
-  let wrapper;
-  const fetchDataAnime = jest.fn();
+describe("Anilist component", () => {
+  const mockFunc = jest.fn();
+  const wrapper = shallow(<Main fetchDataAnime={mockFunc} />);
 
-  wrapper = shallow(<Main fetchDataAnime={fetchDataAnime} />);
-
-  it("should render self and subcomponents", () => {
-    wrapper.find("div > button").simulate("click");
-    expect(fetchDataAnime.mock.calls.length).toBe(1);
+  it("should render a text input", () => {
+    expect(wrapper.find("div > input").length).toEqual(1);
+  });
+  it("should respond to change event and update the state of the input state", () => {
+    wrapper
+      .find("div > input")
+      .simulate("change", { target: { value: "anime" } });
+    expect(wrapper.state("input")).toEqual("anime");
+    expect(mockFunc.mock.calls.length).toBe(1);
   });
 });
