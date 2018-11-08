@@ -7,7 +7,7 @@ export const FETCH_FAILURE = "FETCH_FAILURE";
 const initialState = {
   anime: [],
   fetching: false,
-  error: ""
+  error: null
 };
 
 export default function reducer(state = initialState, action) {
@@ -21,7 +21,7 @@ export default function reducer(state = initialState, action) {
         anime: action.data
       };
     case FETCH_FAILURE:
-      return { ...state, error: action.error };
+      return { ...state, error: action.error.response.status };
     default:
       return state;
   }
