@@ -6,18 +6,13 @@ import Index from "./components/Index";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-  @import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto");
+  @import url("https://fonts.googleapis.com/css?family=Roboto");
   body {
     margin: 0;
     background: ${props => props.theme.background};
     font-family:  Roboto, sans-serif;
     color: ${props => props.theme.font};
-    min-height: 100%;
   }
-  html{
-    height: 100%;
-  }
-
 `;
 
 const darkTheme = {

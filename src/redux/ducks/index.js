@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import animeReducer from "./animeReducer";
+import fetchAnime from "./fetchAnime";
+import modes from "./modes";
 
 export default combineReducers({
-  animeReducer
+  fetchAnime,
+  modes
 });
