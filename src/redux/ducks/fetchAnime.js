@@ -25,7 +25,7 @@ export default function reducer(state = initialState, action) {
     case FETCH_FAILURE:
       return { ...state, error: action.error.response.status };
     case ANIME_DETAILS_SUCCESSFUL:
-      return { ...state, animeDetails: action.anime };
+      return { ...state, fetching: false, animeDetails: action.anime };
     default:
       return state;
   }
