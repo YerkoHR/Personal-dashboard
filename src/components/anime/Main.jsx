@@ -92,14 +92,7 @@ export class Main extends Component {
 Main.propTypes = {
   fetchDataAnime: PropTypes.func.isRequired,
   changeListMode: PropTypes.func.isRequired,
-  animeList: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.shape({
-        romaji: PropTypes.string.isRequired
-      })
-    })
-  ).isRequired,
+  animeList: PropTypes.arrayOf(PropTypes.object).isRequired,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.number,
   listMode: PropTypes.oneOf(["table", "card"]),
