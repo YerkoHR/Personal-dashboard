@@ -66,7 +66,7 @@ const MainContent = styled.div`
   text-align: center;
 `;
 
-export const Index = () => (
+export const Index = ({ detailsCard }) => (
   <Body>
     <SideBar>
       <h2>Dashboard</h2>
@@ -91,17 +91,20 @@ export const Index = () => (
     </SideBar>
     <MainContent>
       <LoadableAnime />
+      {detailsCard && <h1>Details in the store, component card goes here !</h1>}
     </MainContent>
   </Body>
 );
 
 Index.propTypes = {
   changeScreenMode: PropTypes.func.isRequired,
-  listMode: PropTypes.oneOf(["light", "dark"])
+  listMode: PropTypes.oneOf(["light", "dark"]),
+  detailsCard: PropTypes.object
 };
 
 const mapStateToProps = state => ({
-  screenMode: state.modes.screenMode
+  screenMode: state.modes.screenMode,
+  detailsCard: state.fetchAnime.animeDetails
 });
 
 export default connect(

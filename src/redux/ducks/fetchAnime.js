@@ -9,7 +9,7 @@ const initialState = {
   anime: [],
   fetching: false,
   error: null,
-  animeDetails: {}
+  animeDetails: null
 };
 
 export default function reducer(state = initialState, action) {
