@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchDataAnime, fetchDetails } from "../../redux/ducks/fetchAnime";
-import { changeListMode } from "../../redux/ducks/modes";
-
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
 import styled from "styled-components";
 
-const LoadableTable = Loadable({
+const LoadableList = Loadable({
   loader: () => import("./SearchList"),
   loading: () => null,
   render(loaded, props) {
@@ -27,17 +25,20 @@ const StyledInput = styled.input`
     outline: 0px;
   }
 `;
+
 const InputContainer = styled.div`
   position: relative;
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0 4em;
+  margin: 1em 4em;
 `;
-export class Main extends Component {
+
+export class SearchSection extends Component {
   constructor() {
     super();
     this.state = {
@@ -53,14 +54,7 @@ export class Main extends Component {
   }
 
   render() {
-    const {
-      animeList,
-      error,
-      loading,
-      changeListMode,
-      listMode,
-      fetchDetails
-    } = this.props;
+    const { animeList, error, loading, fetchDetails } = this.props;
 
     return (
       <Container>
@@ -79,9 +73,8 @@ export class Main extends Component {
           {animeList.length < 1 && this.state.input !== "" && !loading && (
             <span>No results found.</span>
           )}
-
-          {animeList.length > 0 && listMode === "table" && (
-            <LoadableTable data={animeList} fetchDetails={fetchDetails} />
+          {animeList.length > 0 && (
+            <LoadableList data={animeList} fetchDetails={fetchDetails} />
           )}
         </InputContainer>
       </Container>
@@ -89,41 +82,23 @@ export class Main extends Component {
   }
 }
 
-Main.propTypes = {
+SearchSection.propTypes = {
   fetchDataAnime: PropTypes.func.isRequired,
-  changeListMode: PropTypes.func.isRequired,
   animeList: PropTypes.arrayOf(PropTypes.object).isRequired,
   loading: PropTypes.bool.isRequired,
-  error: PropTypes.number,
-  listMode: PropTypes.oneOf(["table", "card"]),
-  animeDetails: PropTypes.object
+  error: PropTypes.number
 };
 
 const mapStateToProps = state => ({
   animeList: state.fetchAnime.anime,
   error: state.fetchAnime.error,
-  loading: state.fetchAnime.fetching,
-  listMode: state.modes.listMode,
-  animeDetails: state.fetchAnime.animeDetails
+  loading: state.fetchAnime.fetching
 });
 
 export default connect(
   mapStateToProps,
   {
     fetchDataAnime,
-    changeListMode,
     fetchDetails
   }
-)(Main);
-
-/**
- * 
- *    TO ADD IN THE SAVED LIST !
- *         <button onClick={() => changeListMode("table")}>
-            <span>Table</span>
-          </button>
-          <button onClick={() => changeListMode("card")}>
-            <span>Card</span>
-          </button>
- * 
- */
+)(SearchSection);

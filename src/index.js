@@ -9,10 +9,13 @@ const GlobalStyle = createGlobalStyle`
   @import url("https://fonts.googleapis.com/css?family=Roboto");
   body {
     margin: 0;
-    background: ${props => props.theme.background};
     font-family:  Roboto, sans-serif;
     color: ${props => props.theme.font};
+    background: ${props => props.theme.container};
   }
+  html, body, #root, #root>div {
+  height: 100%
+}
 `;
 
 const darkTheme = {

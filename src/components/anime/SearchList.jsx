@@ -7,6 +7,7 @@ const StyledUl = styled.ul`
   list-style: none;
   position: absolute;
   top: 40px;
+  z-index: 2;
 `;
 
 const StyledLi = styled.li`
@@ -15,6 +16,7 @@ const StyledLi = styled.li`
   margin-bottom: 0.5em;
   transition: 0.6s ease-in-out;
   font-size: 0.8em;
+  background: #fff;
   &:hover {
     opacity: 0.6;
     transform: translateY(-3px);
