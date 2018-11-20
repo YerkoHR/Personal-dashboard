@@ -15,19 +15,24 @@ const LoadableList = Loadable({
 });
 
 const StyledInput = styled.input`
-  padding: 0.5em 2em;
-  background: ${props => props.theme.container};
+  padding: 0.5em 1.2em;
+  background: ${props => props.theme.backgroundPrimary};
   border-color: transparent;
   border-radius: 2px;
   color: ${props => props.theme.font};
-
   &:focus {
     outline: 0px;
   }
 `;
 
-const InputContainer = styled.div`
+const InputList = styled.div`
   position: relative;
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `;
 
 const Container = styled.div`
@@ -37,13 +42,17 @@ const Container = styled.div`
   align-items: center;
   margin: 1em 4em;
 `;
-
+const Space = styled.div`
+  width: 30px;
+  height: 30px;
+`;
 export class SearchSection extends Component {
   constructor() {
     super();
     this.state = {
       input: ""
     };
+    this.handleBlur = this.handleBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -51,6 +60,11 @@ export class SearchSection extends Component {
     this.setState({ input: e.target.value }, () => {
       this.props.fetchDataAnime(this.state.input);
     });
+  }
+  handleBlur(e) {
+    if (!e.currentTarget.contains(document.activeElement)) {
+      this.setState({ input: "" });
+    }
   }
 
   render() {
@@ -60,21 +74,28 @@ export class SearchSection extends Component {
       <Container>
         <h1>Anilist API</h1>
         <InputContainer>
-          <StyledInput
-            type="text"
-            placeholder="Search an anime ..."
-            onChange={this.handleChange}
-          />
+          <InputList>
+            <StyledInput
+              type="text"
+              placeholder="Search an anime ..."
+              onChange={this.handleChange}
+              value={this.state.input}
+            />
 
-          {error && <span>Error {error}, please try again later.</span>}
+            {animeList.length > 0 && this.state.input !== "" && (
+              <LoadableList
+                data={animeList}
+                fetchDetails={fetchDetails}
+                blur={this.handleBlur}
+              />
+            )}
+          </InputList>
+          {error && <div>Error {error}, please try again later.</div>}
 
-          {loading && !error && <span>Fetching...</span>}
+          {loading && !error ? <div className="lds-dual-ring" /> : <Space />}
 
           {animeList.length < 1 && this.state.input !== "" && !loading && (
-            <span>No results found.</span>
-          )}
-          {animeList.length > 0 && (
-            <LoadableList data={animeList} fetchDetails={fetchDetails} />
+            <div>No results found.</div>
           )}
         </InputContainer>
       </Container>

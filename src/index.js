@@ -11,18 +11,42 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     font-family:  Roboto, sans-serif;
     color: ${props => props.theme.font};
-    background: ${props => props.theme.container};
+    background: ${props => props.theme.backgroundPrimary};
   }
   html, body, #root, #root>div {
   height: 100%
 }
+.lds-dual-ring {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 23px;
+  height: 23px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 `;
 
 const darkTheme = {
-  background: "#686884",
-  container: "#343C49",
-  font: "#7C7A8F",
-  card: "#232935"
+  backgroundPrimary: "#343C49",
+  backgroundSecundary: "#232935",
+  backgroundCard: "#121923",
+  font: "#7C7A8F"
 };
 
 const App = () => (

@@ -6,7 +6,11 @@ import styled from "styled-components";
 
 const LoadableDetailsCard = Loadable({
   loader: () => import("./DetailsCard"),
-  loading: () => null
+  loading: () => null,
+  render(loaded, props) {
+    let Component = loaded.default;
+    return <Component {...props} />;
+  }
 });
 
 const LoadableSearchSection = Loadable({
@@ -22,7 +26,7 @@ const Container = styled.div`
 const Index = ({ animeDetails }) => (
   <Container>
     <LoadableSearchSection />
-    {animeDetails && <LoadableDetailsCard />}
+    {animeDetails && <LoadableDetailsCard data={animeDetails} />}
   </Container>
 );
 

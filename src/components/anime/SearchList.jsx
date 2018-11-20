@@ -8,10 +8,13 @@ const StyledUl = styled.ul`
   position: absolute;
   top: 40px;
   z-index: 2;
+  &:focus {
+    outline: 0;
+  }
 `;
 
 const StyledLi = styled.li`
-  border: 1px solid ${props => props.theme.container};
+  border: 1px solid ${props => props.theme.backgroundPrimary};
   border-radius: 3px;
   margin-bottom: 0.5em;
   transition: 0.6s ease-in-out;
@@ -27,9 +30,9 @@ const StyledLi = styled.li`
     cursor: pointer;
   }
 `;
-export default function SearchList({ data, fetchDetails }) {
+export default function SearchList({ data, fetchDetails, blur }) {
   return (
-    <StyledUl>
+    <StyledUl tabIndex="1" onBlur={blur}>
       {data.map(anime => (
         <StyledLi key={anime.id} onClick={() => fetchDetails(anime.id)}>
           <span>{anime.title.romaji} /</span>

@@ -103,6 +103,11 @@ export function fetchDetails(id) {
               title {
                 romaji
               }
+              coverImage {
+                extraLarge
+              }
+              averageScore
+              description
             }
         }
       `

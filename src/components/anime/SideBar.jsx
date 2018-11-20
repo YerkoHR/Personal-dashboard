@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { changeCurrentComponent } from "../../redux/ducks/sideBar";
 
 const StyledSideBar = styled.div`
   margin: 1em 1.5em;
@@ -41,28 +44,34 @@ const StyledSideBar = styled.div`
   }
 `;
 
-export default function SideBar() {
-  return (
-    <StyledSideBar>
-      <h2>Dashboard</h2>
-      <ul>
-        <li>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path d="M80 280h256v48H80zM80 184h320v48H80zM80 88h352v48H80z" />
-            <g>
-              <path d="M80 376h288v48H80z" />
-            </g>
-          </svg>
-          <span>ANIME LIST</span>
+const SideBar = ({ sideBar }) => (
+  <StyledSideBar>
+    <h2>Dashboard</h2>
+    <ul>
+      {sideBar.items.map(item => (
+        <li key={item.title}>
+          {item.icon}
+          <span>{item.title}</span>
         </li>
-        <li>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path d="M96 52v408l320-204L96 52z" />
-          </svg>
+      ))}
+    </ul>
+  </StyledSideBar>
+);
 
-          <span>PLAYLIST</span>
-        </li>
-      </ul>
-    </StyledSideBar>
-  );
-}
+SideBar.propTypes = {
+  sideBar: PropTypes.shape({
+    active: PropTypes.string,
+    items: PropTypes.arrayOf(PropTypes.object)
+  })
+};
+
+const mapStateToProps = state => ({
+  sideBar: state.sideBar
+});
+
+export default connect(
+  mapStateToProps,
+  {
+    changeCurrentComponent
+  }
+)(SideBar);

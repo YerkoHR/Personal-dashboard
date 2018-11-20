@@ -22,7 +22,7 @@ const Main = styled.div`
 `;
 
 const Content = styled.div`
-  background: ${props => props.theme.card};
+  background: ${props => props.theme.backgroundSecundary};
   text-align: center;
   height: 100%;
 `;
