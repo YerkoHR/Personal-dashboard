@@ -36,6 +36,7 @@ export function fetchDetails(id) {
                 }
                 averageScore
                 description
+                id
               }
           }
         `

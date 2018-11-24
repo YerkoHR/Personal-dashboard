@@ -34,7 +34,7 @@ const StyledCard = styled.div`
   }
 `;
 
-export default function DetailsCard({ data }) {
+export default function DetailsCard({ data, saved, addItem }) {
   return (
     <StyledCard>
       <img src={data.coverImage.extraLarge} alt="coverImage" />
@@ -45,6 +45,12 @@ export default function DetailsCard({ data }) {
           {data.averageScore ? data.averageScore : " Data not available"}
         </span>
         <p>{data.description ? data.description : " Data not available"}</p>
+
+        {saved.includes(data) ? (
+          <button>remove</button>
+        ) : (
+          <button onClick={() => addItem(data)}>add</button>
+        )}
       </div>
     </StyledCard>
   );

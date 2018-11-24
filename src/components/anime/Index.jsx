@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
 import styled from "styled-components";
+import { addItem } from "../../redux/ducks/saved";
 
 const LoadableDetailsCard = Loadable({
   loader: () => import("./DetailsCard"),
@@ -23,10 +24,16 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Index = ({ animeDetails }) => (
+const Index = ({ animeDetails, saved, addItem }) => (
   <Container>
     <LoadableSearchSection />
-    {animeDetails && <LoadableDetailsCard data={animeDetails} />}
+    {animeDetails && (
+      <LoadableDetailsCard
+        data={animeDetails}
+        saved={saved}
+        addItem={addItem}
+      />
+    )}
   </Container>
 );
 
@@ -35,12 +42,15 @@ Index.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  animeDetails: state.animeDetails
+  animeDetails: state.animeDetails,
+  saved: state.saved
 });
 
 export default connect(
   mapStateToProps,
-  {}
+  {
+    addItem
+  }
 )(Index);
 
 /**
