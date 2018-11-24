@@ -31,9 +31,6 @@ const StyledCard = styled.div`
   }
   img {
     height: 380px;
-    background: transparent
-      url("http://thinkfuture.com/wp-content/uploads/2013/10/loading_spinner.gif")
-      center no-repeat;
   }
 `;
 

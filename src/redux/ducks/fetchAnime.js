@@ -3,7 +3,6 @@ import axios from "axios";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
 export const FETCH_REQUEST = "FETCH_REQUEST";
 export const FETCH_FAILURE = "FETCH_FAILURE";
-export const ANIME_DETAILS_SUCCESSFUL = "ANIME_DETAILS_SUCCESSFUL";
 
 const initialState = {
   anime: [],
@@ -24,8 +23,6 @@ export default function reducer(state = initialState, action) {
       };
     case FETCH_FAILURE:
       return { ...state, error: action.error.response.status };
-    case ANIME_DETAILS_SUCCESSFUL:
-      return { ...state, fetching: false, animeDetails: action.anime };
     default:
       return state;
   }
@@ -39,9 +36,6 @@ export function fetchDataSuccess(data) {
 
 export function fetchDataFailure(error) {
   return { type: FETCH_FAILURE, error };
-}
-export function fetchDetailsSuccess(anime) {
-  return { type: ANIME_DETAILS_SUCCESSFUL, anime };
 }
 
 export function fetchDataAnime(input) {
@@ -80,41 +74,6 @@ export function fetchDataAnime(input) {
     })
       .then(response => {
         dispatch(fetchDataSuccess(response.data.data.Page.media));
-      })
-      .catch(error => {
-        dispatch(fetchDataFailure(error));
-      });
-  };
-}
-export function fetchDetails(id) {
-  return dispatch => {
-    dispatch(fetchDataRequest());
-    return axios({
-      url: "https://graphql.anilist.co",
-      method: "post",
-
-      data: {
-        variables: {
-          id: id
-        },
-        query: `
-        query($id: Int) {
-            Media(id: $id) {
-              title {
-                romaji
-              }
-              coverImage {
-                extraLarge
-              }
-              averageScore
-              description
-            }
-        }
-      `
-      }
-    })
-      .then(response => {
-        dispatch(fetchDetailsSuccess(response.data.data.Media));
       })
       .catch(error => {
         dispatch(fetchDataFailure(error));

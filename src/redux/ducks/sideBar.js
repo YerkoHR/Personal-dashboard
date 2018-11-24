@@ -3,7 +3,7 @@ import React from "react";
 export const LOAD_COMPONENT = "LOAD_COMPONENT";
 
 const initialState = {
-  activeComponent: null,
+  active: "ANIME LIST",
   items: [
     {
       title: "ANIME LIST",
@@ -30,13 +30,12 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_COMPONENT:
-      return { ...state, screenMode: action.component };
-
+      return { ...state, active: action.component };
     default:
       return state;
   }
 }
 
-export function changeCurrentComponent(component) {
+export function loadComponent(component) {
   return { type: LOAD_COMPONENT, component };
 }

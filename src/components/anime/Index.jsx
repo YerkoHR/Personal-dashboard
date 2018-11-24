@@ -35,7 +35,7 @@ Index.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  animeDetails: state.fetchAnime.animeDetails
+  animeDetails: state.animeDetails
 });
 
 export default connect(

@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { changeCurrentComponent } from "../../redux/ducks/sideBar";
 
 const StyledSideBar = styled.div`
   margin: 1em 1.5em;
@@ -44,34 +42,26 @@ const StyledSideBar = styled.div`
   }
 `;
 
-const SideBar = ({ sideBar }) => (
-  <StyledSideBar>
-    <h2>Dashboard</h2>
-    <ul>
-      {sideBar.items.map(item => (
-        <li key={item.title}>
-          {item.icon}
-          <span>{item.title}</span>
-        </li>
-      ))}
-    </ul>
-  </StyledSideBar>
-);
+export default function SideBar({ sideBar, loadComponent }) {
+  return (
+    <StyledSideBar>
+      <h2>Dashboard</h2>
+      <ul>
+        {sideBar.items.map(item => (
+          <li key={item.title} onClick={() => loadComponent(item.title)}>
+            {item.icon}
+            <span>{item.title}</span>
+          </li>
+        ))}
+      </ul>
+    </StyledSideBar>
+  );
+}
 
 SideBar.propTypes = {
+  loadComponent: PropTypes.func.isRequired,
   sideBar: PropTypes.shape({
     active: PropTypes.string,
     items: PropTypes.arrayOf(PropTypes.object)
   })
 };
-
-const mapStateToProps = state => ({
-  sideBar: state.sideBar
-});
-
-export default connect(
-  mapStateToProps,
-  {
-    changeCurrentComponent
-  }
-)(SideBar);

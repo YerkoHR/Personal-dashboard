@@ -3,6 +3,7 @@ import Loadable from "react-loadable";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import changeScreenMode from "../redux/ducks/modes";
+import { loadComponent } from "../redux/ducks/sideBar";
 import PropTypes from "prop-types";
 
 const LoadableAnimeComponent = Loadable({
@@ -12,7 +13,11 @@ const LoadableAnimeComponent = Loadable({
 
 const LoadableSideBar = Loadable({
   loader: () => import("./anime/SideBar"),
-  loading: () => null
+  loading: () => null,
+  render(loaded, props) {
+    let Component = loaded.default;
+    return <Component {...props} />;
+  }
 });
 
 const Main = styled.div`
@@ -27,27 +32,35 @@ const Content = styled.div`
   height: 100%;
 `;
 
-export const Index = () => (
+export const Index = ({ loadComponent, sideBar }) => (
   <Main>
-    <LoadableSideBar />
+    <LoadableSideBar loadComponent={loadComponent} sideBar={sideBar} />
     <Content>
-      <LoadableAnimeComponent />
+      {sideBar.active === "ANIME LIST" && <LoadableAnimeComponent />}
+      {sideBar.active === "PLAYLIST" && <div>I'm a youtube component</div>}
     </Content>
   </Main>
 );
 
 Index.propTypes = {
   changeScreenMode: PropTypes.func.isRequired,
-  listMode: PropTypes.oneOf(["light", "dark"])
+  loadComponent: PropTypes.func.isRequired,
+  listMode: PropTypes.oneOf(["light", "dark"]),
+  sideBar: PropTypes.shape({
+    active: PropTypes.string,
+    items: PropTypes.arrayOf(PropTypes.object)
+  })
 };
 
 const mapStateToProps = state => ({
-  screenMode: state.modes.screenMode
+  screenMode: state.modes.screenMode,
+  sideBar: state.sideBar
 });
 
 export default connect(
   mapStateToProps,
   {
-    changeScreenMode
+    changeScreenMode,
+    loadComponent
   }
 )(Index);

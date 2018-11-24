@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchDataAnime, fetchDetails } from "../../redux/ducks/fetchAnime";
+import { fetchDataAnime } from "../../redux/ducks/fetchAnime";
+import { fetchDetails } from "../../redux/ducks/animeDetails";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
 import styled from "styled-components";
