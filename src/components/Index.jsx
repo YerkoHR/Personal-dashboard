@@ -4,6 +4,12 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import changeScreenMode from "../redux/ducks/modes";
 import { loadComponent } from "../redux/ducks/sideBar";
+import {
+  createPlaylist,
+  deletePlaylist,
+  addVideo,
+  deleteVideo
+} from "../redux/ducks/playlists";
 import PropTypes from "prop-types";
 
 const LoadableAnimeComponent = Loadable({
@@ -11,8 +17,13 @@ const LoadableAnimeComponent = Loadable({
   loading: () => null
 });
 
+const LoadableYoutubeComponent = Loadable({
+  loader: () => import("./youtube/index"),
+  loading: () => null
+});
+
 const LoadableSideBar = Loadable({
-  loader: () => import("./anime/SideBar"),
+  loader: () => import("./SideBar"),
   loading: () => null,
   render(loaded, props) {
     let Component = loaded.default;
@@ -32,13 +43,25 @@ const Content = styled.div`
   height: 100%;
 `;
 
-export const Index = ({ loadComponent, sideBar }) => (
+export const Index = ({
+  loadComponent,
+  sideBar,
+  createPlaylist,
+  deletePlaylist,
+  addVideo,
+  deleteVideo
+}) => (
   <Main>
     <LoadableSideBar loadComponent={loadComponent} sideBar={sideBar} />
     <Content>
       {sideBar.active === "ANIME LIST" && <LoadableAnimeComponent />}
-      {sideBar.active === "PLAYLIST" && <div>I'm a youtube component</div>}
+      {sideBar.active === "SEARCH VIDEO" && <LoadableYoutubeComponent />}
+      {sideBar.active === "PLAYLIST" && <div>I'm a playlist</div>}
     </Content>
+    <button onClick={() => addVideo("newvideo", 0)}>ADD VIDEO</button>
+    <button onClick={() => deleteVideo(0, 0)}>DELETE VIDEO</button>
+    <button onClick={() => createPlaylist("my title")}>CREATE PLAYLIST</button>
+    <button onClick={() => deletePlaylist(0)}>DELETE PLAYLIST</button>
   </Main>
 );
 
@@ -61,6 +84,10 @@ export default connect(
   mapStateToProps,
   {
     changeScreenMode,
-    loadComponent
+    loadComponent,
+    createPlaylist,
+    deletePlaylist,
+    addVideo,
+    deleteVideo
   }
 )(Index);
