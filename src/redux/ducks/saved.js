@@ -1,11 +1,11 @@
-export const ADD = "ADD";
-export const REMOVE = "REMOVE";
+export const SAVE_ANIME = "SAVE_ANIME";
+export const UNSAVE_ANIME = "UNSAVE_ANIME";
 
 export default function reducer(state = [], action) {
   switch (action.type) {
-    case ADD:
+    case SAVE_ANIME:
       return [...state, action.item];
-    case REMOVE:
+    case UNSAVE_ANIME:
       return [
         ...state.slice(0, action.index),
         ...state.slice(action.index + 1)
@@ -16,8 +16,8 @@ export default function reducer(state = [], action) {
 }
 
 export function addItem(item) {
-  return { type: ADD, item };
+  return { type: SAVE_ANIME, item };
 }
 export function removeItem(index) {
-  return { type: REMOVE, index };
+  return { type: UNSAVE_ANIME, index };
 }

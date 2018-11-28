@@ -5,11 +5,11 @@ import sideBar from "./sideBar";
 import animeDetails from "./animeDetails";
 import saved from "./saved";
 import playlists from "./playlists";
-import fetchedVideos from "./fetchedVideos";
+import fetchVideos from "./fetchVideos";
 
 export default combineReducers({
   fetchAnime,
-  fetchedVideos,
+  fetchVideos,
   modes,
   sideBar,
   animeDetails,

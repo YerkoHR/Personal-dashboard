@@ -4,12 +4,6 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import changeScreenMode from "../redux/ducks/modes";
 import { loadComponent } from "../redux/ducks/sideBar";
-import {
-  createPlaylist,
-  deletePlaylist,
-  addVideo,
-  deleteVideo
-} from "../redux/ducks/playlists";
 import PropTypes from "prop-types";
 
 const LoadableAnimeComponent = Loadable({
@@ -43,14 +37,7 @@ const Content = styled.div`
   height: 100%;
 `;
 
-export const Index = ({
-  loadComponent,
-  sideBar,
-  createPlaylist,
-  deletePlaylist,
-  addVideo,
-  deleteVideo
-}) => (
+export const Index = ({ loadComponent, sideBar }) => (
   <Main>
     <LoadableSideBar loadComponent={loadComponent} sideBar={sideBar} />
     <Content>
@@ -58,10 +45,6 @@ export const Index = ({
       {sideBar.active === "SEARCH VIDEO" && <LoadableYoutubeComponent />}
       {sideBar.active === "PLAYLIST" && <div>I'm a playlist</div>}
     </Content>
-    <button onClick={() => addVideo("newvideo", 0)}>ADD VIDEO</button>
-    <button onClick={() => deleteVideo(0, 0)}>DELETE VIDEO</button>
-    <button onClick={() => createPlaylist("my title")}>CREATE PLAYLIST</button>
-    <button onClick={() => deletePlaylist(0)}>DELETE PLAYLIST</button>
   </Main>
 );
 
@@ -84,10 +67,6 @@ export default connect(
   mapStateToProps,
   {
     changeScreenMode,
-    loadComponent,
-    createPlaylist,
-    deletePlaylist,
-    addVideo,
-    deleteVideo
+    loadComponent
   }
 )(Index);

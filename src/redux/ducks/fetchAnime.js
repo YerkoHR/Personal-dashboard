@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const FETCH_SUCCESS = "FETCH_SUCCESS";
-export const FETCH_REQUEST = "FETCH_REQUEST";
-export const FETCH_FAILURE = "FETCH_FAILURE";
+export const FETCH_ANIME_SUCCESS = "FETCH_ANIME_SUCCESS";
+export const FETCH_ANIME_REQUEST = "FETCH_ANIME_REQUEST";
+export const FETCH_ANIME_FAILURE = "FETCH_ANIME_FAILURE";
 
 const initialState = {
-  anime: [],
+  results: [],
   fetching: false,
   error: null,
   animeDetails: null
@@ -13,34 +13,34 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_REQUEST:
+    case FETCH_ANIME_REQUEST:
       return { ...state, fetching: true };
-    case FETCH_SUCCESS:
+    case FETCH_ANIME_SUCCESS:
       return {
         ...state,
         fetching: false,
-        anime: action.data
+        results: action.data
       };
-    case FETCH_FAILURE:
+    case FETCH_ANIME_FAILURE:
       return { ...state, error: action.error.response.status };
     default:
       return state;
   }
 }
-export function fetchDataRequest() {
-  return { type: FETCH_REQUEST };
+export function fetchAnimeRequest() {
+  return { type: FETCH_ANIME_REQUEST };
 }
-export function fetchDataSuccess(data) {
-  return { type: FETCH_SUCCESS, data };
+export function fetchAnimeSuccess(data) {
+  return { type: FETCH_ANIME_SUCCESS, data };
 }
 
-export function fetchDataFailure(error) {
-  return { type: FETCH_FAILURE, error };
+export function fetchAnimeFailure(error) {
+  return { type: FETCH_ANIME_FAILURE, error };
 }
 
 export function fetchDataAnime(input) {
   return dispatch => {
-    dispatch(fetchDataRequest());
+    dispatch(fetchAnimeRequest());
     return axios({
       url: "https://graphql.anilist.co",
       method: "post",
@@ -73,10 +73,10 @@ export function fetchDataAnime(input) {
       }
     })
       .then(response => {
-        dispatch(fetchDataSuccess(response.data.data.Page.media));
+        dispatch(fetchAnimeSuccess(response.data.data.Page.media));
       })
       .catch(error => {
-        dispatch(fetchDataFailure(error));
+        dispatch(fetchAnimeFailure(error));
       });
   };
 }

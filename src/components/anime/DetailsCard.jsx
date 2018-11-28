@@ -5,7 +5,7 @@ const StyledCard = styled.div`
   position: relative;
   z-index: 1;
   border-radius: 3px;
-  max-height: 380px;
+  min-height: 380px;
   margin: 1.5em auto;
   display: flex;
   flex-direction: row;
@@ -23,14 +23,14 @@ const StyledCard = styled.div`
     flex-direction: column;
     align-items: center;
   }
-  p {
+  .description {
     width: 350px;
     text-align: justify;
     margin: 20px;
     font-size: 0.85em;
   }
   img {
-    height: 380px;
+    min-height: 380px;
   }
 `;
 
@@ -44,7 +44,7 @@ export default function DetailsCard({ data, saved, addItem, removeItem }) {
           Avg Score:
           {data.averageScore ? data.averageScore : " Data not available"}
         </span>
-        <p>{data.description ? data.description : " Data not available"}</p>
+        <div className="description"dangerouslySetInnerHTML={{__html: data.description}}/>
 
         {saved.some(item => item.id === data.id) ? (
           <button

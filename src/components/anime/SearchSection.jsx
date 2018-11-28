@@ -112,7 +112,7 @@ SearchSection.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  animeList: state.fetchAnime.anime,
+  animeList: state.fetchAnime.results,
   error: state.fetchAnime.error,
   loading: state.fetchAnime.fetching
 });
