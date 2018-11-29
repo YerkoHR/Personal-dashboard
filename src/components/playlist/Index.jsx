@@ -2,10 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
-import { togglePlayer } from "../../redux/ducks/fetchVideos";
 
-const LoadableResults = Loadable({
-  loader: () => import("./Results"),
+const LoadablePlaylists = Loadable({
+  loader: () => import("./"),
   loading: () => null,
   render(loaded, props) {
     let Component = loaded.default;
@@ -13,27 +12,19 @@ const LoadableResults = Loadable({
   }
 });
 
-const LoadableSearch = Loadable({
-  loader: () => import("./SearchVideo"),
+const Loadable = Loadable({
+  loader: () => import("./"),
   loading: () => null
 });
 
-const Index = ({ results, togglePlayer }) => (
-  <div>
-    <LoadableSearch />
-    <LoadableResults data={results} togglePlayer={togglePlayer} />
-  </div>
-);
-Index.propTypes = {
-  results: PropTypes.arrayOf(PropTypes.object).isRequired
-};
-const mapStateToProps = state => ({
-  results: state.fetchVideos.results
-});
+const Index = ({}) => <div />;
+
+Index.propTypes = {};
+const mapStateToProps = state => ({});
 
 export default connect(
   mapStateToProps,
-  { togglePlayer }
+  {}
 )(Index);
 /*
 <button onClick={() => addVideo("newvideo", 0)}>ADD VIDEO</button>

@@ -20,14 +20,12 @@ const StyledLi = styled.li`
   transition: 0.6s ease-in-out;
   font-size: 0.8em;
   background: #fff;
+  cursor: pointer;
   &:hover {
     opacity: 0.6;
     transform: translateY(-3px);
 
     color: #fff;
-  }
-  span {
-    cursor: pointer;
   }
 `;
 export default function SearchList({ data, fetchDetails, blur }) {

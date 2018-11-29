@@ -12,7 +12,7 @@ const LoadableAnimeComponent = Loadable({
 });
 
 const LoadableYoutubeComponent = Loadable({
-  loader: () => import("./youtube/index"),
+  loader: () => import("./youtube/Index"),
   loading: () => null
 });
 
@@ -35,6 +35,17 @@ const Content = styled.div`
   background: ${props => props.theme.backgroundSecundary};
   text-align: center;
   height: 100%;
+`;
+
+export const StyledButton = styled.button`
+  background: ${props => props.theme.font};
+  border: 2px solid ${props => props.theme.font};
+  outline: 0;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    color: #fff;
+  }
 `;
 
 export const Index = ({ loadComponent, sideBar }) => (

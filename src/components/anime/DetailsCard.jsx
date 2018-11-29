@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { StyledButton } from "../Index";
 
 const StyledCard = styled.div`
   position: relative;
@@ -22,6 +23,7 @@ const StyledCard = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
   }
   .description {
     width: 350px;
@@ -31,6 +33,11 @@ const StyledCard = styled.div`
   }
   img {
     min-height: 380px;
+  }
+  button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 `;
 
@@ -44,16 +51,21 @@ export default function DetailsCard({ data, saved, addItem, removeItem }) {
           Avg Score:
           {data.averageScore ? data.averageScore : " Data not available"}
         </span>
-        <div className="description"dangerouslySetInnerHTML={{__html: data.description}}/>
+        <div
+          className="description"
+          dangerouslySetInnerHTML={{ __html: data.description }}
+        />
 
         {saved.some(item => item.id === data.id) ? (
-          <button
+          <StyledButton
             onClick={() => removeItem(saved.map(x => x.id).indexOf(data.id))}
           >
-            remove
-          </button>
+            Delete from your list
+          </StyledButton>
         ) : (
-          <button onClick={() => addItem(data)}>add</button>
+          <StyledButton onClick={() => addItem(data)}>
+            Add to your list
+          </StyledButton>
         )}
       </div>
     </StyledCard>

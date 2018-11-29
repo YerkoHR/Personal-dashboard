@@ -1,8 +1,9 @@
 import axios from "axios";
 
-export const FETCH_VIDEO_SUCCESS = "FETCH_VIDEO_SUCCESS";
-export const FETCH_VIDEO_REQUEST = "FETCH_VIDEO_REQUEST";
-export const FETCH_VIDEO_FAILURE = "FETCH_VIDEO_FAILURE";
+const FETCH_VIDEO_SUCCESS = "FETCH_VIDEO_SUCCESS";
+const FETCH_VIDEO_REQUEST = "FETCH_VIDEO_REQUEST";
+const FETCH_VIDEO_FAILURE = "FETCH_VIDEO_FAILURE";
+const TOGGLE_PLAYER = "TOGGLE_PLAYER";
 
 const initialState = {
   results: [],
@@ -18,10 +19,22 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         fetching: false,
-        results: action.data
+        results: action.data.map(x => {
+          return { ...x, showVideo: false };
+        })
       };
     case FETCH_VIDEO_FAILURE:
       return { ...state, error: action.error };
+    case TOGGLE_PLAYER:
+      return {
+        ...state,
+        results: state.results.map((x, index) => {
+          if (index === action.index) {
+            return { ...x, showVideo: !x.showVideo };
+          }
+          return x;
+        })
+      };
     default:
       return state;
   }
@@ -35,6 +48,9 @@ export function fetchVideoSuccess(data) {
 
 export function fetchVideoFailure(error) {
   return { type: FETCH_VIDEO_FAILURE, error };
+}
+export function togglePlayer(index) {
+  return { type: TOGGLE_PLAYER, index };
 }
 
 export function fetchDataVideo(input) {
