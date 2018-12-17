@@ -20,6 +20,8 @@ const StyledLi = styled.li`
   transition: 0.6s ease-in-out;
   font-size: 0.8em;
   background: #fff;
+  padding: 0.2em;
+  width: 100%;
   cursor: pointer;
   &:hover {
     opacity: 0.6;

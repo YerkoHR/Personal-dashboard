@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { store } from "./redux/configureStore";
+import { store, persistor } from "./redux/configureStore";
 import Index from "./components/Index";
+import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
@@ -51,12 +52,14 @@ const darkTheme = {
 
 const App = () => (
   <Provider store={store}>
-    <ThemeProvider theme={darkTheme}>
-      <div>
-        <GlobalStyle />
-        <Index />
-      </div>
-    </ThemeProvider>
+    <PersistGate loading={null} persistor={persistor}>
+      <ThemeProvider theme={darkTheme}>
+        <div>
+          <GlobalStyle />
+          <Index />
+        </div>
+      </ThemeProvider>
+    </PersistGate>
   </Provider>
 );
 

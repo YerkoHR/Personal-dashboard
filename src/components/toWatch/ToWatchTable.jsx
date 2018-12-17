@@ -9,8 +9,9 @@ const StyledTable = styled.table`
   margin: 5em auto;
   th,
   td {
-    padding: 1em;
+    padding: 0.5em;
     border: 0.5px solid #fff;
+    width: 100%;
   }
   thead td {
     text-align: center;

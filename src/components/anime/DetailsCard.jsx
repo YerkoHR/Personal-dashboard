@@ -10,20 +10,18 @@ const StyledCard = styled.div`
   margin: 1.5em auto;
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
   background: ${props => props.theme.backgroundCard};
   box-shadow: 0 0 0 1px ${props => props.theme.backgroundCard};
   h3,
   span {
-    margin: 0.5em;
+    margin-top: 0.5em;
     width: 100%;
     border-bottom: 2px solid ${props => props.theme.backgroundSecundary};
   }
-
   div {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    position: relative;
   }
   .description {
     width: 350px;
@@ -32,7 +30,7 @@ const StyledCard = styled.div`
     font-size: 0.85em;
   }
   img {
-    min-height: 380px;
+    height: 450px;
   }
   button {
     position: absolute;

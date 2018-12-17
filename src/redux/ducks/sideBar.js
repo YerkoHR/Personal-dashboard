@@ -3,7 +3,7 @@ import React from "react";
 export const LOAD_COMPONENT = "LOAD_COMPONENT";
 
 const initialState = {
-  active: "ANIME LIST",
+  active: "SEARCH ANIME",
   items: [
     {
       title: "SEARCH ANIME",
