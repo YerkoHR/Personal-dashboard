@@ -16,6 +16,11 @@ const LoadableYoutubeComponent = Loadable({
   loading: () => null
 });
 
+const LoadableWatchList = Loadable({
+  loader: () => import("./toWatch/Index"),
+  loading: () => null
+});
+
 const LoadableSideBar = Loadable({
   loader: () => import("./SideBar"),
   loading: () => null,
@@ -52,9 +57,10 @@ export const Index = ({ loadComponent, sideBar }) => (
   <Main>
     <LoadableSideBar loadComponent={loadComponent} sideBar={sideBar} />
     <Content>
-      {sideBar.active === "ANIME LIST" && <LoadableAnimeComponent />}
+      {sideBar.active === "SEARCH ANIME" && <LoadableAnimeComponent />}
       {sideBar.active === "SEARCH VIDEO" && <LoadableYoutubeComponent />}
       {sideBar.active === "PLAYLIST" && <div>I'm a playlist</div>}
+      {sideBar.active === "ANIME LIST" && <LoadableWatchList />}
     </Content>
   </Main>
 );

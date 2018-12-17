@@ -24,7 +24,6 @@ const StyledLi = styled.li`
   &:hover {
     opacity: 0.6;
     transform: translateY(-3px);
-
     color: #fff;
   }
 `;

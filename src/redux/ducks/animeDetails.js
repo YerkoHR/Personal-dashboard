@@ -37,6 +37,9 @@ export function fetchDetails(id) {
                 averageScore
                 description
                 id
+                format
+                status
+                source
               }
           }
         `
