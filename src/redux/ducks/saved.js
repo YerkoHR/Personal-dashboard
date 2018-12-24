@@ -1,5 +1,7 @@
 export const SAVE_ANIME = "SAVE_ANIME";
 export const UNSAVE_ANIME = "UNSAVE_ANIME";
+export const ORDER_DES = "ORDER_DES";
+export const ORDER_ASC = "ORDER_ASC";
 
 export default function reducer(state = [], action) {
   switch (action.type) {
@@ -10,6 +12,10 @@ export default function reducer(state = [], action) {
         ...state.slice(0, action.index),
         ...state.slice(action.index + 1)
       ];
+    case ORDER_ASC:
+      return state.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0));
+    case ORDER_ASC:
+      return state.sort((a,b) => (a.title < b.title) ? 1 : ((b.title < a.title) ? -1 : 0));
     default:
       return state;
   }
@@ -20,4 +26,10 @@ export function addItem(item) {
 }
 export function removeItem(index) {
   return { type: UNSAVE_ANIME, index };
+}
+export function orderAsc() {
+  return { type: ORDER_ASC };
+}
+export function orderDes() {
+  return { type: ORDER_DES };
 }

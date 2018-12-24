@@ -8,6 +8,7 @@ const StyledCard = styled.div`
   border-radius: 3px;
   min-height: 380px;
   margin: 1.5em auto;
+  width: 70%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -15,18 +16,18 @@ const StyledCard = styled.div`
   box-shadow: 0 0 0 1px ${props => props.theme.backgroundCard};
   h3,
   span {
-    margin-top: 0.5em;
-    width: 100%;
+    margin: 0.2em 0.5em;
     border-bottom: 2px solid ${props => props.theme.backgroundSecundary};
   }
   div {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
   .description {
-    width: 350px;
-    text-align: justify;
-    margin: 20px;
+    width: 80%;
+    text-align: center;
+    margin: 20px auto;
     font-size: 0.85em;
   }
   img {

@@ -16,11 +16,10 @@ const StyledUl = styled.ul`
 const StyledLi = styled.li`
   border: 1px solid ${props => props.theme.backgroundPrimary};
   border-radius: 3px;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.3em;
   transition: 0.6s ease-in-out;
   font-size: 0.8em;
   background: #fff;
-  padding: 0.2em;
   width: 100%;
   cursor: pointer;
   &:hover {
