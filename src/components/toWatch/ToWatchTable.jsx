@@ -117,10 +117,18 @@ export default function AnimeTable({
                 <option value="Watching">Watching</option>
                 <option value="Completed">Completed</option>
               </select>
-              {(anime.myState === "Watching" ||
-                anime.myState === "Completed") && (
+              {anime.myState === "Watching" && (
                 <div>
                   <span>0 / {anime.episodes}</span>
+                  <button>-</button>
+                  <button>+</button>
+                </div>
+              )}
+              {anime.myState === "Completed" && (
+                <div>
+                  <span>
+                    {anime.episodes} / {anime.episodes}
+                  </span>
                   <button>-</button>
                   <button>+</button>
                 </div>
