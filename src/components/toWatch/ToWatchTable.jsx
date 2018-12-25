@@ -88,21 +88,25 @@ export default function AnimeTable({
             <td>{anime.source ? anime.source : "Unknown"}</td>
             <td>{anime.averageScore ? anime.averageScore : "TBD"}</td>
             <td>
-              <select
-                value={anime.myScore}
-                onChange={e => changeScore(index, e.target.value)}
-              >
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
+              {anime.myState !== "To watch" ? (
+                <select
+                  value={anime.myScore}
+                  onChange={e => changeScore(index, e.target.value)}
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              ) : (
+                <span>TBD</span>
+              )}
             </td>
             <td>
               <select
@@ -113,6 +117,14 @@ export default function AnimeTable({
                 <option value="Watching">Watching</option>
                 <option value="Completed">Completed</option>
               </select>
+              {(anime.myState === "Watching" ||
+                anime.myState === "Completed") && (
+                <div>
+                  <span>0 / {anime.episodes}</span>
+                  <button>-</button>
+                  <button>+</button>
+                </div>
+              )}
             </td>
             <td>
               <svg

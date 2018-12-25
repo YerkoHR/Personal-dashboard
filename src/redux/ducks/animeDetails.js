@@ -38,6 +38,7 @@ export function fetchDetails(id) {
                 description
                 id
                 format
+                episodes
                 status
                 source
               }
