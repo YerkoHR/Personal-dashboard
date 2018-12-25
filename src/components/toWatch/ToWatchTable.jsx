@@ -182,12 +182,25 @@ export default function AnimeTable({
 }
 
 AnimeTable.propTypes = {
+  removeItem: PropTypes.func.isRequired,
+  changeScore: PropTypes.func.isRequired,
+  changeState: PropTypes.func.isRequired,
+  incWatchedCounter: PropTypes.func.isRequired,
+  decWatchedCounter: PropTypes.func.isRequired,
   saved: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       title: PropTypes.shape({
         romaji: PropTypes.string.isRequired
-      })
+      }),
+      averageScore: PropTypes.number,
+      myScore: PropTypes.number.isRequired,
+      myState: PropTypes.string.isRequired,
+      episodes: PropTypes.number.isRequired,
+      episodesWatched: PropTypes.number.isRequired,
+      status: PropTypes.string,
+      source: PropTypes.string,
+      format: PropTypes.string
     })
   ).isRequired
 };
