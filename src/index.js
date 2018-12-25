@@ -17,6 +17,9 @@ const GlobalStyle = createGlobalStyle`
   html, body, #root, #root>div {
   height: 100%
 }
+button, select{
+  cursor: pointer;
+}
 .lds-dual-ring {
   display: inline-block;
   width: 32px;

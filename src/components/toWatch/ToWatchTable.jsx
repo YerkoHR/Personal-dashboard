@@ -70,6 +70,9 @@ const StyledCounter = styled.div`
   span {
     margin: 0 0.2em;
   }
+  button:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export default function AnimeTable({
