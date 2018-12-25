@@ -60,7 +60,12 @@ const StyledTr = styled.tr`
   }
 `;
 
-export default function AnimeTable({ saved, removeItem }) {
+export default function AnimeTable({
+  saved,
+  removeItem,
+  changeScore,
+  changeState
+}) {
   return (
     <StyledTable>
       <thead>
@@ -75,7 +80,7 @@ export default function AnimeTable({ saved, removeItem }) {
         </tr>
       </thead>
       <tbody>
-        {saved.map(anime => (
+        {saved.map((anime, index) => (
           <StyledTr key={anime.id}>
             <td>{anime.title.romaji}</td>
             <td>{anime.format ? anime.format : "Unknown"}</td>
@@ -83,9 +88,12 @@ export default function AnimeTable({ saved, removeItem }) {
             <td>{anime.source ? anime.source : "Unknown"}</td>
             <td>{anime.averageScore ? anime.averageScore : "TBD"}</td>
             <td>
-              <select onChange={e => console.log(e.target.value)}>
-                <option value="1">2</option>
-                <option value="2">1</option>
+              <select
+                value={anime.myScore}
+                onChange={e => changeScore(index, e.target.value)}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
@@ -97,7 +105,10 @@ export default function AnimeTable({ saved, removeItem }) {
               </select>
             </td>
             <td>
-              <select onChange={e => console.log(e.target.value)}>
+              <select
+                value={anime.myState}
+                onChange={e => changeState(index, e.target.value)}
+              >
                 <option value="To watch">To watch</option>
                 <option value="Watching">Watching</option>
                 <option value="Completed">Completed</option>
