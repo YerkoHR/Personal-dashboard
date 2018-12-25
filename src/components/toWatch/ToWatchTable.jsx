@@ -59,12 +59,26 @@ const StyledTr = styled.tr`
     }
   }
 `;
+const StyledWatchedCounter = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const StyledCounter = styled.div`
+  display: flex;
+  flex-flow: row no-wrap;
+  justify-content: space-evenly;
+  span {
+    margin: 0 0.2em;
+  }
+`;
 
 export default function AnimeTable({
   saved,
   removeItem,
   changeScore,
-  changeState
+  changeState,
+  incWatchedCounter,
+  decWatchedCounter
 }) {
   return (
     <StyledTable>
@@ -109,30 +123,43 @@ export default function AnimeTable({
               )}
             </td>
             <td>
-              <select
-                value={anime.myState}
-                onChange={e => changeState(index, e.target.value)}
-              >
-                <option value="To watch">To watch</option>
-                <option value="Watching">Watching</option>
-                <option value="Completed">Completed</option>
-              </select>
-              {anime.myState === "Watching" && (
-                <div>
-                  <span>0 / {anime.episodes}</span>
-                  <button>-</button>
-                  <button>+</button>
-                </div>
-              )}
-              {anime.myState === "Completed" && (
-                <div>
-                  <span>
-                    {anime.episodes} / {anime.episodes}
-                  </span>
-                  <button>-</button>
-                  <button>+</button>
-                </div>
-              )}
+              <StyledWatchedCounter>
+                <select
+                  value={anime.myState}
+                  onChange={e => changeState(index, e.target.value)}
+                >
+                  <option value="To watch">To watch</option>
+                  <option value="Watching">Watching</option>
+                  <option value="Completed">Completed</option>
+                </select>
+                {(anime.myState === "Watching" ||
+                  anime.myState === "Completed") && (
+                  <StyledCounter>
+                    <div>
+                      {anime.myState === "Completed"
+                        ? anime.episodes
+                        : anime.episodesWatched}
+                      <span>/</span> {anime.episodes}
+                    </div>
+                    {anime.myState !== "Completed" && (
+                      <div>
+                        <button
+                          disabled={anime.episodesWatched === 0}
+                          onClick={() => decWatchedCounter(index)}
+                        >
+                          -
+                        </button>
+                        <button
+                          disabled={anime.episodesWatched === anime.episodes}
+                          onClick={() => incWatchedCounter(index)}
+                        >
+                          +
+                        </button>
+                      </div>
+                    )}
+                  </StyledCounter>
+                )}
+              </StyledWatchedCounter>
             </td>
             <td>
               <svg

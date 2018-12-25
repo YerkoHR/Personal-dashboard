@@ -1,14 +1,19 @@
-export const SAVE_ANIME = "SAVE_ANIME";
-export const UNSAVE_ANIME = "UNSAVE_ANIME";
-export const ORDER_DES = "ORDER_DES";
-export const ORDER_ASC = "ORDER_ASC";
-export const CHANGE_SCORE = "CHANGE_SCORE";
-export const CHANGE_STATE = "CHANGE_STATE";
+const SAVE_ANIME = "SAVE_ANIME";
+const UNSAVE_ANIME = "UNSAVE_ANIME";
+const ORDER_DES = "ORDER_DES";
+const ORDER_ASC = "ORDER_ASC";
+const CHANGE_SCORE = "CHANGE_SCORE";
+const CHANGE_STATE = "CHANGE_STATE";
+const INC_WATCHED_COUNTER = "INC_WATCHED_COUNTER";
+const DEC_WATCHED_COUNTER = "DEC_WATCHED_COUNTER";
 
 export default function reducer(state = [], action) {
   switch (action.type) {
     case SAVE_ANIME:
-      return [...state, { ...action.item, myScore: 1, myState: "To watch" }];
+      return [
+        ...state,
+        { ...action.item, myScore: 1, myState: "To watch", episodesWatched: 0 }
+      ];
     case UNSAVE_ANIME:
       return [
         ...state.slice(0, action.index),
@@ -36,6 +41,26 @@ export default function reducer(state = [], action) {
         }
         return x;
       });
+    case INC_WATCHED_COUNTER:
+      return state.map((x, index) => {
+        if (index === action.index) {
+          return {
+            ...x,
+            episodesWatched: state[action.index].episodesWatched + 1
+          };
+        }
+        return x;
+      });
+    case DEC_WATCHED_COUNTER:
+      return state.map((x, index) => {
+        if (index === action.index) {
+          return {
+            ...x,
+            episodesWatched: state[action.index].episodesWatched - 1
+          };
+        }
+        return x;
+      });
     default:
       return state;
   }
@@ -58,4 +83,10 @@ export function changeScore(index, score) {
 }
 export function changeState(index, state) {
   return { type: CHANGE_STATE, index, state };
+}
+export function incWatchedCounter(index) {
+  return { type: INC_WATCHED_COUNTER, index };
+}
+export function decWatchedCounter(index) {
+  return { type: DEC_WATCHED_COUNTER, index };
 }

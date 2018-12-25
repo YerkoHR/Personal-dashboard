@@ -2,7 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
-import { removeItem, changeScore, changeState } from "../../redux/ducks/saved";
+import {
+  removeItem,
+  changeScore,
+  changeState,
+  incWatchedCounter,
+  decWatchedCounter
+} from "../../redux/ducks/saved";
 
 const LoadableTable = Loadable({
   loader: () => import("./ToWatchTable"),
@@ -22,7 +28,14 @@ const LoadableCardList = Loadable({
   }
 });
 
-const Index = ({ saved, removeItem, changeScore, changeState }) => (
+const Index = ({
+  saved,
+  removeItem,
+  changeScore,
+  changeState,
+  incWatchedCounter,
+  decWatchedCounter
+}) => (
   <div>
     <div>
       <h3>View mode:</h3>
@@ -37,6 +50,8 @@ const Index = ({ saved, removeItem, changeScore, changeState }) => (
           removeItem={removeItem}
           changeScore={changeScore}
           changeState={changeState}
+          incWatchedCounter={incWatchedCounter}
+          decWatchedCounter={decWatchedCounter}
         />
       </div>
     ) : (
@@ -58,6 +73,8 @@ export default connect(
   {
     removeItem,
     changeScore,
-    changeState
+    changeState,
+    decWatchedCounter,
+    incWatchedCounter
   }
 )(Index);
