@@ -12,12 +12,13 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const allEnhancers = compose(applyMiddleware(thunk));
-/*
+const allEnhancers = compose(
+  applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ &&
     window.window.__REDUX_DEVTOOLS_EXTENSION__ &&
     window.__REDUX_DEVTOOLS_EXTENSION__()
-*/
+);
+
 let store = createStore(persistedReducer, allEnhancers);
 let persistor = persistStore(store);
 
