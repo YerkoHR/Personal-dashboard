@@ -14,6 +14,9 @@ const StyledUl = styled.ul`
 `;
 
 const StyledLi = styled.li`
+  display: flex;
+  flex-direction: row;
+  padding: 0 0.2em;
   border: 1px solid ${props => props.theme.backgroundPrimary};
   border-radius: 3px;
   margin-bottom: 0.3em;
@@ -21,11 +24,14 @@ const StyledLi = styled.li`
   font-size: 0.8em;
   background: #fff;
   width: 100%;
+  justify-content: center;
   cursor: pointer;
   &:hover {
-    opacity: 0.6;
+    opacity: 0.7;
     transform: translateY(-3px);
-    color: #fff;
+  }
+  span {
+    margin: 0 0.1em;
   }
 `;
 export default function SearchList({ data, fetchDetails, blur }) {
@@ -33,9 +39,13 @@ export default function SearchList({ data, fetchDetails, blur }) {
     <StyledUl tabIndex="1" onBlur={blur}>
       {data.map(anime => (
         <StyledLi key={anime.id} onClick={() => fetchDetails(anime.id)}>
-          <span>{anime.title.romaji} /</span>
-          <span>{anime.status.toLowerCase()} / </span>
-          <span> {anime.startDate.year}</span>
+          <div title={anime.title.romaji}>
+            {anime.title.romaji.substring(0, 20) + "..."}{" "}
+          </div>
+          <span>/</span>
+          <div>{anime.status} </div>
+          <span>/</span>
+          <div> {anime.startDate.year}</div>
         </StyledLi>
       ))}
     </StyledUl>

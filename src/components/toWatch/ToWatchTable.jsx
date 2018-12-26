@@ -1,6 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import Loadable from "react-loadable";
+
+const LoadableScore = Loadable({
+  loader: () => import("./MyScore"),
+  loading: () => null,
+  render(loaded, props) {
+    let Component = loaded.default;
+    return <Component {...props} />;
+  }
+});
+
+const LoadableState = Loadable({
+  loader: () => import("./MyState"),
+  loading: () => null,
+  render(loaded, props) {
+    let Component = loaded.default;
+    return <Component {...props} />;
+  }
+});
 
 const StyledTable = styled.table`
   table-layout: fixed;
@@ -59,21 +78,6 @@ const StyledTr = styled.tr`
     }
   }
 `;
-const StyledWatchedCounter = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const StyledCounter = styled.div`
-  display: flex;
-  flex-flow: row no-wrap;
-  justify-content: space-evenly;
-  span {
-    margin: 0 0.2em;
-  }
-  button:disabled {
-    cursor: not-allowed;
-  }
-`;
 
 export default function AnimeTable({
   saved,
@@ -105,67 +109,24 @@ export default function AnimeTable({
             <td>{anime.source ? anime.source : "Unknown"}</td>
             <td>{anime.averageScore ? anime.averageScore : "TBD"}</td>
             <td>
-              {anime.myState !== "To watch" ? (
-                <select
-                  value={anime.myScore}
-                  onChange={e => changeScore(index, e.target.value)}
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-              ) : (
-                <span>TBD</span>
-              )}
+              <LoadableScore
+                anime={anime}
+                index={index}
+                changeScore={changeScore}
+              />
             </td>
             <td>
-              <StyledWatchedCounter>
-                <select
-                  value={anime.myState}
-                  onChange={e => changeState(index, e.target.value)}
-                >
-                  <option value="To watch">To watch</option>
-                  <option value="Watching">Watching</option>
-                  <option value="Completed">Completed</option>
-                </select>
-                {(anime.myState === "Watching" ||
-                  anime.myState === "Completed") && (
-                  <StyledCounter>
-                    <div>
-                      {anime.myState === "Completed"
-                        ? anime.episodes
-                        : anime.episodesWatched}
-                      <span>/</span> {anime.episodes}
-                    </div>
-                    {anime.myState !== "Completed" && (
-                      <div>
-                        <button
-                          disabled={anime.episodesWatched === 0}
-                          onClick={() => decWatchedCounter(index)}
-                        >
-                          -
-                        </button>
-                        <button
-                          disabled={anime.episodesWatched === anime.episodes}
-                          onClick={() => incWatchedCounter(index)}
-                        >
-                          +
-                        </button>
-                      </div>
-                    )}
-                  </StyledCounter>
-                )}
-              </StyledWatchedCounter>
+              <LoadableState
+                anime={anime}
+                index={index}
+                changeState={changeState}
+                incWatchedCounter={incWatchedCounter}
+                decWatchedCounter={decWatchedCounter}
+              />
             </td>
             <td>
               <svg
+                name="delete"
                 onClick={() =>
                   removeItem(saved.map(x => x.id).indexOf(anime.id))
                 }

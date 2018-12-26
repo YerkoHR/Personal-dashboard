@@ -30,14 +30,20 @@ export default function reducer(state = [], action) {
     case CHANGE_SCORE:
       return state.map((x, index) => {
         if (index === action.index) {
-          return { ...x, myScore: action.score };
+          return { ...x, myScore: Number(action.score) };
         }
         return x;
       });
     case CHANGE_STATE:
       return state.map((x, index) => {
         if (index === action.index) {
-          return { ...x, myState: action.state };
+          return action.state === "Completed"
+            ? {
+                ...x,
+                myState: action.state,
+                episodesWatched: state[action.index].episodes
+              }
+            : { ...x, myState: action.state };
         }
         return x;
       });
