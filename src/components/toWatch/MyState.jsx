@@ -4,6 +4,26 @@ import styled from "styled-components";
 const StyledWatchedCounter = styled.div`
   display: flex;
   flex-direction: column;
+  select {
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1.2px;
+    &:focus {
+      outline: 0;
+    }
+  }
+  .Watching {
+    border-color: blue;
+    color: blue;
+  }
+  .toWatch {
+    border-color: brown;
+    color: brown;
+  }
+  .Completed {
+    border-color: green;
+    color: green;
+  }
 `;
 const StyledCounter = styled.div`
   display: flex;
@@ -35,6 +55,11 @@ export default function MyState({
     <React.Fragment>
       <StyledWatchedCounter>
         <select
+          className={
+            (anime.myState === "To watch" && "toWatch") ||
+            (anime.myState === "Watching" && "Watching") ||
+            (anime.myState === "Completed" && "Completed")
+          }
           value={anime.myState}
           onChange={e => changeState(index, e.target.value)}
         >
