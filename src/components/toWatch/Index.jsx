@@ -44,7 +44,7 @@ const Index = ({
     </div>
     {saved.length > 0 ? (
       <div>
-        <LoadableCardList saved={saved} removeItem={removeItem} />
+        <LoadableCardList saved={saved} />
         <LoadableTable
           saved={saved}
           removeItem={removeItem}

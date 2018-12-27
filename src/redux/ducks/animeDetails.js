@@ -33,6 +33,10 @@ export function fetchDetails(id) {
                 }
                 coverImage {
                   extraLarge
+                  large
+                }
+                nextAiringEpisode {
+                  episode
                 }
                 averageScore
                 description

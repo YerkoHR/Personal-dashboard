@@ -28,6 +28,7 @@ const StyledInput = styled.input`
 
 const InputList = styled.div`
   position: relative;
+  width: 100%;
 `;
 
 const InputContainer = styled.div`

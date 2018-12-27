@@ -157,10 +157,11 @@ AnimeTable.propTypes = {
       title: PropTypes.shape({
         romaji: PropTypes.string.isRequired
       }),
+      nextAiringEpisode: PropTypes.shape({ episode: PropTypes.number }),
       averageScore: PropTypes.number,
       myScore: PropTypes.number.isRequired,
       myState: PropTypes.string.isRequired,
-      episodes: PropTypes.number.isRequired,
+      episodes: PropTypes.number,
       episodesWatched: PropTypes.number.isRequired,
       status: PropTypes.string,
       source: PropTypes.string,

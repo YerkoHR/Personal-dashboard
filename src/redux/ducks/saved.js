@@ -41,7 +41,9 @@ export default function reducer(state = [], action) {
             ? {
                 ...x,
                 myState: action.state,
-                episodesWatched: state[action.index].episodes
+                episodesWatched:
+                  state[action.index].episodes ||
+                  state[action.index].nextAiringEpisode.episode - 1
               }
             : { ...x, myState: action.state };
         }

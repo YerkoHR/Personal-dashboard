@@ -71,9 +71,10 @@ export default function MyState({
           <StyledCounter>
             <div>
               {anime.myState === "Completed"
-                ? anime.episodes
+                ? anime.episodes || anime.nextAiringEpisode.episode - 1
                 : anime.episodesWatched}
-              <span>/</span> {anime.episodes}
+              <span>/</span>
+              {anime.episodes || anime.nextAiringEpisode.episode - 1}
             </div>
             {anime.myState !== "Completed" && (
               <div>
@@ -90,7 +91,10 @@ export default function MyState({
 
                 <svg
                   className={
-                    anime.episodes === anime.episodesWatched ? "disabled" : ""
+                    (anime.episodes || anime.nextAiringEpisode.episode - 1) ===
+                    anime.episodesWatched
+                      ? "disabled"
+                      : ""
                   }
                   onClick={() => incWatchedCounter(index)}
                   xmlns="http://www.w3.org/2000/svg"
