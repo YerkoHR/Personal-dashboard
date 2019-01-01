@@ -35,6 +35,7 @@ const StyledCounter = styled.div`
   }
   svg {
     transition: 0.3s ease-in-out;
+    user-select: none;
     &:hover {
       fill: blue;
     }

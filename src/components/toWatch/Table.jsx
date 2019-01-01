@@ -4,9 +4,8 @@ import Rows from "./Rows";
 
 const StyledTable = styled.table`
   table-layout: fixed;
-  width: 90%;
   border-collapse: collapse;
-  margin: 5em auto;
+
   background: #fcfbf6;
   border-radius: 4px 4px 0 0;
   th,

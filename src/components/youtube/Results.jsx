@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { StyledButton } from "../Index";
 
 const Container = styled.ul`
   display: flex;
@@ -33,6 +32,17 @@ const VideoDetails = styled.div`
     }
   }
 `;
+// CHANGE STYLE
+const ResultsBtn = styled.button`
+  background: ${props => props.theme.font};
+  border: 2px solid ${props => props.theme.font};
+  outline: 0;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    color: #fff;
+  }
+`;
+
 export default function Results({ data, togglePlayer }) {
   return (
     <Container>
@@ -45,9 +55,9 @@ export default function Results({ data, togglePlayer }) {
             />
             <div>
               <p>{video.snippet.title}</p>
-              <StyledButton onClick={() => togglePlayer(index)}>
+              <ResultsBtn onClick={() => togglePlayer(index)}>
                 Show Player
-              </StyledButton>
+              </ResultsBtn>
             </div>
           </VideoDetails>
           {video.showVideo && (

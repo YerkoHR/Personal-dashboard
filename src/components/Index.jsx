@@ -42,16 +42,6 @@ const Content = styled.div`
   height: 100%;
 `;
 
-export const StyledButton = styled.button`
-  background: ${props => props.theme.font};
-  border: 2px solid ${props => props.theme.font};
-  outline: 0;
-  transition: 0.3s ease-in-out;
-  &:hover {
-    color: #fff;
-  }
-`;
-
 export const Index = ({ loadComponent, sideBar }) => (
   <Main>
     <LoadableSideBar loadComponent={loadComponent} sideBar={sideBar} />

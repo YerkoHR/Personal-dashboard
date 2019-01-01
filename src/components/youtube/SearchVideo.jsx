@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { fetchDataVideo } from "../../redux/ducks/fetchVideos";
-import { StyledButton } from "../Index";
 
 const StyledInput = styled.input`
   padding: 0.5em 1.2em;
@@ -24,6 +23,16 @@ const Container = styled.div`
   div {
     display: flex;
     flex-direction: row;
+  }
+`;
+// CHANGE THIS STYLE
+const StyledSearchBtn = styled.button`
+  background: ${props => props.theme.font};
+  border: 2px solid ${props => props.theme.font};
+  outline: 0;
+  transition: 0.3s ease-in-out;
+  &:hover {
+    color: #fff;
   }
 `;
 
@@ -59,9 +68,9 @@ export class SearchVideo extends Component {
             value={this.state.input}
             onKeyDown={this.keyPress}
           />
-          <StyledButton onClick={() => fetchDataVideo(this.state.input)}>
+          <StyledSearchBtn onClick={() => fetchDataVideo(this.state.input)}>
             Search
-          </StyledButton>
+          </StyledSearchBtn>
         </div>
       </Container>
     );

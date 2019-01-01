@@ -8,6 +8,7 @@ import { ThemeProvider, createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   @import url("https://fonts.googleapis.com/css?family=Roboto");
+
   body {
     margin: 0;
     font-family:  Roboto, sans-serif;
@@ -16,34 +17,42 @@ const GlobalStyle = createGlobalStyle`
   }
   html, body, #root, #root>div {
   height: 100%
-}
-button, select{
-  cursor: pointer;
-}
-.lds-dual-ring {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-}
-.lds-dual-ring:after {
-  content: " ";
-  display: block;
-  width: 23px;
-  height: 23px;
-  margin: 1px;
-  border-radius: 50%;
-  border: 5px solid #fff;
-  border-color: #fff transparent #fff transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
-}
-@keyframes lds-dual-ring {
-  0% {
-    transform: rotate(0deg);
   }
-  100% {
-    transform: rotate(360deg);
+  button, select{
+    cursor: pointer;
   }
-}
+  .btn-delete:hover {
+    color: black;
+    border-color: red;
+  }
+  .btn-save:hover {
+    color: black;
+    border-color: blue;
+  }
+  .lds-dual-ring {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+  }
+  .lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 23px;
+    height: 23px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 `;
 
 const darkTheme = {
