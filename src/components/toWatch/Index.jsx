@@ -2,16 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
-import {
-  removeItem,
-  changeScore,
-  changeState,
-  incWatchedCounter,
-  decWatchedCounter
-} from "../../redux/ducks/saved";
 
 const LoadableTable = Loadable({
-  loader: () => import("./ToWatchTable"),
+  loader: () => import("./Table"),
   loading: () => null,
   render(loaded, props) {
     let Component = loaded.default;
@@ -20,7 +13,7 @@ const LoadableTable = Loadable({
 });
 
 const LoadableCardList = Loadable({
-  loader: () => import("./ToWatchList"),
+  loader: () => import("./Cards"),
   loading: () => null,
   render(loaded, props) {
     let Component = loaded.default;
@@ -28,14 +21,7 @@ const LoadableCardList = Loadable({
   }
 });
 
-const Index = ({
-  saved,
-  removeItem,
-  changeScore,
-  changeState,
-  incWatchedCounter,
-  decWatchedCounter
-}) => (
+const Index = ({ saved }) => (
   <div>
     <div>
       <h3>View mode:</h3>
@@ -45,14 +31,7 @@ const Index = ({
     {saved.length > 0 ? (
       <div>
         <LoadableCardList saved={saved} />
-        <LoadableTable
-          saved={saved}
-          removeItem={removeItem}
-          changeScore={changeScore}
-          changeState={changeState}
-          incWatchedCounter={incWatchedCounter}
-          decWatchedCounter={decWatchedCounter}
-        />
+        <LoadableTable />
       </div>
     ) : (
       <h2>No anime saved</h2>
@@ -70,11 +49,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {
-    removeItem,
-    changeScore,
-    changeState,
-    decWatchedCounter,
-    incWatchedCounter
-  }
+  {}
 )(Index);
