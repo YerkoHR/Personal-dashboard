@@ -38,12 +38,17 @@ const ContainerBtn = styled.div`
   position: absolute;
   bottom: 10px;
   right: 10px;
+
+  svg {
+    transition: 0.3s ease-in-out;
+    fill: grey;
+  }
 `;
 export const SaveDeleteBtn = styled.button`
   background: #fff;
-  color: blue;
-  border: 2px solid ${props => props.theme.font};
-  border-radius: 4px;
+  padding: 0.5em 1em;
+  color: #000;
+  border: 2px solid #000;
   outline: 0;
   transition: 0.3s ease-in-out;
 `;

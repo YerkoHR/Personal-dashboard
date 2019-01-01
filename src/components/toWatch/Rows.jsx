@@ -34,11 +34,7 @@ const StyledTr = styled.tr`
   padding: 1em;
   margin: 1em;
   svg {
-    cursor: pointer;
     transition: 0.3s ease-in-out;
-    &:hover {
-      fill: red;
-    }
   }
 `;
 

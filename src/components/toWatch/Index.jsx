@@ -31,7 +31,7 @@ const BtnContainer = styled.div`
 
   button:nth-child(1) {
     position: absolute;
-    right: 45px;
+    right: 50px;
     bottom: 10px;
   }
   button:nth-child(2) {
@@ -43,6 +43,7 @@ const BtnContainer = styled.div`
     border-radius: 4px;
     border: 0.5px solid grey;
     background: grey;
+    padding: 0.5em;
     &:focus {
       outline: 0;
     }
@@ -61,13 +62,13 @@ const Index = ({ saved, changeListMode, mode }) => (
             className={mode === "table" ? "active" : ""}
             onClick={() => changeListMode("table")}
           >
-            Table
+            TABLE
           </button>
           <button
             className={mode === "card" ? "active" : ""}
             onClick={() => changeListMode("card")}
           >
-            Card
+            CARD
           </button>
         </BtnContainer>
         {mode === "card" && <LoadableCardList saved={saved} />}

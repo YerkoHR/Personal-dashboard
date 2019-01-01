@@ -11,30 +11,34 @@ export default class DeleteSaved extends Component {
 
   render() {
     const { removeItem, saved, data, svg } = this.props;
-
     return (
       <div>
         {this.state.showDeleteBtn ? (
           <div>
-            Are you sure ?
-            <SaveDeleteBtn
+            <svg
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
               className="btn-delete"
               onClick={() => removeItem(saved.map(x => x.id).indexOf(data.id))}
             >
-              Yes
-            </SaveDeleteBtn>
-            <SaveDeleteBtn
+              <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z" />
+            </svg>
+            <svg
               className="btn-save"
               onClick={() => this.setState({ showDeleteBtn: false })}
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
             >
-              No
-            </SaveDeleteBtn>
+              <path d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12C4,13.85 4.63,15.55 5.68,16.91L16.91,5.68C15.55,4.63 13.85,4 12,4M12,20A8,8 0 0,0 20,12C20,10.15 19.37,8.45 18.32,7.09L7.09,18.32C8.45,19.37 10.15,20 12,20Z" />
+            </svg>
           </div>
         ) : (
           <div>
             {svg ? (
               <svg
-                name="delete"
+                className="btn-delete"
                 onClick={() => this.setState({ showDeleteBtn: true })}
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="-2 -2 24 24"

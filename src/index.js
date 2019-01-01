@@ -18,16 +18,18 @@ const GlobalStyle = createGlobalStyle`
   html, body, #root, #root>div {
   height: 100%
   }
-  button, select{
+  button, select, svg{
     cursor: pointer;
   }
   .btn-delete:hover {
-    color: black;
-    border-color: red;
+    fill: brown;
+    color: brown;
+    border-color:brown;
   }
   .btn-save:hover {
-    color: black;
-    border-color: blue;
+    fill: green;
+    color: green;
+    border-color:green;
   }
   .lds-dual-ring {
     display: inline-block;
