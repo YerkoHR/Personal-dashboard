@@ -20,13 +20,11 @@ export default function reducer(state = [], action) {
         ...state.slice(action.index + 1)
       ];
     case ORDER_ASC:
-      return state.sort((a, b) =>
-        a.title > b.title ? 1 : b.title > a.title ? -1 : 0
-      );
+      return orderNested(state, action.head, "asc");
+
     case ORDER_DES:
-      return state.sort((a, b) =>
-        a.title < b.title ? 1 : b.title < a.title ? -1 : 0
-      );
+      return orderNested(state, action.head, "des");
+
     case CHANGE_SCORE:
       return state.map((x, index) => {
         if (index === action.index) {
@@ -80,11 +78,11 @@ export function addItem(item) {
 export function removeItem(index) {
   return { type: UNSAVE_ANIME, index };
 }
-export function orderAsc() {
-  return { type: ORDER_ASC };
+export function orderAsc(head) {
+  return { type: ORDER_ASC, head };
 }
-export function orderDes() {
-  return { type: ORDER_DES };
+export function orderDes(head) {
+  return { type: ORDER_DES, head };
 }
 export function changeScore(index, score) {
   return { type: CHANGE_SCORE, index, score };
@@ -97,4 +95,39 @@ export function incWatchedCounter(index) {
 }
 export function decWatchedCounter(index) {
   return { type: DEC_WATCHED_COUNTER, index };
+}
+
+function orderNested(state, head, order) {
+  if ((head === "title") & (order === "asc")) {
+    return state
+      .slice()
+      .sort((a, b) =>
+        a[head].romaji > b[head].romaji
+          ? 1
+          : b[head].romaji > a[head].romaji
+          ? -1
+          : 0
+      );
+  }
+  if (order === "asc") {
+    return state
+      .slice()
+      .sort((a, b) => (a[head] > b[head] ? 1 : b[head] > a[head] ? -1 : 0));
+  }
+  if ((head === "title") & (order === "des")) {
+    return state
+      .slice()
+      .sort((a, b) =>
+        a[head].romaji < b[head].romaji
+          ? 1
+          : b[head].romaji < a[head].romaji
+          ? -1
+          : 0
+      );
+  }
+  if (order === "des") {
+    return state
+      .slice()
+      .sort((a, b) => (a[head] < b[head] ? 1 : b[head] < a[head] ? -1 : 0));
+  }
 }
