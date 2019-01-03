@@ -57,7 +57,7 @@ const ExtraInfo = styled.div`
     padding: 0;
     list-style: none;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: space-evenly;
     text-align: center;
     width: 100%;
@@ -70,7 +70,7 @@ export default function ToWatchList({ saved }) {
         <StyledCard key={anime.id}>
           <img src={anime.coverImage.large} alt="cardImage" />
           <MainInfo>
-            <h3>{anime.title.romaji}</h3>
+            <h3>{anime.title}</h3>
             <div className="scrollBox" tabIndex="0">
               <div
                 className="description"
@@ -78,10 +78,10 @@ export default function ToWatchList({ saved }) {
               />
             </div>
             <ExtraInfo>
-              {anime.nextAiringEpisode.timeUntilAiring ? (
+              {anime.nextAiringEpisode ? (
                 <div>{anime.nextAiringEpisode.timeUntilAiring}</div>
               ) : (
-                <div> "Finished"</div>
+                <div>Finished</div>
               )}
               <ul>
                 {anime.genres.map(genre => (

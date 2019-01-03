@@ -14,10 +14,12 @@ export default function reducer(state = [], action) {
         ...state,
         {
           ...action.item,
+          title: action.item.title.romaji,
           myScore: 1,
           myState: "To watch",
+          source: !action.item.source && "UNKNOWN",
           episodesWatched: 0,
-          nextAiringEpisode: {
+          nextAiringEpisode: action.item.nextAiringEpisode && {
             ...action.item.nextAiringEpisode,
             timeUntilAiring: secondsToDhm(
               action.item.nextAiringEpisode.timeUntilAiring
@@ -112,32 +114,10 @@ export function decWatchedCounter(index) {
 // and returns array of data with the order requested.
 
 function orderNested(state, head, order) {
-  if ((head === "title") & (order === "asc")) {
-    return state
-      .slice()
-      .sort((a, b) =>
-        a[head].romaji > b[head].romaji
-          ? 1
-          : b[head].romaji > a[head].romaji
-          ? -1
-          : 0
-      );
-  }
   if (order === "asc") {
     return state
       .slice()
       .sort((a, b) => (a[head] > b[head] ? 1 : b[head] > a[head] ? -1 : 0));
-  }
-  if ((head === "title") & (order === "des")) {
-    return state
-      .slice()
-      .sort((a, b) =>
-        a[head].romaji < b[head].romaji
-          ? 1
-          : b[head].romaji < a[head].romaji
-          ? -1
-          : 0
-      );
   }
   if (order === "des") {
     return state

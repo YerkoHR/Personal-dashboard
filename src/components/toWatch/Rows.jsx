@@ -49,10 +49,10 @@ const Rows = ({
   <React.Fragment>
     {saved.map((anime, index) => (
       <StyledTr key={anime.id}>
-        <td>{anime.title.romaji}</td>
+        <td>{anime.title}</td>
         <td>{anime.format ? anime.format : "Unknown"}</td>
         <td>{anime.status ? anime.status : "Unknown"}</td>
-        <td>{anime.source ? anime.source : "Unknown"}</td>
+        <td>{anime.source}</td>
         <td>{anime.averageScore ? anime.averageScore : "TBD"}</td>
         <td>
           <LoadableScore
@@ -92,9 +92,7 @@ Rows.propTypes = {
   saved: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      title: PropTypes.shape({
-        romaji: PropTypes.string.isRequired
-      }),
+      title: PropTypes.string.isRequired,
       nextAiringEpisode: PropTypes.shape({ episode: PropTypes.number }),
       averageScore: PropTypes.number,
       myScore: PropTypes.number.isRequired,
