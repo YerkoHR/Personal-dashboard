@@ -40,7 +40,7 @@ const Heads = [
   "title",
   "format",
   "status",
-  "Source",
+  "source",
   "averageScore",
   "myScore",
   "myState"

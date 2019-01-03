@@ -37,6 +37,7 @@ export function fetchDetails(id) {
                 }
                 nextAiringEpisode {
                   episode
+                  timeUntilAiring
                 }
                 averageScore
                 description
@@ -45,6 +46,10 @@ export function fetchDetails(id) {
                 episodes
                 status
                 source
+                genres
+                trailer{ 
+                  id
+                }
               }
           }
         `

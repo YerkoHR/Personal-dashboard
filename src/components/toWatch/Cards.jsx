@@ -6,7 +6,7 @@ const StyledCardList = styled.ul`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 350px;
   grid-gap: 1em;
-  width: 85%;
+  width: 95%;
   margin: 2em auto;
   list-style: none;
   padding: 0;
@@ -17,6 +17,11 @@ const StyledCard = styled.li`
   width: 100%;
   border: 1px solid grey;
   border-radius: 4px;
+`;
+const MainInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   h3 {
     margin: 0.5em;
   }
@@ -27,7 +32,7 @@ const StyledCard = styled.li`
     margin: 0 auto;
   }
   .scrollBox {
-    height: 240px;
+    height: 225px;
     overflow: hidden;
     visibility: hidden;
     transition: 0.2s ease-in;
@@ -41,13 +46,30 @@ const StyledCard = styled.li`
     outline: 0;
   }
 `;
+const ExtraInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8em;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5em;
+  ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    text-align: center;
+    width: 100%;
+  }
+`;
 export default function ToWatchList({ saved }) {
   return (
     <StyledCardList>
       {saved.map(anime => (
         <StyledCard key={anime.id}>
           <img src={anime.coverImage.large} alt="cardImage" />
-          <div>
+          <MainInfo>
             <h3>{anime.title.romaji}</h3>
             <div className="scrollBox" tabIndex="0">
               <div
@@ -55,8 +77,19 @@ export default function ToWatchList({ saved }) {
                 dangerouslySetInnerHTML={{ __html: anime.description }}
               />
             </div>
-            <span>Random data</span>
-          </div>
+            <ExtraInfo>
+              {anime.nextAiringEpisode.timeUntilAiring ? (
+                <div>{anime.nextAiringEpisode.timeUntilAiring}</div>
+              ) : (
+                <div> "Finished"</div>
+              )}
+              <ul>
+                {anime.genres.map(genre => (
+                  <li key={"type" + genre}>{genre}</li>
+                ))}
+              </ul>
+            </ExtraInfo>
+          </MainInfo>
         </StyledCard>
       ))}
     </StyledCardList>

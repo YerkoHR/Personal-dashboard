@@ -12,7 +12,18 @@ export default function reducer(state = [], action) {
     case SAVE_ANIME:
       return [
         ...state,
-        { ...action.item, myScore: 1, myState: "To watch", episodesWatched: 0 }
+        {
+          ...action.item,
+          myScore: 1,
+          myState: "To watch",
+          episodesWatched: 0,
+          nextAiringEpisode: {
+            ...action.item.nextAiringEpisode,
+            timeUntilAiring: secondsToDhm(
+              action.item.nextAiringEpisode.timeUntilAiring
+            )
+          }
+        }
       ];
     case UNSAVE_ANIME:
       return [
@@ -97,6 +108,9 @@ export function decWatchedCounter(index) {
   return { type: DEC_WATCHED_COUNTER, index };
 }
 
+// Receives state, name of table's head and order,
+// and returns array of data with the order requested.
+
 function orderNested(state, head, order) {
   if ((head === "title") & (order === "asc")) {
     return state
@@ -130,4 +144,18 @@ function orderNested(state, head, order) {
       .slice()
       .sort((a, b) => (a[head] < b[head] ? 1 : b[head] < a[head] ? -1 : 0));
   }
+}
+
+// Format Time until airing next episode.
+
+function secondsToDhm(seconds) {
+  seconds = Number(seconds);
+  var d = Math.floor(seconds / (3600 * 24));
+  var h = Math.floor((seconds % (3600 * 24)) / 3600);
+  var m = Math.floor((seconds % 3600) / 60);
+
+  var dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
+  var hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
+  var mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes") : "";
+  return dDisplay + hDisplay + mDisplay;
 }
