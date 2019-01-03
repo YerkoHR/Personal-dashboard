@@ -17,7 +17,7 @@ export default function reducer(state = [], action) {
           title: action.item.title.romaji,
           myScore: 1,
           myState: "To watch",
-          source: !action.item.source && "UNKNOWN",
+          source: action.item.source ? action.item.source : "UNKNOWN",
           episodesWatched: 0,
           nextAiringEpisode: action.item.nextAiringEpisode && {
             ...action.item.nextAiringEpisode,
