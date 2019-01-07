@@ -53,10 +53,14 @@ export default function reducer(state = [], action) {
         ...state.slice(action.index + 1)
       ];
     case ORDER_ASC:
-      return orderNested(state, action.head, "asc");
+      return state
+        .slice()
+        .sort((a, b) => (a[head] > b[head] ? 1 : b[head] > a[head] ? -1 : 0));
 
     case ORDER_DES:
-      return orderNested(state, action.head, "des");
+      return state
+        .slice()
+        .sort((a, b) => (a[head] < b[head] ? 1 : b[head] < a[head] ? -1 : 0));
 
     case CHANGE_SCORE:
       return state.map((x, index) => {
@@ -130,22 +134,6 @@ export function incWatchedCounter(index) {
 }
 export function decWatchedCounter(index) {
   return { type: DEC_WATCHED_COUNTER, index };
-}
-
-// Receives state, name of table's head and order,
-// and returns array of data with the order requested.
-
-function orderNested(state, head, order) {
-  if (order === "asc") {
-    return state
-      .slice()
-      .sort((a, b) => (a[head] > b[head] ? 1 : b[head] > a[head] ? -1 : 0));
-  }
-  if (order === "des") {
-    return state
-      .slice()
-      .sort((a, b) => (a[head] < b[head] ? 1 : b[head] < a[head] ? -1 : 0));
-  }
 }
 
 // Format Time until airing next episode.
