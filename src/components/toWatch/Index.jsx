@@ -56,8 +56,9 @@ const BtnContainer = styled.div`
 
 class Index extends React.Component {
   componentDidMount() {
-    for (let i = 0; i < this.props.saved.length; i++) {
-      this.props.fetchSavedAnime(this.props.saved[i].id);
+    const { saved, fetchSavedAnime } = this.props;
+    for (let i = 0; i < saved.length; i++) {
+      fetchSavedAnime(saved[i].id);
     }
   }
 
