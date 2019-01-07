@@ -9,6 +9,7 @@ const CHANGE_STATE = "CHANGE_STATE";
 const INC_WATCHED_COUNTER = "INC_WATCHED_COUNTER";
 const DEC_WATCHED_COUNTER = "DEC_WATCHED_COUNTER";
 const UPDATE_ANIME = "UPDATE_ANIME";
+const RESET_STATE = "RESET_STATE";
 
 // Push a new object with anime information from the API,
 // in adition it initializes some states for future operations.
@@ -76,7 +77,7 @@ export default function reducer(state = [], action) {
       return saveAnime(state, action);
 
     case UPDATE_ANIME:
-      updateAnime(state, action);
+      return updateAnime(state, action);
 
     case UNSAVE_ANIME:
       return [
@@ -99,14 +100,15 @@ export default function reducer(state = [], action) {
       });
 
     case CHANGE_STATE:
-      updateState(state, action);
+      return updateState(state, action);
 
     case INC_WATCHED_COUNTER:
       return updateCounter(state, action.index, "add");
 
     case DEC_WATCHED_COUNTER:
       return updateCounter(state, action.index, "substract");
-
+    case RESET_STATE:
+      return [];
     default:
       return state;
   }
@@ -139,7 +141,9 @@ export function incWatchedCounter(index) {
 export function decWatchedCounter(index) {
   return { type: DEC_WATCHED_COUNTER, index };
 }
-
+export function resetState() {
+  return { type: RESET_STATE };
+}
 // Format Time until airing next episode.
 
 function secondsToDhm(seconds) {
