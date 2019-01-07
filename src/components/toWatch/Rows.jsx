@@ -10,7 +10,6 @@ import {
   incWatchedCounter,
   decWatchedCounter
 } from "../../redux/ducks/saved";
-import DeleteSaved from "../DeleteSaved";
 
 const LoadableScore = Loadable({
   loader: () => import("./MyScore"),
@@ -23,6 +22,15 @@ const LoadableScore = Loadable({
 
 const LoadableState = Loadable({
   loader: () => import("./MyState"),
+  loading: () => null,
+  render(loaded, props) {
+    let Component = loaded.default;
+    return <Component {...props} />;
+  }
+});
+
+const LoadableDelete = Loadable({
+  loader: () => import("../DeleteSaved"),
   loading: () => null,
   render(loaded, props) {
     let Component = loaded.default;
@@ -71,7 +79,7 @@ const Rows = ({
           />
         </td>
         <td>
-          <DeleteSaved
+          <LoadableDelete
             removeItem={removeItem}
             saved={saved}
             data={anime}

@@ -1,7 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import Rows from "./Rows";
-import Head from "./Head";
+import Loadable from "react-loadable";
+
+const LoadableRows = Loadable({
+  loader: () => import("./Rows"),
+  loading: () => null
+});
+
+const LoadableHead = Loadable({
+  loader: () => import("./Head"),
+  loading: () => null
+});
 
 const StyledTable = styled.table`
   table-layout: fixed;
@@ -29,10 +38,10 @@ export default function AnimeTable() {
   return (
     <StyledTable>
       <thead>
-        <Head />
+        <LoadableHead />
       </thead>
       <tbody>
-        <Rows />
+        <LoadableRows />
       </tbody>
     </StyledTable>
   );
