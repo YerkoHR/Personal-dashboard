@@ -54,6 +54,12 @@ const BtnContainer = styled.div`
   }
 `;
 
+const EmptyMessage = styled.div`
+  margin-top: 2em;
+  font-size: 2em;
+  color: #fff;
+`;
+
 class Index extends React.Component {
   componentDidMount() {
     const { saved, fetchSavedAnime } = this.props;
@@ -87,7 +93,7 @@ class Index extends React.Component {
             {mode === "table" && <LoadableTable />}
           </SavedContainer>
         ) : (
-          <h2>No anime saved</h2>
+          <EmptyMessage>No anime saved</EmptyMessage>
         )}
       </div>
     );
