@@ -31,18 +31,17 @@ export default function reducer(state = [], action) {
         }
       ];
     case UPDATE_DATA:
+      const { id, nextAiringEpisode, averageScore, status } = action.data;
       return state.map(data => {
-        if (data.id === action.data.id) {
+        if (data.id === id) {
           return {
             ...data,
             nextAiringEpisode: data.nextAiringEpisode && {
-              episode: action.data.nextAiringEpisode.episode,
-              timeUntilAiring: secondsToDhm(
-                action.data.nextAiringEpisode.timeUntilAiring
-              )
+              episode: nextAiringEpisode.episode,
+              timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
             },
-            averageScore: action.data.averageScore,
-            status: action.data.status
+            averageScore: averageScore,
+            status: status
           };
         }
         return data;
@@ -53,15 +52,10 @@ export default function reducer(state = [], action) {
         ...state.slice(action.index + 1)
       ];
     case ORDER_ASC:
-      const { head } = action;
-      return state
-        .slice()
-        .sort((a, b) => (a[head] > b[head] ? 1 : b[head] > a[head] ? -1 : 0));
+      return updateOrder(state, action.head, "asc");
 
     case ORDER_DES:
-      return state
-        .slice()
-        .sort((a, b) => (a[head] < b[head] ? 1 : b[head] < a[head] ? -1 : 0));
+      return updateOrder(state, action.head, "des");
 
     case CHANGE_SCORE:
       return state.map((x, index) => {
@@ -86,29 +80,16 @@ export default function reducer(state = [], action) {
         return x;
       });
     case INC_WATCHED_COUNTER:
-      return state.map((x, index) => {
-        if (index === action.index) {
-          return {
-            ...x,
-            episodesWatched: state[action.index].episodesWatched + 1
-          };
-        }
-        return x;
-      });
+      return updateCounter(state, action.index, "add");
+
     case DEC_WATCHED_COUNTER:
-      return state.map((x, index) => {
-        if (index === action.index) {
-          return {
-            ...x,
-            episodesWatched: state[action.index].episodesWatched - 1
-          };
-        }
-        return x;
-      });
+      return updateCounter(state, action.index, "substract");
+
     default:
       return state;
   }
 }
+
 export function fetchUpdated(data) {
   return { type: UPDATE_DATA, data };
 }
@@ -150,7 +131,43 @@ function secondsToDhm(seconds) {
   var mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes") : "";
   return dDisplay + hDisplay + mDisplay;
 }
+function updateCounter(array, indexToChange, operation) {
+  if (operation === "add") {
+    return array.map((item, index) => {
+      if (index === indexToChange) {
+        return {
+          ...item,
+          episodesWatched: array[indexToChange].episodesWatched + 1
+        };
+      }
+      return item;
+    });
+  }
 
+  if (operation === "substract") {
+    return array.map((item, index) => {
+      if (index === indexToChange) {
+        return {
+          ...item,
+          episodesWatched: array[indexToChange].episodesWatched - 1
+        };
+      }
+      return item;
+    });
+  }
+}
+function updateOrder(array, head, order) {
+  if (order === "asc") {
+    return array
+      .slice()
+      .sort((a, b) => (a[head] > b[head] ? 1 : b[head] > a[head] ? -1 : 0));
+  }
+  if (order === "des") {
+    return array
+      .slice()
+      .sort((a, b) => (a[head] < b[head] ? 1 : b[head] < a[head] ? -1 : 0));
+  }
+}
 export function fetchSavedAnime(id) {
   return dispatch => {
     return axios({
