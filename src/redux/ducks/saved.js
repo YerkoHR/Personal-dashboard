@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const SAVE_ANIME = "SAVE_ANIME";
 const UNSAVE_ANIME = "UNSAVE_ANIME";
 const ORDER_DES = "ORDER_DES";
@@ -6,6 +8,7 @@ const CHANGE_SCORE = "CHANGE_SCORE";
 const CHANGE_STATE = "CHANGE_STATE";
 const INC_WATCHED_COUNTER = "INC_WATCHED_COUNTER";
 const DEC_WATCHED_COUNTER = "DEC_WATCHED_COUNTER";
+const UPDATE_DATA = "UPDATE_DATA";
 
 export default function reducer(state = [], action) {
   switch (action.type) {
@@ -17,7 +20,7 @@ export default function reducer(state = [], action) {
           title: action.item.title.romaji,
           myScore: 1,
           myState: "To watch",
-          source: !action.item.source && "UNKNOWN",
+          source: action.item.source ? action.item.source : "UNKNOWN",
           episodesWatched: 0,
           nextAiringEpisode: action.item.nextAiringEpisode && {
             ...action.item.nextAiringEpisode,
@@ -27,6 +30,23 @@ export default function reducer(state = [], action) {
           }
         }
       ];
+    case UPDATE_DATA:
+      return state.map(data => {
+        if (data.id === action.data.id) {
+          return {
+            ...data,
+            nextAiringEpisode: data.nextAiringEpisode && {
+              episode: action.data.nextAiringEpisode.episode,
+              timeUntilAiring: secondsToDhm(
+                action.data.nextAiringEpisode.timeUntilAiring
+              )
+            },
+            averageScore: action.data.averageScore,
+            status: action.data.status
+          };
+        }
+        return data;
+      });
     case UNSAVE_ANIME:
       return [
         ...state.slice(0, action.index),
@@ -84,7 +104,9 @@ export default function reducer(state = [], action) {
       return state;
   }
 }
-
+export function fetchUpdated(data) {
+  return { type: UPDATE_DATA, data };
+}
 export function addItem(item) {
   return { type: SAVE_ANIME, item };
 }
@@ -138,4 +160,34 @@ function secondsToDhm(seconds) {
   var hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
   var mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes") : "";
   return dDisplay + hDisplay + mDisplay;
+}
+
+export function fetchSavedAnime(id) {
+  return dispatch => {
+    return axios({
+      url: "https://graphql.anilist.co",
+      method: "post",
+
+      data: {
+        variables: {
+          id: id
+        },
+        query: `
+          query($id: Int) {
+              Media(id: $id) {
+                id
+                nextAiringEpisode {
+                  episode
+                  timeUntilAiring
+                }
+                averageScore
+                status
+              }
+          }
+        `
+      }
+    }).then(response => {
+      dispatch(fetchUpdated(response.data.data.Media));
+    });
+  };
 }

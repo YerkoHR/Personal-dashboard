@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Loadable from "react-loadable";
 import styled from "styled-components";
 import { changeListMode } from "../../redux/ducks/modes";
+import { fetchSavedAnime } from "../../redux/ducks/saved";
 
 const LoadableTable = Loadable({
   loader: () => import("./Table"),
@@ -53,32 +54,44 @@ const BtnContainer = styled.div`
   }
 `;
 
-const Index = ({ saved, changeListMode, mode }) => (
-  <div>
-    {saved.length > 0 ? (
-      <SavedContainer>
-        <BtnContainer>
-          <button
-            className={mode === "table" ? "active" : ""}
-            onClick={() => changeListMode("table")}
-          >
-            TABLE
-          </button>
-          <button
-            className={mode === "card" ? "active" : ""}
-            onClick={() => changeListMode("card")}
-          >
-            CARD
-          </button>
-        </BtnContainer>
-        {mode === "card" && <LoadableCardList saved={saved} />}
-        {mode === "table" && <LoadableTable />}
-      </SavedContainer>
-    ) : (
-      <h2>No anime saved</h2>
-    )}
-  </div>
-);
+class Index extends React.Component {
+  componentDidMount() {
+    for (let i = 0; i < this.props.saved.length; i++) {
+      this.props.fetchSavedAnime(this.props.saved[i].id);
+    }
+  }
+
+  render() {
+    const { saved, changeListMode, mode } = this.props;
+
+    return (
+      <div>
+        {saved.length > 0 ? (
+          <SavedContainer>
+            <BtnContainer>
+              <button
+                className={mode === "table" ? "active" : ""}
+                onClick={() => changeListMode("table")}
+              >
+                TABLE
+              </button>
+              <button
+                className={mode === "card" ? "active" : ""}
+                onClick={() => changeListMode("card")}
+              >
+                CARD
+              </button>
+            </BtnContainer>
+            {mode === "card" && <LoadableCardList saved={saved} />}
+            {mode === "table" && <LoadableTable />}
+          </SavedContainer>
+        ) : (
+          <h2>No anime saved</h2>
+        )}
+      </div>
+    );
+  }
+}
 
 Index.propTypes = {
   saved: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -92,6 +105,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    changeListMode
+    changeListMode,
+    fetchSavedAnime
   }
 )(Index);
