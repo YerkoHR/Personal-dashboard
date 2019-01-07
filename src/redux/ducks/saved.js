@@ -53,6 +53,7 @@ export default function reducer(state = [], action) {
         ...state.slice(action.index + 1)
       ];
     case ORDER_ASC:
+      const { head } = action;
       return state
         .slice()
         .sort((a, b) => (a[head] > b[head] ? 1 : b[head] > a[head] ? -1 : 0));
