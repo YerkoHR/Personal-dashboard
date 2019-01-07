@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import ResetStateBtn from "./ResetStateBtn";
 
 const StyledSideBar = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   margin: 1em 1.5em;
   h2 {
     text-align: center;
@@ -42,18 +46,21 @@ const StyledSideBar = styled.div`
   }
 `;
 
-export default function SideBar({ sideBar, loadComponent }) {
+export default function SideBar({ sideBar, loadComponent, resetState }) {
   return (
     <StyledSideBar>
-      <h2>Dashboard</h2>
-      <ul>
-        {sideBar.items.map(item => (
-          <li key={item.title} onClick={() => loadComponent(item.title)}>
-            {item.icon}
-            <span>{item.title}</span>
-          </li>
-        ))}
-      </ul>
+      <div>
+        <h2>Dashboard</h2>
+        <ul>
+          {sideBar.items.map(item => (
+            <li key={item.title} onClick={() => loadComponent(item.title)}>
+              {item.icon}
+              <span>{item.title}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <ResetStateBtn resetState={resetState} />
     </StyledSideBar>
   );
 }

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import changeScreenMode from "../redux/ducks/modes";
 import { loadComponent } from "../redux/ducks/sideBar";
+import { resetState } from "../redux/ducks/saved";
 import PropTypes from "prop-types";
 
 const LoadableAnimeComponent = Loadable({
@@ -42,9 +43,13 @@ const Content = styled.div`
   height: 100%;
 `;
 
-export const Index = ({ loadComponent, sideBar }) => (
+export const Index = ({ loadComponent, sideBar, resetState }) => (
   <Main>
-    <LoadableSideBar loadComponent={loadComponent} sideBar={sideBar} />
+    <LoadableSideBar
+      loadComponent={loadComponent}
+      sideBar={sideBar}
+      resetState={resetState}
+    />
     <Content>
       {sideBar.active === "SEARCH ANIME" && <LoadableAnimeComponent />}
       {sideBar.active === "SEARCH VIDEO" && <LoadableYoutubeComponent />}
@@ -73,6 +78,7 @@ export default connect(
   mapStateToProps,
   {
     changeScreenMode,
-    loadComponent
+    loadComponent,
+    resetState
   }
 )(Index);

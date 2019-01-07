@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
 import styled from "styled-components";
-import { addItem, removeItem, resetState } from "../../redux/ducks/saved";
+import { addItem, removeItem } from "../../redux/ducks/saved";
 
 const LoadableDetailsCard = Loadable({
   loader: () => import("./DetailsCard"),
@@ -24,9 +24,8 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Index = ({ animeDetails, saved, addItem, removeItem, resetState }) => (
+const Index = ({ animeDetails, saved, addItem, removeItem }) => (
   <Container>
-    <button onClick={() => resetState()}>RESET STATE</button>
     <LoadableSearchSection />
     {animeDetails && (
       <LoadableDetailsCard
@@ -52,19 +51,6 @@ export default connect(
   mapStateToProps,
   {
     addItem,
-    removeItem,
-    resetState
+    removeItem
   }
 )(Index);
-
-/**
- * 
- *    TO ADD IN THE SAVED LIST !
- *         <button onClick={() => changeListMode("table")}>
-            <span>Table</span>
-          </button>
-          <button onClick={() => changeListMode("card")}>
-            <span>Card</span>
-          </button>
- * 
- */
