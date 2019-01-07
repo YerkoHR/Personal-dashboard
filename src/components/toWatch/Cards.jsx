@@ -22,6 +22,7 @@ const MainInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background: #131921;
   h3 {
     margin: 0.5em;
   }
@@ -47,12 +48,15 @@ const MainInfo = styled.div`
   }
 `;
 const ExtraInfo = styled.div`
+  border-top: 1px solid #0d0f13;
+
   display: flex;
   flex-direction: column;
   font-size: 0.8em;
   justify-content: center;
   align-items: center;
   margin-bottom: 0.5em;
+  color: #c4c6e6;
   ul {
     padding: 0;
     list-style: none;
