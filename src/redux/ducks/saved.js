@@ -8,49 +8,82 @@ const CHANGE_SCORE = "CHANGE_SCORE";
 const CHANGE_STATE = "CHANGE_STATE";
 const INC_WATCHED_COUNTER = "INC_WATCHED_COUNTER";
 const DEC_WATCHED_COUNTER = "DEC_WATCHED_COUNTER";
-const UPDATE_DATA = "UPDATE_DATA";
+const UPDATE_ANIME = "UPDATE_ANIME";
+
+// Push a new object with anime information from the API,
+// in adition it initializes some states for future operations.
+function saveAnime(state, action) {
+  return [
+    ...state,
+    {
+      ...action.item,
+      title: action.item.title.romaji,
+      myScore: 1,
+      myState: "To watch",
+      source: action.item.source ? action.item.source : "UNKNOWN",
+      episodesWatched: 0,
+      nextAiringEpisode: action.item.nextAiringEpisode && {
+        ...action.item.nextAiringEpisode,
+        timeUntilAiring: secondsToDhm(
+          action.item.nextAiringEpisode.timeUntilAiring
+        )
+      }
+    }
+  ];
+}
+// On component mount this function updates every real time information
+// such as time remaining before next episode.
+function updateAnime(state, action) {
+  const { id, nextAiringEpisode, averageScore, status } = action.data;
+
+  return state.map(data => {
+    if (data.id === id) {
+      return {
+        ...data,
+        nextAiringEpisode: data.nextAiringEpisode && {
+          episode: nextAiringEpisode.episode,
+          timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
+        },
+        averageScore: averageScore,
+        status: status
+      };
+    }
+    return data;
+  });
+}
+// Change myState (watching, to watch, completed) and updates
+// your watched episodes.
+function updateState(state, action) {
+  return state.map((x, index) => {
+    if (index === action.index) {
+      return action.state === "Completed"
+        ? {
+            ...x,
+            myState: action.state,
+            episodesWatched:
+              state[action.index].episodes ||
+              state[action.index].nextAiringEpisode.episode - 1
+          }
+        : { ...x, myState: action.state };
+    }
+    return x;
+  });
+}
 
 export default function reducer(state = [], action) {
   switch (action.type) {
     case SAVE_ANIME:
-      return [
-        ...state,
-        {
-          ...action.item,
-          title: action.item.title.romaji,
-          myScore: 1,
-          myState: "To watch",
-          source: action.item.source ? action.item.source : "UNKNOWN",
-          episodesWatched: 0,
-          nextAiringEpisode: action.item.nextAiringEpisode && {
-            ...action.item.nextAiringEpisode,
-            timeUntilAiring: secondsToDhm(
-              action.item.nextAiringEpisode.timeUntilAiring
-            )
-          }
-        }
-      ];
-    case UPDATE_DATA:
-      const { id, nextAiringEpisode, averageScore, status } = action.data;
-      return state.map(data => {
-        if (data.id === id) {
-          return {
-            ...data,
-            nextAiringEpisode: data.nextAiringEpisode && {
-              episode: nextAiringEpisode.episode,
-              timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
-            },
-            averageScore: averageScore,
-            status: status
-          };
-        }
-        return data;
-      });
+      return saveAnime(state, action);
+
+    case UPDATE_ANIME:
+      updateAnime(state, action);
+
     case UNSAVE_ANIME:
       return [
         ...state.slice(0, action.index),
         ...state.slice(action.index + 1)
       ];
+
     case ORDER_ASC:
       return updateOrder(state, action.head, "asc");
 
@@ -64,21 +97,10 @@ export default function reducer(state = [], action) {
         }
         return x;
       });
+
     case CHANGE_STATE:
-      return state.map((x, index) => {
-        if (index === action.index) {
-          return action.state === "Completed"
-            ? {
-                ...x,
-                myState: action.state,
-                episodesWatched:
-                  state[action.index].episodes ||
-                  state[action.index].nextAiringEpisode.episode - 1
-              }
-            : { ...x, myState: action.state };
-        }
-        return x;
-      });
+      updateState(state, action);
+
     case INC_WATCHED_COUNTER:
       return updateCounter(state, action.index, "add");
 
@@ -91,7 +113,7 @@ export default function reducer(state = [], action) {
 }
 
 export function fetchUpdated(data) {
-  return { type: UPDATE_DATA, data };
+  return { type: UPDATE_ANIME, data };
 }
 export function addItem(item) {
   return { type: SAVE_ANIME, item };
