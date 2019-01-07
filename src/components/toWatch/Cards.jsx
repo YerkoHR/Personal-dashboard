@@ -78,10 +78,8 @@ export default function ToWatchList({ saved }) {
               />
             </div>
             <ExtraInfo>
-              {anime.nextAiringEpisode ? (
+              {anime.nextAiringEpisode && (
                 <div>{anime.nextAiringEpisode.timeUntilAiring}</div>
-              ) : (
-                <div>Finished</div>
               )}
               <ul>
                 {anime.genres.map(genre => (
