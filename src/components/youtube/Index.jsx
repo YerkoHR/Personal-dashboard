@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
-import { togglePlayer } from "../../redux/ducks/fetchVideos";
+import { togglePlayer, togglePlaylist } from "../../redux/ducks/fetchVideos";
 
 const LoadableResults = Loadable({
   loader: () => import("./Results"),
@@ -18,10 +18,14 @@ const LoadableSearch = Loadable({
   loading: () => null
 });
 
-const Index = ({ results, togglePlayer }) => (
+const Index = ({ results, togglePlayer, togglePlaylist }) => (
   <div className="fade-in">
     <LoadableSearch />
-    <LoadableResults data={results} togglePlayer={togglePlayer} />
+    <LoadableResults
+      data={results}
+      togglePlayer={togglePlayer}
+      togglePlaylist={togglePlaylist}
+    />
   </div>
 );
 Index.propTypes = {
@@ -33,7 +37,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { togglePlayer }
+  { togglePlayer, togglePlaylist }
 )(Index);
 /*
 <button onClick={() => addVideo("newvideo", 0)}>ADD VIDEO</button>
