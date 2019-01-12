@@ -69,7 +69,7 @@ const ExtraInfo = styled.div`
 `;
 export default function ToWatchList({ saved }) {
   return (
-    <StyledCardList>
+    <StyledCardList className="fade-in">
       {saved.map(anime => (
         <StyledCard key={anime.id}>
           <img src={anime.coverImage.large} alt="cardImage" />

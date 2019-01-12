@@ -25,7 +25,7 @@ const Container = styled.div`
 `;
 
 const Index = ({ animeDetails, saved, addItem, removeItem }) => (
-  <Container>
+  <Container className="fade-in">
     <LoadableSearchSection />
     {animeDetails && (
       <LoadableDetailsCard

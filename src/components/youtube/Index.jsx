@@ -19,7 +19,7 @@ const LoadableSearch = Loadable({
 });
 
 const Index = ({ results, togglePlayer }) => (
-  <div>
+  <div className="fade-in">
     <LoadableSearch />
     <LoadableResults data={results} togglePlayer={togglePlayer} />
   </div>

@@ -55,7 +55,7 @@ export const SaveDeleteBtn = styled.button`
 
 export default function DetailsCard({ data, saved, addItem, removeItem }) {
   return (
-    <StyledCard>
+    <StyledCard className="fade-in">
       <img src={data.coverImage.extraLarge} alt="coverImage" />
       <ContainerInfo>
         <h3>{data.title.romaji}</h3>

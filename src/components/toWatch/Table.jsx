@@ -36,7 +36,7 @@ const StyledTable = styled.table`
 
 export default function AnimeTable() {
   return (
-    <StyledTable>
+    <StyledTable className="fade-in">
       <thead>
         <LoadableHead />
       </thead>

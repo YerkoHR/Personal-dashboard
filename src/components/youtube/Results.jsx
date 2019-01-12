@@ -55,8 +55,9 @@ export default function Results({ data, togglePlayer }) {
             />
             <div>
               <p>{video.snippet.title}</p>
+
               <ResultsBtn onClick={() => togglePlayer(index)}>
-                Show Player
+                {video.showVideo ? "Hide Player" : "Show Player"}
               </ResultsBtn>
             </div>
           </VideoDetails>

@@ -89,6 +89,7 @@ class Index extends React.Component {
                 CARD
               </button>
             </BtnContainer>
+
             {mode === "card" && <LoadableCardList saved={saved} />}
             {mode === "table" && <LoadableTable />}
           </SavedContainer>
