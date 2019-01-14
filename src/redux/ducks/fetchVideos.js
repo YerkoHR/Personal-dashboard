@@ -5,6 +5,7 @@ const FETCH_VIDEO_REQUEST = "FETCH_VIDEO_REQUEST";
 const FETCH_VIDEO_FAILURE = "FETCH_VIDEO_FAILURE";
 const TOGGLE_PLAYER = "TOGGLE_PLAYER";
 const TOGGLE_PLAYLIST = "TOGGLE_PLAYLIST";
+const TOGGLE_CREATE_PL = "TOGGLE_CREATE_PL";
 
 const initialState = {
   results: [],
@@ -21,7 +22,12 @@ export default function reducer(state = initialState, action) {
         ...state,
         fetching: false,
         results: action.data.map(x => {
-          return { ...x, showVideo: false, showPlaylists: false };
+          return {
+            ...x,
+            showVideo: false,
+            showPlaylists: false,
+            showCreatePL: false
+          };
         })
       };
     case FETCH_VIDEO_FAILURE:
@@ -46,6 +52,16 @@ export default function reducer(state = initialState, action) {
           return x;
         })
       };
+    case TOGGLE_CREATE_PL:
+      return {
+        ...state,
+        results: state.results.map((x, index) => {
+          if (index === action.index) {
+            return { ...x, showCreatePL: !x.showCreatePL };
+          }
+          return x;
+        })
+      };
     default:
       return state;
   }
@@ -64,6 +80,9 @@ export function togglePlayer(index) {
 }
 export function togglePlaylist(index) {
   return { type: TOGGLE_PLAYLIST, index };
+}
+export function toggleCreatePL(index) {
+  return { type: TOGGLE_CREATE_PL, index };
 }
 
 export function fetchDataVideo(input) {

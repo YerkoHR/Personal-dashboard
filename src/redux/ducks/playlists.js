@@ -3,6 +3,7 @@ const DELETE_PLAYLIST = "DELETE_PLAYLIST";
 const ADD_VIDEO = "ADD_VIDEO";
 const DELETE_VIDEO = "DELETE_VIDEO";
 const CHANGE_PLAYLIST = "CHANGE_PLAYLIST";
+
 const initialState = {
   active: ""
 };
@@ -34,7 +35,11 @@ export default function reducer(state = initialState, action) {
           ...state[action.key].slice(action.index + 1)
         ]
       };
-
+    case CHANGE_PLAYLIST:
+      return {
+        ...state,
+        active: action.title
+      };
     default:
       return state;
   }

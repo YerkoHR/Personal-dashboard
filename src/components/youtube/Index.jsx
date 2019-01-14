@@ -2,7 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
-import { togglePlayer, togglePlaylist } from "../../redux/ducks/fetchVideos";
+import {
+  togglePlayer,
+  togglePlaylist,
+  toggleCreatePL
+} from "../../redux/ducks/fetchVideos";
 
 const LoadableResults = Loadable({
   loader: () => import("./Results"),
@@ -18,13 +22,14 @@ const LoadableSearch = Loadable({
   loading: () => null
 });
 
-const Index = ({ results, togglePlayer, togglePlaylist }) => (
+const Index = ({ results, togglePlayer, togglePlaylist, toggleCreatePL }) => (
   <div className="fade-in">
     <LoadableSearch />
     <LoadableResults
       data={results}
       togglePlayer={togglePlayer}
       togglePlaylist={togglePlaylist}
+      toggleCreatePL={toggleCreatePL}
     />
   </div>
 );
@@ -37,11 +42,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { togglePlayer, togglePlaylist }
+  { togglePlayer, togglePlaylist, toggleCreatePL }
 )(Index);
-/*
-<button onClick={() => addVideo("newvideo", 0)}>ADD VIDEO</button>
-<button onClick={() => deleteVideo(0, 0)}>DELETE VIDEO</button>
-<button onClick={() => createPlaylist("my title")}>CREATE PLAYLIST</button>
-<button onClick={() => deletePlaylist(0)}>DELETE PLAYLIST</button>
-*/

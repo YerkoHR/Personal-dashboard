@@ -3,10 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 //import Loadable from "react-loadable";
 import styled from "styled-components";
-import {
-  createPlaylist,
-  changeActivePlaylist
-} from "../../redux/ducks/playlists";
+import { changeActivePlaylist } from "../../redux/ducks/playlists";
 /*
 const LoadablePlaylist = Loadable({
   loader: () => import("./"),
@@ -25,7 +22,7 @@ const Loadable = Loadable({
 
 const StyledUl = styled.ul`
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   width: 90%;
   margin: 2em auto;
   list-style: none;
@@ -35,7 +32,9 @@ const StyledUl = styled.ul`
 
 const StyledLi = styled.li`
   padding: 2.5em 2em;
+  margin-bottom: 1em;
   border: 2px solid grey;
+  width: 240px;
 `;
 
 class Index extends React.Component {
@@ -44,15 +43,18 @@ class Index extends React.Component {
     this.state = {
       input: ""
     };
+    this.handleChange = this.handleChange.bind(this);
   }
+
+  handleChange(e) {
+    this.setState({ input: e.target.value });
+  }
+
   render() {
-    const { createPlaylist, changeActivePlaylist, playlists } = this.props;
+    const { changeActivePlaylist, playlists } = this.props;
 
     return (
       <div>
-        <button onClick={() => createPlaylist("playlist1")}>
-          Create Playlist
-        </button>
         <StyledUl>
           {Object.keys(playlists)
             .filter(key => key !== "active")
@@ -67,10 +69,6 @@ class Index extends React.Component {
                 </ul>
               </StyledLi>
             ))}
-          <StyledLi>
-            <h3>Add Playlist</h3>
-            <input type="text" />
-          </StyledLi>
         </StyledUl>
       </div>
     );
@@ -85,5 +83,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createPlaylist, changeActivePlaylist }
+  { changeActivePlaylist }
 )(Index);
