@@ -1,8 +1,10 @@
 import React from "react";
-import Loadable from "react-loadable";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import MyScore from "./MyScore";
+import MyState from "./MyState";
+import DeleteSaved from "../DeleteSaved";
 import {
   removeItem,
   changeScore,
@@ -11,32 +13,9 @@ import {
   decWatchedCounter
 } from "../../redux/ducks/saved";
 
-const LoadableScore = Loadable({
-  loader: () => import("./MyScore"),
-  loading: () => null,
-  render(loaded, props) {
-    let Component = loaded.default;
-    return <Component {...props} />;
-  }
-});
-
-const LoadableState = Loadable({
-  loader: () => import("./MyState"),
-  loading: () => null,
-  render(loaded, props) {
-    let Component = loaded.default;
-    return <Component {...props} />;
-  }
-});
-
-const LoadableDelete = Loadable({
-  loader: () => import("../DeleteSaved"),
-  loading: () => null,
-  render(loaded, props) {
-    let Component = loaded.default;
-    return <Component {...props} />;
-  }
-});
+// Code splitting of components that define an UI shape will produce
+// an initial size adjustment on component import/mount, it doesn't look
+// good specially in a table.
 
 const StyledTr = styled.tr`
   padding: 1em;
@@ -63,14 +42,10 @@ const Rows = ({
         <td>{anime.source}</td>
         <td>{anime.averageScore ? anime.averageScore : "TBD"}</td>
         <td>
-          <LoadableScore
-            anime={anime}
-            index={index}
-            changeScore={changeScore}
-          />
+          <MyScore anime={anime} index={index} changeScore={changeScore} />
         </td>
         <td>
-          <LoadableState
+          <MyState
             anime={anime}
             index={index}
             changeState={changeState}
@@ -79,7 +54,7 @@ const Rows = ({
           />
         </td>
         <td>
-          <LoadableDelete
+          <DeleteSaved
             removeItem={removeItem}
             saved={saved}
             data={anime}
