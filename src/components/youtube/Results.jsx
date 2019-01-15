@@ -113,7 +113,7 @@ export default function Results({ data, togglePlayer }) {
   );
 }
 
-Results.PropTypes = {
+Results.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   togglePlayer: PropTypes.func.isRequired
 };

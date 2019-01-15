@@ -30,5 +30,7 @@ export default function PlayBtn({ index, showVideo, togglePlayer }) {
 }
 
 PlayBtn.propTypes = {
-  showVideo: PropTypes.bool.isRequired
+  showVideo: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
+  togglePlayer: PropTypes.func.isRequired
 };

@@ -7,19 +7,60 @@ import { createPlaylist } from "../../redux/ducks/playlists";
 
 const ShowPLContainer = styled.div`
   position: relative;
+`;
+
+const PLContainer = styled.div`
+  position: absolute;
+  bottom: 28px;
+  left: 25px;
+  background: ${props => props.theme.backgroundSecundary};
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  width: 170px;
+  justify-content: center;
   ul {
-    padding: 0.2em;
     list-style: none;
-    position: absolute;
-    bottom: 28px;
-    left: 25px;
+    padding: 1em;
+    margin: 0;
     li {
-      border: 0.2px solid #fff;
-      white-space: nowrap;
-      width: 100%;
-      text-align: start;
-      font-size: 0.8em;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 0.5em;
     }
+  }
+`;
+
+const PLActions = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 1em;
+  flex-grow: 1;
+  border-top: 1px solid #3a3a3a;
+  div {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  input {
+    border: 0;
+    border-bottom: 1px solid #fff;
+    outline: 0;
+    width: 120px;
+    background: transparent;
+    align-self: center;
+    color: #fff;
+  }
+  button {
+    background: transparent;
+    border: 0;
+    outline: 0;
+    color: #fff;
+    font-weight: bold;
   }
 `;
 class PlaylistBtn extends Component {
@@ -40,35 +81,54 @@ class PlaylistBtn extends Component {
       index,
       togglePlaylist,
       createPlaylist,
-      toggleCreatePL
+      toggleCreatePL,
+      playlists
     } = this.props;
     return (
       <ShowPLContainer>
         {video.showPlaylists && (
-          <ul className="fade-in">
-            <li>playlist 1</li>
-            <li>playlist 2</li>
-            <li>playlist 3</li>
+          <PLContainer className="fade-in">
+            <ul>
+              {Object.keys(playlists)
+                .filter(key => key !== "active")
+                .map((key, index) => (
+                  <li key={index + key}>
+                    <div>{key}</div>
+                    <div>Icon</div>
+                  </li>
+                ))}
+            </ul>
             {video.showCreatePL ? (
-              <li>
+              <PLActions>
                 <input
                   type="text"
+                  placeholder="Enter playlist name"
                   onChange={this.handleChange}
                   value={this.state.input}
                 />
-                <button onClick={() => createPlaylist(this.state.input)}>
-                  Add
-                </button>
-                <button onClick={() => toggleCreatePL(index)}>Cancel</button>
-              </li>
+                <div>
+                  <button
+                    onClick={() => {
+                      createPlaylist(this.state.input);
+                      this.setState({ input: "" });
+                      toggleCreatePL(index);
+                    }}
+                  >
+                    Add
+                  </button>
+                  <button onClick={() => toggleCreatePL(index)}>Cancel</button>
+                </div>
+              </PLActions>
             ) : (
-              <li>
-                <button onClick={() => toggleCreatePL(index)}>
-                  Create playlist
-                </button>
-              </li>
+              <PLActions>
+                <div>
+                  <button onClick={() => toggleCreatePL(index)}>
+                    Create playlist
+                  </button>
+                </div>
+              </PLActions>
             )}
-          </ul>
+          </PLContainer>
         )}
         <svg
           className="show"
@@ -92,7 +152,11 @@ PlaylistBtn.propTypes = {
   toggleCreatePL: PropTypes.func.isRequired
 };
 
+const mapStateToProps = state => ({
+  playlists: state.playlists
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   { togglePlaylist, createPlaylist, toggleCreatePL }
 )(PlaylistBtn);
