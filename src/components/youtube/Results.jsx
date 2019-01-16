@@ -13,7 +13,7 @@ const LoadablePlayBtn = Loadable({
 });
 
 const LoadablePlaylistBtn = Loadable({
-  loader: () => import("./PlaylistBtn"),
+  loader: () => import("./PlaylistBtn/Index"),
   loading: () => null,
   render(loaded, props) {
     let Component = loaded.default;
@@ -80,13 +80,11 @@ const ContainerBtn = styled.div`
   }
 `;
 
-export default function Results({ data, togglePlayer }) {
+export default function Results({ data, togglePlayer, togglePlaylist }) {
   return (
     <StyledUl>
       {data.map((video, index) => (
-        <StyledLi
-          key={video.id.videoId || video.id.playlistId || video.id.channelId}
-        >
+        <StyledLi key={video.id.videoId}>
           <VideoDetails>
             <img
               src={video.snippet.thumbnails.medium.url}
@@ -95,7 +93,11 @@ export default function Results({ data, togglePlayer }) {
             <VideoActions>
               <p>{video.snippet.title}</p>
               <ContainerBtn>
-                <LoadablePlaylistBtn video={video} index={index} />
+                <LoadablePlaylistBtn
+                  video={video}
+                  index={index}
+                  togglePlaylist={togglePlaylist}
+                />
                 <LoadablePlayBtn
                   showVideo={video.showVideo}
                   togglePlayer={togglePlayer}

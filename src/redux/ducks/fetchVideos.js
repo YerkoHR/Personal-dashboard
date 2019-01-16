@@ -90,7 +90,7 @@ export function fetchDataVideo(input) {
     const API_KEY = "AIzaSyBf4oFVY1onlbBlOdBoUp5iXyrEOQFssv8";
     dispatch(fetchVideoRequest());
     return axios(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${input}&maxResults=15&order=relevance&key=${API_KEY}`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${input}&maxResults=15&order=relevance&type=video&key=${API_KEY}`
     )
       .then(response => {
         dispatch(fetchVideoSuccess(response.data.items));
