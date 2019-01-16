@@ -24,7 +24,7 @@ export default function reducer(state = initialState, action) {
     case ADD_VIDEO:
       return {
         ...state,
-        [action.key]: [...action.key, action.video]
+        [action.key]: [...state[action.key], action.video]
       };
 
     case DELETE_VIDEO:
@@ -44,23 +44,15 @@ export default function reducer(state = initialState, action) {
       return state;
   }
 }
-// CREATE PLAYLIST NEEDS A TITLE, IT RETURNS AN OBJECTWITH AN EMPTY IDS ARRAY.
 export function createPlaylist(title) {
   return { type: CREATE_PLAYLIST, title };
 }
-// DELETE PLAYLIST NEEDS AN INDEX THAT REPRESENTS THE POSITION IN
-// THE PLAYLISTS ARRAY.
 export function deletePlaylist(key) {
   return { type: DELETE_PLAYLIST, key };
 }
-// ADD VIDEO NEEDS THE VIDEO'S ID AND AN INDEX THAT REPRESENTS THE
-// POSITION IN THE PLAYLISTS ARRAY.
-export function addVideo(video, key) {
-  return { type: ADD_VIDEO, video, key };
+export function addVideo(key, video) {
+  return { type: ADD_VIDEO, key, video };
 }
-// DELETE VIDEO NEEDS AN INDEX THAT REPRESENTS THE POSITION IN THE
-// PLAYLISTS ARRAY AND AN ADDITIONAL INDEX THAT REPRESENTS THE
-// POSITION IN THE IDS ARRAY.
 export function deleteVideo(key, index) {
   return { type: DELETE_VIDEO, key, index };
 }
