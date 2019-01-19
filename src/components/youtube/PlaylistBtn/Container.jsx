@@ -57,13 +57,15 @@ function Container({
 }) {
   return (
     <PLContainer className="fade-in">
-      <List
-        playlists={playlists}
-        video={video}
-        index={index}
-        addVideo={addVideo}
-        deleteVideo={deleteVideo}
-      />
+      {Object.keys(playlists).filter(key => key !== "active").length > 0 && (
+        <List
+          playlists={playlists}
+          video={video}
+          index={index}
+          addVideo={addVideo}
+          deleteVideo={deleteVideo}
+        />
+      )}
       {video.showCreatePL ? (
         <PLActions>
           <Input

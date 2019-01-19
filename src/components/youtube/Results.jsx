@@ -71,12 +71,10 @@ const ContainerBtn = styled.div`
   svg {
     fill: #fff;
     user-select: none;
+    transition: 0.4s ease-in-out;
   }
-  .show:hover {
-    fill: lightblue;
-  }
-  .hide:hover {
-    fill: lightsalmon;
+  svg:hover {
+    transform: scale(1.3);
   }
 `;
 

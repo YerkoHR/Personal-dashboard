@@ -6,7 +6,6 @@ export default function PlayBtn({ index, showVideo, togglePlayer }) {
     <div>
       {showVideo ? (
         <svg
-          className="hide"
           onClick={() => togglePlayer(index)}
           width="24px"
           height="24px"
@@ -16,7 +15,6 @@ export default function PlayBtn({ index, showVideo, togglePlayer }) {
         </svg>
       ) : (
         <svg
-          className="show"
           onClick={() => togglePlayer(index)}
           width="24px"
           height="24px"

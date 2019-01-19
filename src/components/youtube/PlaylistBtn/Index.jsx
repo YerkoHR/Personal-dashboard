@@ -6,13 +6,24 @@ import Container from "./Container";
 
 const ShowPLContainer = styled.div`
   position: relative;
+  svg {
+    stroke: #fff;
+    transition: 0.3s ease-in-out;
+  }
 `;
+
+// CHANGE ALL SVG TO FEATHER-ICONS !!!
 
 export default function Index({ video, index, togglePlaylist }) {
   return (
     <ShowPLContainer>
       {video.showPlaylists && <Container video={video} index={index} />}
-      <List className="show" onClick={() => togglePlaylist(index)} size={24} />
+      <List
+        className="show"
+        onClick={() => togglePlaylist(index)}
+        size={24}
+        fill="#fff"
+      />
     </ShowPLContainer>
   );
 }
