@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { PlusCircle, MinusCircle } from "react-feather";
 
 const StyledWatchedCounter = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const StyledWatchedCounter = styled.div`
 `;
 const StyledCounter = styled.div`
   display: flex;
-  flex-flow: row no-wrap;
+  flex-flow: row nowrap;
   justify-content: space-evenly;
   margin-top: 0.2em;
   span {
@@ -37,7 +38,7 @@ const StyledCounter = styled.div`
     transition: 0.3s ease-in-out;
     user-select: none;
     &:hover {
-      fill: blue;
+      stroke: blue;
     }
   }
   .disabled {
@@ -79,18 +80,11 @@ export default function MyState({
             </div>
             {anime.myState !== "Completed" && (
               <div>
-                <svg
+                <MinusCircle
                   className={anime.episodesWatched === 0 ? "disabled" : ""}
                   onClick={() => decWatchedCounter(index)}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="-2 -2 24 24"
-                  width="22"
-                  height="22"
-                >
-                  <path d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0 2C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10zM5 9h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2z" />
-                </svg>
-
-                <svg
+                />
+                <PlusCircle
                   className={
                     (anime.episodes || anime.nextAiringEpisode.episode - 1) ===
                     anime.episodesWatched
@@ -98,13 +92,7 @@ export default function MyState({
                       : ""
                   }
                   onClick={() => incWatchedCounter(index)}
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="-2 -2 24 24"
-                  width="22"
-                  height="22"
-                >
-                  <path d="M10 20C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm1-7v4a1 1 0 0 1-2 0v-4H5a1 1 0 0 1 0-2h4V5a1 1 0 1 1 2 0v4h4a1 1 0 0 1 0 2h-4z" />
-                </svg>
+                />
               </div>
             )}
           </StyledCounter>

@@ -73,9 +73,6 @@ const ContainerBtn = styled.div`
     user-select: none;
     transition: 0.4s ease-in-out;
   }
-  svg:hover {
-    transform: scale(1.3);
-  }
 `;
 
 export default function Results({ data, togglePlayer, togglePlaylist }) {
