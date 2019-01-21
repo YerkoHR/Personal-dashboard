@@ -40,8 +40,8 @@ const ContainerBtn = styled.div`
   right: 10px;
 
   svg {
-    transition: 0.3s ease-in-out;
-    fill: grey;
+    transition: 0.5s ease-in-out;
+    stroke: #fff;
   }
 `;
 export const SaveDeleteBtn = styled.button`

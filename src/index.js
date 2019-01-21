@@ -22,12 +22,12 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
   }
   .btn-delete:hover {
-    fill: brown;
+    stroke: brown;
     color: brown;
     border-color:brown;
   }
   .btn-save:hover {
-    fill: green;
+    stroke: green;
     color: green;
     border-color:green;
   }

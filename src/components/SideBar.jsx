@@ -19,7 +19,7 @@ const StyledSideBar = styled.div`
     padding: 0;
     margin: 2.5em 0;
     svg {
-      fill: ${props => props.theme.font};
+      stroke: ${props => props.theme.font};
       width: 24px;
       height: auto;
       transition: 0.6s ease-in-out;
@@ -34,7 +34,7 @@ const StyledSideBar = styled.div`
       &:hover {
         color: #fff;
         svg {
-          fill: #fff;
+          stroke: #fff;
         }
       }
       span {

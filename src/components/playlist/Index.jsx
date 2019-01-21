@@ -1,9 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Loadable from "react-loadable";
-
-const LoadablePlaylists = Loadable({
+//import Loadable from "react-loadable";
+import styled from "styled-components";
+import { changeActivePlaylist } from "../../redux/ducks/playlists";
+/*
+const LoadablePlaylist = Loadable({
   loader: () => import("./"),
   loading: () => null,
   render(loaded, props) {
@@ -16,19 +18,70 @@ const Loadable = Loadable({
   loader: () => import("./"),
   loading: () => null
 });
+*/
 
-const Index = ({}) => <div />;
+const StyledUl = styled.ul`
+  display: flex;
+  flex-flow: row wrap;
+  width: 90%;
+  margin: 2em auto;
+  list-style: none;
+  justify-content: space-evenly;
+  padding: 0;
+`;
 
-Index.propTypes = {};
-const mapStateToProps = state => ({});
+const StyledLi = styled.li`
+  padding: 2.5em 2em;
+  margin-bottom: 1em;
+  border: 2px solid grey;
+  width: 240px;
+`;
+
+class Index extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: ""
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({ input: e.target.value });
+  }
+
+  render() {
+    const { changeActivePlaylist, playlists } = this.props;
+
+    return (
+      <div>
+        <StyledUl>
+          {Object.keys(playlists)
+            .filter(key => key !== "active")
+            .map(key => (
+              <StyledLi onClick={() => changeActivePlaylist(key)}>
+                <p>{key}</p>
+
+                <ul>
+                  {playlists[key].map(id => (
+                    <li>{id}</li>
+                  ))}
+                </ul>
+              </StyledLi>
+            ))}
+        </StyledUl>
+      </div>
+    );
+  }
+}
+Index.propTypes = {
+  playlists: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  playlists: state.playlists
+});
 
 export default connect(
   mapStateToProps,
-  {}
+  { changeActivePlaylist }
 )(Index);
-/*
-<button onClick={() => addVideo("newvideo", 0)}>ADD VIDEO</button>
-<button onClick={() => deleteVideo(0, 0)}>DELETE VIDEO</button>
-<button onClick={() => createPlaylist("my title")}>CREATE PLAYLIST</button>
-<button onClick={() => deletePlaylist(0)}>DELETE PLAYLIST</button>
-*/
