@@ -61,10 +61,9 @@ class Index extends React.Component {
             .map(key => (
               <StyledLi onClick={() => changeActivePlaylist(key)}>
                 <p>{key}</p>
-
                 <ul>
-                  {playlists[key].map(id => (
-                    <li>{id}</li>
+                  {playlists[key].map(video => (
+                    <li key={video.id}>{video.title}</li>
                   ))}
                 </ul>
               </StyledLi>

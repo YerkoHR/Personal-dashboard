@@ -59,7 +59,7 @@ export default function List({ video, playlists, addVideo, deleteVideo }) {
             </div>
             <CheckBox
               title={key}
-              videoId={video.id.videoId}
+              video={video}
               addVideo={addVideo}
               deleteVideo={deleteVideo}
               playlists={playlists}

@@ -5,18 +5,23 @@ import { Square, CheckSquare } from "react-feather";
 export default function CheckBox({
   title,
   playlists,
-  videoId,
+  video,
   addVideo,
   deleteVideo
 }) {
   return (
     <React.Fragment>
-      {playlists[title].indexOf(videoId) === -1 ? (
-        <Square size={24} onClick={() => addVideo(title, videoId)} />
+      {!playlists[title].some(item => item.id === video.id.videoId) ? (
+        <Square size={24} onClick={() => addVideo(title, video)} />
       ) : (
         <CheckSquare
           size={24}
-          onClick={() => deleteVideo(title, playlists[title].indexOf(videoId))}
+          onClick={() =>
+            deleteVideo(
+              title,
+              playlists[title].map(x => x.id).indexOf(video.id.videoId)
+            )
+          }
         />
       )}
     </React.Fragment>
@@ -24,7 +29,7 @@ export default function CheckBox({
 }
 
 CheckBox.propTypes = {
-  videoId: PropTypes.string.isRequired,
+  video: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   addVideo: PropTypes.func.isRequired,
   deleteVideo: PropTypes.func.isRequired
