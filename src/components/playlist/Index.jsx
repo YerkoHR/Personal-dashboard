@@ -25,7 +25,6 @@ const StyledUl = styled.ul`
   flex-flow: row wrap;
   width: 90%;
   margin: 2em auto;
-  list-style: none;
   justify-content: space-evenly;
   padding: 0;
 `;
@@ -55,6 +54,7 @@ class Index extends React.Component {
 
     return (
       <div>
+        <h2>Your current Playlists: </h2>
         <StyledUl>
           {Object.keys(playlists)
             .filter(key => key !== "active")

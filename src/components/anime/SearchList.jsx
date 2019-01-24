@@ -4,7 +4,6 @@ import styled from "styled-components";
 const StyledUl = styled.ul`
   padding: 0;
   margin: 0;
-  list-style: none;
   position: absolute;
   top: 40px;
   z-index: 2;

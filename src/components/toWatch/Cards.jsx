@@ -8,7 +8,6 @@ const StyledCardList = styled.ul`
   grid-gap: 1em;
   width: 95%;
   margin: 2em auto;
-  list-style: none;
   padding: 0;
 `;
 const StyledCard = styled.li`
@@ -59,7 +58,6 @@ const ExtraInfo = styled.div`
   color: #c4c6e6;
   ul {
     padding: 0;
-    list-style: none;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;

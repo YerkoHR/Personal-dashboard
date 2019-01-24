@@ -15,11 +15,18 @@ const GlobalStyle = createGlobalStyle`
     color: ${props => props.theme.font};
     background: ${props => props.theme.backgroundPrimary};
   }
+  &{
+    margin: 0;
+    padding: 0;
+  }
   html, body, #root, #root>div {
   height: 100%
   }
   button, select, svg{
     cursor: pointer;
+  }
+  ul{
+    list-style: none;
   }
   .btn-delete:hover {
     stroke: brown;

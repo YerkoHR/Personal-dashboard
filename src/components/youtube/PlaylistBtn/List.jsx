@@ -4,7 +4,6 @@ import styled from "styled-components";
 import CheckBox from "./CheckBox";
 
 const StyledList = styled.ul`
-  list-style: none;
   padding: 1em;
   margin: 0;
   li {

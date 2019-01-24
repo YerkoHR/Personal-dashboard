@@ -15,7 +15,6 @@ const StyledSideBar = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    list-style: none;
     padding: 0;
     margin: 2.5em 0;
     svg {
