@@ -7,8 +7,6 @@ const StyledResetContainer = styled.div`
     transition: 0.3s ease-in-out;
     border: 0;
     width: 100px;
-    padding: 0;
-
     color: #fff;
     background: black;
   }

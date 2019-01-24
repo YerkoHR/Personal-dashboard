@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { fetchDataVideo } from "../../redux/ducks/fetchVideos";
+import ContainerSearch from "../ContainerSearch";
 
 const StyledInput = styled.input`
   padding: 0.5em 1.2em;
@@ -12,27 +13,6 @@ const StyledInput = styled.input`
   color: ${props => props.theme.font};
   &:focus {
     outline: 0px;
-  }
-`;
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1em 4em;
-  div {
-    display: flex;
-    flex-direction: row;
-  }
-`;
-// CHANGE THIS STYLE
-const StyledSearchBtn = styled.button`
-  background: ${props => props.theme.font};
-  border: 2px solid ${props => props.theme.font};
-  outline: 0;
-  transition: 0.3s ease-in-out;
-  &:hover {
-    color: #fff;
   }
 `;
 
@@ -55,10 +35,8 @@ export class SearchVideo extends Component {
     }
   }
   render() {
-    const { fetchDataVideo } = this.props;
-
     return (
-      <Container>
+      <ContainerSearch>
         <h1>Youtube API</h1>
         <div>
           <StyledInput
@@ -68,11 +46,8 @@ export class SearchVideo extends Component {
             value={this.state.input}
             onKeyDown={this.keyPress}
           />
-          <StyledSearchBtn onClick={() => fetchDataVideo(this.state.input)}>
-            Search
-          </StyledSearchBtn>
         </div>
-      </Container>
+      </ContainerSearch>
     );
   }
 }

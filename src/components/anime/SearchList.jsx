@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledUl = styled.ul`
-  padding: 0;
-  margin: 0;
   position: absolute;
   top: 40px;
   z-index: 2;

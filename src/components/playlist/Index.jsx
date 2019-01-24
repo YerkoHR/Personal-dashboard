@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 //import Loadable from "react-loadable";
 import styled from "styled-components";
 import { changeActivePlaylist } from "../../redux/ducks/playlists";
+import Container from "../Container";
 /*
 const LoadablePlaylist = Loadable({
   loader: () => import("./"),
@@ -21,19 +22,17 @@ const Loadable = Loadable({
 */
 
 const StyledUl = styled.ul`
-  display: flex;
-  flex-flow: row wrap;
+  display: grid;
   width: 90%;
   margin: 2em auto;
+  grid-template-columns: repeat(2, 1fr);
   justify-content: space-evenly;
-  padding: 0;
+  grid-gap: 1em;
 `;
 
 const StyledLi = styled.li`
   padding: 2.5em 2em;
-  margin-bottom: 1em;
   border: 2px solid grey;
-  width: 240px;
 `;
 
 class Index extends React.Component {
@@ -53,7 +52,7 @@ class Index extends React.Component {
     const { changeActivePlaylist, playlists } = this.props;
 
     return (
-      <div>
+      <Container>
         <h2>Your current Playlists: </h2>
         <StyledUl>
           {Object.keys(playlists)
@@ -69,7 +68,7 @@ class Index extends React.Component {
               </StyledLi>
             ))}
         </StyledUl>
-      </div>
+      </Container>
     );
   }
 }

@@ -5,7 +5,6 @@ import CheckBox from "./CheckBox";
 
 const StyledList = styled.ul`
   padding: 1em;
-  margin: 0;
   li {
     display: flex;
     flex-direction: row;
