@@ -21,6 +21,7 @@ export class SearchVideo extends Component {
   keyPress(e) {
     if (e.keyCode === 13) {
       this.props.fetchDataVideo(this.state.input);
+      this.setState({ input: "" });
     }
   }
   render() {
