@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { changeActivePlaylist } from "../../redux/ducks/playlists";
 import Container from "../Container";
+import { H2 } from "../globals";
+
 /*
 const LoadablePlaylist = Loadable({
   loader: () => import("./"),
@@ -53,7 +55,7 @@ class Index extends React.Component {
 
     return (
       <Container>
-        <h2>Your current Playlists: </h2>
+        <H2>Your current Playlists: </H2>
         <StyledUl>
           {Object.keys(playlists)
             .filter(key => key !== "active")

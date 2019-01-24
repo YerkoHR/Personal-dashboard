@@ -1,20 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import styled from "styled-components";
 import { fetchDataVideo } from "../../redux/ducks/fetchVideos";
 import ContainerSearch from "../ContainerSearch";
-
-const StyledInput = styled.input`
-  padding: 0.5em 1.2em;
-  background: ${props => props.theme.backgroundPrimary};
-  border-color: transparent;
-  border-radius: 2px;
-  color: ${props => props.theme.font};
-  &:focus {
-    outline: 0px;
-  }
-`;
+import { Input, H1 } from "../globals";
 
 export class SearchVideo extends Component {
   constructor(props) {
@@ -37,9 +26,9 @@ export class SearchVideo extends Component {
   render() {
     return (
       <ContainerSearch>
-        <h1>Youtube API</h1>
+        <H1>Youtube API</H1>
         <div>
-          <StyledInput
+          <Input
             type="text"
             placeholder="Search a video ..."
             onChange={this.handleChange}

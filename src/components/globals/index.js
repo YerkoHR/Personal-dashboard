@@ -7,6 +7,43 @@ export const Content = styled.div`
   width: 90%;
 `;
 
+// No styled h1 currently in the app.
+export const H1 = styled.h1`
+  color: ${props => props.theme.font};
+  font-weight: 900;
+  font-size: 2rem;
+`;
+// 1 align center in sidebar.
+export const H2 = styled.h2`
+  color: ${props => props.theme.font};
+  font-weight: 700;
+  font-size: 1.5rem;
+`;
+
+export const H3 = styled.h3`
+  color: ${props => props.theme.font};
+  font-weight: 500;
+  font-size: 1.25rem;
+`;
+
+export const P = styled.p`
+  color: ${props => props.theme.font};
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.4;
+`;
+
+export const Input = styled.input`
+  padding: 0.5em 1.2em;
+  background: ${props => props.theme.backgroundPrimary};
+  border-color: transparent;
+  border-radius: 2px;
+  color: ${props => props.theme.font};
+  &:focus {
+    outline: 0px;
+  }
+`;
+
 export const GlobalStyle = createGlobalStyle`
   @import url("https://fonts.googleapis.com/css?family=Roboto");
 

@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import Loadable from "react-loadable";
 import styled from "styled-components";
 import ContainerSearch from "../ContainerSearch";
+import { Input, H1 } from "../globals";
 
 const LoadableList = Loadable({
   loader: () => import("./SearchList"),
@@ -15,17 +16,6 @@ const LoadableList = Loadable({
     return <Component {...props} />;
   }
 });
-
-const StyledInput = styled.input`
-  padding: 0.5em 1.2em;
-  background: ${props => props.theme.backgroundPrimary};
-  border-color: transparent;
-  border-radius: 2px;
-  color: ${props => props.theme.font};
-  &:focus {
-    outline: 0px;
-  }
-`;
 
 const InputList = styled.div`
   position: relative;
@@ -64,10 +54,10 @@ export class SearchSection extends Component {
 
     return (
       <ContainerSearch>
-        <h1>Anilist API</h1>
+        <H1>Anilist API</H1>
         <InputContainer>
           <InputList>
-            <StyledInput
+            <Input
               type="text"
               placeholder="Search an anime ..."
               onChange={this.handleChange}

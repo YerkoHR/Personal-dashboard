@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import DeleteSaved from "../DeleteSaved";
+import { H2, H3, P } from "../globals";
 
 const StyledCard = styled.div`
   position: relative;
@@ -22,23 +23,16 @@ const ContainerInfo = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  h3,
-  span {
+  h2,
+  h3 {
     margin: 0.2em 0.5em;
     border-bottom: 2px solid ${props => props.theme.backgroundSecundary};
-  }
-  .description {
-    width: 80%;
-    text-align: center;
-    margin: 20px auto;
-    font-size: 0.85em;
   }
 `;
 const ContainerBtn = styled.div`
   position: absolute;
   bottom: 10px;
   right: 10px;
-
   svg {
     transition: 0.5s ease-in-out;
     stroke: #fff;
@@ -53,20 +47,23 @@ export const SaveDeleteBtn = styled.button`
   transition: 0.3s ease-in-out;
 `;
 
+const PAligned = styled(P)`
+  width: 80%;
+  text-align: center;
+  margin: 20px auto;
+`;
+
 export default function DetailsCard({ data, saved, addItem, removeItem }) {
   return (
     <StyledCard className="fade-in">
       <img src={data.coverImage.extraLarge} alt="coverImage" />
       <ContainerInfo>
-        <h3>{data.title.romaji}</h3>
-        <span>
-          Avg Score:
+        <H2>{data.title.romaji}</H2>
+        <H3>
+          Average Score:{" "}
           {data.averageScore ? data.averageScore : " Data not available"}
-        </span>
-        <div
-          className="description"
-          dangerouslySetInnerHTML={{ __html: data.description }}
-        />
+        </H3>
+        <PAligned dangerouslySetInnerHTML={{ __html: data.description }} />
         <ContainerBtn>
           {saved.some(item => item.id === data.id) ? (
             <DeleteSaved
@@ -76,11 +73,9 @@ export default function DetailsCard({ data, saved, addItem, removeItem }) {
               svg={false}
             />
           ) : (
-            <div>
-              <SaveDeleteBtn className="btn-save" onClick={() => addItem(data)}>
-                Add to your list
-              </SaveDeleteBtn>
-            </div>
+            <SaveDeleteBtn className="btn-save" onClick={() => addItem(data)}>
+              Add to your list
+            </SaveDeleteBtn>
           )}
         </ContainerBtn>
       </ContainerInfo>
