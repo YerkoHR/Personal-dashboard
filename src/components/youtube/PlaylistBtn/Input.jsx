@@ -18,13 +18,28 @@ export default class Input extends React.Component {
       input: ""
     };
     this.handleChange = this.handleChange.bind(this);
+    this.keyPress = this.keyPress.bind(this);
+    this.handleNewPlaylist = this.handleNewPlaylist.bind(this);
   }
 
   handleChange(e) {
     this.setState({ input: e.target.value });
   }
+  handleNewPlaylist(index) {
+    const { createPlaylist, toggleCreatePL } = this.props;
+
+    createPlaylist(this.state.input);
+    this.setState({ input: "" });
+    toggleCreatePL(index);
+  }
+  keyPress(e, index) {
+    if (e.keyCode === 13) {
+      this.handleNewPlaylist(index);
+    }
+  }
+
   render() {
-    const { createPlaylist, toggleCreatePL, index } = this.props;
+    const { toggleCreatePL, index } = this.props;
 
     return (
       <React.Fragment>
@@ -33,17 +48,10 @@ export default class Input extends React.Component {
           placeholder="Enter playlist name"
           onChange={this.handleChange}
           value={this.state.input}
+          onKeyDown={e => this.keyPress(e, index)}
         />
         <div>
-          <button
-            onClick={() => {
-              createPlaylist(this.state.input);
-              this.setState({ input: "" });
-              toggleCreatePL(index);
-            }}
-          >
-            Add
-          </button>
+          <button onClick={() => this.handleNewPlaylist(index)}>Add</button>
           <button onClick={() => toggleCreatePL(index)}>Cancel</button>
         </div>
       </React.Fragment>

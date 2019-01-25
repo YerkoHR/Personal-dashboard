@@ -33,7 +33,6 @@ const LoadableVideoPlayer = Loadable({
 const StyledUl = styled.ul`
   display: flex;
   flex-direction: column;
-  list-style: none;
 `;
 const StyledLi = styled.li`
   margin: 1em auto;

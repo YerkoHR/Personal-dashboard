@@ -24,7 +24,13 @@ export default function reducer(state = initialState, action) {
     case ADD_VIDEO:
       return {
         ...state,
-        [action.key]: [...state[action.key], action.video]
+        [action.key]: [
+          ...state[action.key],
+          {
+            id: action.video.id.videoId,
+            title: action.video.snippet.title
+          }
+        ]
       };
 
     case DELETE_VIDEO:

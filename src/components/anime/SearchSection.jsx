@@ -5,6 +5,8 @@ import { fetchDetails } from "../../redux/ducks/animeDetails";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
 import styled from "styled-components";
+import ContainerSearch from "../ContainerSearch";
+import { Input, H1 } from "../globals";
 
 const LoadableList = Loadable({
   loader: () => import("./SearchList"),
@@ -14,17 +16,6 @@ const LoadableList = Loadable({
     return <Component {...props} />;
   }
 });
-
-const StyledInput = styled.input`
-  padding: 0.5em 1.2em;
-  background: ${props => props.theme.backgroundPrimary};
-  border-color: transparent;
-  border-radius: 2px;
-  color: ${props => props.theme.font};
-  &:focus {
-    outline: 0px;
-  }
-`;
 
 const InputList = styled.div`
   position: relative;
@@ -37,17 +28,6 @@ const InputContainer = styled.div`
   align-items: center;
 `;
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1em 4em;
-`;
-const Space = styled.div`
-  width: 30px;
-  height: 30px;
-`;
 export class SearchSection extends Component {
   constructor() {
     super();
@@ -73,11 +53,11 @@ export class SearchSection extends Component {
     const { animeList, error, loading, fetchDetails } = this.props;
 
     return (
-      <Container>
-        <h1>Anilist API</h1>
+      <ContainerSearch>
+        <H1>Anilist API</H1>
         <InputContainer>
           <InputList>
-            <StyledInput
+            <Input
               type="text"
               placeholder="Search an anime ..."
               onChange={this.handleChange}
@@ -94,13 +74,13 @@ export class SearchSection extends Component {
           </InputList>
           {error && <div>Error {error}, please try again later.</div>}
 
-          {loading && !error ? <div className="lds-dual-ring" /> : <Space />}
+          {loading && !error ? <div className="lds-dual-ring" /> : <div />}
 
           {animeList.length < 1 && this.state.input !== "" && !loading && (
             <div>No results found.</div>
           )}
         </InputContainer>
-      </Container>
+      </ContainerSearch>
     );
   }
 }

@@ -5,6 +5,7 @@ import Loadable from "react-loadable";
 import styled from "styled-components";
 import { changeListMode } from "../../redux/ducks/modes";
 import { fetchSavedAnime } from "../../redux/ducks/saved";
+import Container from "../Container";
 
 const LoadableTable = Loadable({
   loader: () => import("./Table"),
@@ -23,10 +24,7 @@ const LoadableCardList = Loadable({
     return <Component {...props} />;
   }
 });
-const SavedContainer = styled.div`
-  width: 90%;
-  margin: 5em auto;
-`;
+
 const BtnContainer = styled.div`
   position: relative;
 
@@ -72,9 +70,9 @@ class Index extends React.Component {
     const { saved, changeListMode, mode } = this.props;
 
     return (
-      <div>
+      <Container>
         {saved.length > 0 ? (
-          <SavedContainer>
+          <div>
             <BtnContainer>
               <button
                 className={mode === "table" ? "active" : ""}
@@ -92,11 +90,11 @@ class Index extends React.Component {
 
             {mode === "card" && <LoadableCardList saved={saved} />}
             {mode === "table" && <LoadableTable />}
-          </SavedContainer>
+          </div>
         ) : (
           <EmptyMessage>No anime saved</EmptyMessage>
         )}
-      </div>
+      </Container>
     );
   }
 }

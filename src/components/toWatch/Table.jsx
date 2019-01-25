@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Loadable from "react-loadable";
 import Rows from "./Rows";
 import Head from "./Head";
 

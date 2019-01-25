@@ -1,40 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import styled from "styled-components";
 import { fetchDataVideo } from "../../redux/ducks/fetchVideos";
-
-const StyledInput = styled.input`
-  padding: 0.5em 1.2em;
-  background: ${props => props.theme.backgroundPrimary};
-  border-color: transparent;
-  border-radius: 2px;
-  color: ${props => props.theme.font};
-  &:focus {
-    outline: 0px;
-  }
-`;
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1em 4em;
-  div {
-    display: flex;
-    flex-direction: row;
-  }
-`;
-// CHANGE THIS STYLE
-const StyledSearchBtn = styled.button`
-  background: ${props => props.theme.font};
-  border: 2px solid ${props => props.theme.font};
-  outline: 0;
-  transition: 0.3s ease-in-out;
-  &:hover {
-    color: #fff;
-  }
-`;
+import ContainerSearch from "../ContainerSearch";
+import { Input, H1 } from "../globals";
 
 export class SearchVideo extends Component {
   constructor(props) {
@@ -52,27 +21,23 @@ export class SearchVideo extends Component {
   keyPress(e) {
     if (e.keyCode === 13) {
       this.props.fetchDataVideo(this.state.input);
+      this.setState({ input: "" });
     }
   }
   render() {
-    const { fetchDataVideo } = this.props;
-
     return (
-      <Container>
-        <h1>Youtube API</h1>
+      <ContainerSearch>
+        <H1>Youtube API</H1>
         <div>
-          <StyledInput
+          <Input
             type="text"
             placeholder="Search a video ..."
             onChange={this.handleChange}
             value={this.state.input}
             onKeyDown={this.keyPress}
           />
-          <StyledSearchBtn onClick={() => fetchDataVideo(this.state.input)}>
-            Search
-          </StyledSearchBtn>
         </div>
-      </Container>
+      </ContainerSearch>
     );
   }
 }

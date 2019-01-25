@@ -2,21 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import ResetStateBtn from "./ResetStateBtn";
+import { H2 } from "../components/globals";
 
 const StyledSideBar = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 1em 1.5em;
-  h2 {
-    text-align: center;
-  }
+  margin: 2em 1.5em;
   ul {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    list-style: none;
-    padding: 0;
     margin: 2.5em 0;
     svg {
       stroke: ${props => props.theme.font};
@@ -37,7 +33,7 @@ const StyledSideBar = styled.div`
           stroke: #fff;
         }
       }
-      span {
+      div {
         margin-left: 0.8em;
         font-size: 0.85em;
         cursor: pointer;
@@ -46,16 +42,20 @@ const StyledSideBar = styled.div`
   }
 `;
 
+const H2Aligned = styled(H2)`
+  text-align: center;
+`;
+
 export default function SideBar({ sideBar, loadComponent, resetState }) {
   return (
     <StyledSideBar>
       <div>
-        <h2>Dashboard</h2>
+        <H2Aligned>Dashboard</H2Aligned>
         <ul>
           {sideBar.items.map(item => (
             <li key={item.title} onClick={() => loadComponent(item.title)}>
               {item.icon}
-              <span>{item.title}</span>
+              <div>{item.title}</div>
             </li>
           ))}
         </ul>

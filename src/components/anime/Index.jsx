@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
-import styled from "styled-components";
 import { addItem, removeItem } from "../../redux/ducks/saved";
 
 const LoadableDetailsCard = Loadable({
@@ -19,13 +18,8 @@ const LoadableSearchSection = Loadable({
   loading: () => null
 });
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const Index = ({ animeDetails, saved, addItem, removeItem }) => (
-  <Container className="fade-in">
+  <div className="fade-in">
     <LoadableSearchSection />
     {animeDetails && (
       <LoadableDetailsCard
@@ -35,7 +29,7 @@ const Index = ({ animeDetails, saved, addItem, removeItem }) => (
         removeItem={removeItem}
       />
     )}
-  </Container>
+  </div>
 );
 
 Index.propTypes = {

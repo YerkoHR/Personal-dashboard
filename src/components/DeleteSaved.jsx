@@ -13,7 +13,7 @@ export default class DeleteSaved extends Component {
   render() {
     const { removeItem, saved, data, svg } = this.props;
     return (
-      <div>
+      <React.Fragment>
         {this.state.showDeleteBtn ? (
           <div>
             <CheckCircle
@@ -42,7 +42,7 @@ export default class DeleteSaved extends Component {
             )}
           </div>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }
