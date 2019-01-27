@@ -2,24 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import Loadable from "react-loadable";
 import PropTypes from "prop-types";
-
-const LoadablePlayBtn = Loadable({
-  loader: () => import("./PlayBtn"),
-  loading: () => null,
-  render(loaded, props) {
-    let Component = loaded.default;
-    return <Component {...props} />;
-  }
-});
-
-const LoadablePlaylistBtn = Loadable({
-  loader: () => import("./PlaylistBtn/Index"),
-  loading: () => null,
-  render(loaded, props) {
-    let Component = loaded.default;
-    return <Component {...props} />;
-  }
-});
+import Img from "react-image";
+import PlaylistBtn from "./PlaylistBtn/Index";
+import PlayBtn from "./PlayBtn";
+import { H3 } from "../globals";
 
 const LoadableVideoPlayer = Loadable({
   loader: () => import("./VideoPlayer"),
@@ -39,28 +25,34 @@ const StyledLi = styled.li`
   background: ${props => props.theme.backgroundCard};
   box-shadow: 0 0 0 1px ${props => props.theme.backgroundCard};
   width: 80%;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  grid-template-rows: 180px;
   iframe {
     width: 100%;
     height: 500px;
     border: 0;
+    grid-column: 1 / span 2;
   }
 `;
-const VideoDetails = styled.div`
+
+const VideoImage = styled.div`
   display: flex;
-  flex-direction: row;
+  .spinner {
+    margin: auto;
+    width: 50px;
+    height: 50px;
+    align-self: center;
+  }
   img {
     width: 320px;
   }
 `;
-const VideoActions = styled.div`
+const VideoDetails = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
-  p {
-    margin: 0.5em 2em;
-    color: #fff;
-  }
+  margin: 0.5rem 0;
 `;
 
 const ContainerBtn = styled.div`
@@ -79,26 +71,27 @@ export default function Results({ data, togglePlayer, togglePlaylist }) {
     <StyledUl>
       {data.map((video, index) => (
         <StyledLi key={video.id.videoId}>
-          <VideoDetails>
-            <img
+          <VideoImage>
+            <Img
               src={video.snippet.thumbnails.medium.url}
               alt={video.snippet.title}
+              loader={<div className="lds-dual-ring spinner" />}
             />
-            <VideoActions>
-              <p>{video.snippet.title}</p>
-              <ContainerBtn>
-                <LoadablePlaylistBtn
-                  video={video}
-                  index={index}
-                  togglePlaylist={togglePlaylist}
-                />
-                <LoadablePlayBtn
-                  showVideo={video.showVideo}
-                  togglePlayer={togglePlayer}
-                  index={index}
-                />
-              </ContainerBtn>
-            </VideoActions>
+          </VideoImage>
+          <VideoDetails>
+            <H3>{video.snippet.title}</H3>
+            <ContainerBtn>
+              <PlaylistBtn
+                video={video}
+                index={index}
+                togglePlaylist={togglePlaylist}
+              />
+              <PlayBtn
+                showVideo={video.showVideo}
+                togglePlayer={togglePlayer}
+                index={index}
+              />
+            </ContainerBtn>
           </VideoDetails>
           {video.showVideo && (
             <LoadableVideoPlayer title={video.snippet.title} ids={video.id} />

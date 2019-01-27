@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import DeleteSaved from "../DeleteSaved";
 import { H2, H3, P } from "../globals";
+import Img from "react-image";
 
 const StyledCard = styled.div`
   position: relative;
@@ -18,6 +19,12 @@ const StyledCard = styled.div`
   img {
     height: 450px;
   }
+  .placeholder {
+    width: 450px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("./placeholder.jpg");
+  }
 `;
 const ContainerInfo = styled.div`
   display: flex;
@@ -27,6 +34,20 @@ const ContainerInfo = styled.div`
   h3 {
     margin: 0.2em 0.5em;
     border-bottom: 2px solid ${props => props.theme.backgroundSecundary};
+  }
+  .scrollBox {
+    height: 250px;
+    overflow: hidden;
+    visibility: hidden;
+    transition: 0.2s ease-in;
+  }
+  p,
+  .scrollBox:hover {
+    visibility: visible;
+    overflow: auto;
+  }
+  .scrollBox:focus {
+    outline: 0;
   }
 `;
 const ContainerBtn = styled.div`
@@ -53,32 +74,48 @@ const PAligned = styled(P)`
   margin: 20px auto;
 `;
 
-export default function DetailsCard({ data, saved, addItem, removeItem }) {
-  return (
-    <StyledCard className="fade-in">
-      <img src={data.coverImage.extraLarge} alt="coverImage" />
-      <ContainerInfo>
-        <H2>{data.title.romaji}</H2>
-        <H3>
-          Average Score:{" "}
-          {data.averageScore ? data.averageScore : " Data not available"}
-        </H3>
-        <PAligned dangerouslySetInnerHTML={{ __html: data.description }} />
-        <ContainerBtn>
-          {saved.some(item => item.id === data.id) ? (
-            <DeleteSaved
-              removeItem={removeItem}
-              saved={saved}
-              data={data}
-              svg={false}
-            />
-          ) : (
-            <SaveDeleteBtn className="btn-save" onClick={() => addItem(data)}>
-              Add to your list
-            </SaveDeleteBtn>
-          )}
-        </ContainerBtn>
-      </ContainerInfo>
-    </StyledCard>
-  );
+export default class DetailsCard extends React.Component {
+  render() {
+    const { data, saved, addItem, removeItem } = this.props;
+    return (
+      <React.Fragment>
+        <StyledCard className="fade-in">
+          <Img
+            src={[data.coverImage.extraLarge]}
+            loader={<div className="lds-dual-ring" />}
+          />
+
+          <ContainerInfo>
+            <H2>{data.title.romaji}</H2>
+            <H3>
+              Average Score:{" "}
+              {data.averageScore ? data.averageScore : " Data not available"}
+            </H3>
+            <div className="scrollBox" tabIndex="0">
+              <PAligned
+                dangerouslySetInnerHTML={{ __html: data.description }}
+              />
+            </div>
+            <ContainerBtn>
+              {saved.some(item => item.id === data.id) ? (
+                <DeleteSaved
+                  removeItem={removeItem}
+                  saved={saved}
+                  data={data}
+                  svg={false}
+                />
+              ) : (
+                <SaveDeleteBtn
+                  className="btn-save"
+                  onClick={() => addItem(data)}
+                >
+                  Add to your list
+                </SaveDeleteBtn>
+              )}
+            </ContainerBtn>
+          </ContainerInfo>
+        </StyledCard>
+      </React.Fragment>
+    );
+  }
 }

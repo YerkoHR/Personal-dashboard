@@ -77,7 +77,6 @@ export const GlobalStyle = createGlobalStyle`
     border-color:green;
   }
   .lds-dual-ring {
-    display: inline-block;
     width: 32px;
     height: 32px;
   }
