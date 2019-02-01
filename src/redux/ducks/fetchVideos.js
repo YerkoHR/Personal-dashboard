@@ -3,6 +3,8 @@ import axios from "axios";
 const FETCH_VIDEO_SUCCESS = "FETCH_VIDEO_SUCCESS";
 const FETCH_VIDEO_REQUEST = "FETCH_VIDEO_REQUEST";
 const FETCH_VIDEO_FAILURE = "FETCH_VIDEO_FAILURE";
+const FETCH_VIDEO_DETAILS_SUCCESS = "FETCH_VIDEO_DETAILS_SUCCESS";
+const FETCH_VIDEO_DETAILS_FAILURE = "FETCH_VIDEO_DETAILS_FAILURE";
 const TOGGLE_PLAYER = "TOGGLE_PLAYER";
 const TOGGLE_PLAYLIST = "TOGGLE_PLAYLIST";
 const TOGGLE_CREATE_PL = "TOGGLE_CREATE_PL";
@@ -10,7 +12,8 @@ const TOGGLE_CREATE_PL = "TOGGLE_CREATE_PL";
 const initialState = {
   results: [],
   fetching: false,
-  error: null
+  error: null,
+  errorDetails: null
 };
 
 export default function reducer(state = initialState, action) {
@@ -29,6 +32,21 @@ export default function reducer(state = initialState, action) {
             showCreatePL: false
           };
         })
+      };
+    case FETCH_VIDEO_DETAILS_SUCCESS:
+      return {
+        ...state,
+        results: state.results.map((data, index) => {
+          return {
+            ...data,
+            contentDetails: action.data[index].contentDetails
+          };
+        })
+      };
+    case FETCH_VIDEO_DETAILS_FAILURE:
+      return {
+        ...state,
+        errorDetails: action.error
       };
     case FETCH_VIDEO_FAILURE:
       return { ...state, error: action.error };
@@ -72,6 +90,12 @@ export function fetchVideoRequest() {
 export function fetchVideoSuccess(data) {
   return { type: FETCH_VIDEO_SUCCESS, data };
 }
+export function fetchVideoDetailsSuccess(data) {
+  return { type: FETCH_VIDEO_DETAILS_SUCCESS, data };
+}
+export function fetchVideoDetailsFailure(error) {
+  return { type: FETCH_VIDEO_DETAILS_FAILURE, error };
+}
 export function fetchVideoFailure(error) {
   return { type: FETCH_VIDEO_FAILURE, error };
 }
@@ -85,9 +109,25 @@ export function toggleCreatePL(index) {
   return { type: TOGGLE_CREATE_PL, index };
 }
 
+const API_KEY = "AIzaSyBf4oFVY1onlbBlOdBoUp5iXyrEOQFssv8";
+
+export function fetchDetailsVideo(idArray) {
+  return dispatch => {
+    return axios(
+      `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${idArray}&key=${API_KEY}`
+    )
+      .then(response => {
+        dispatch(fetchVideoDetailsSuccess(response.data.items));
+      })
+      .catch(error => {
+        dispatch(fetchVideoDetailsFailure(error));
+        console.log(error);
+      });
+  };
+}
+
 export function fetchDataVideo(input) {
   return dispatch => {
-    const API_KEY = "AIzaSyBf4oFVY1onlbBlOdBoUp5iXyrEOQFssv8";
     dispatch(fetchVideoRequest());
     return axios(
       `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${input}&maxResults=15&order=relevance&type=video&key=${API_KEY}`

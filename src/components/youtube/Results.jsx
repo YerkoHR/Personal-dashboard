@@ -66,40 +66,49 @@ const ContainerBtn = styled.div`
   }
 `;
 
-export default function Results({ data, togglePlayer, togglePlaylist }) {
-  return (
-    <StyledUl>
-      {data.map((video, index) => (
-        <StyledLi key={video.id.videoId}>
-          <VideoImage>
-            <Img
-              src={video.snippet.thumbnails.medium.url}
-              alt={video.snippet.title}
-              loader={<div className="lds-dual-ring spinner" />}
-            />
-          </VideoImage>
-          <VideoDetails>
-            <H3>{video.snippet.title}</H3>
-            <ContainerBtn>
-              <PlaylistBtn
-                video={video}
-                index={index}
-                togglePlaylist={togglePlaylist}
+export default class Results extends React.Component {
+  componentDidMount() {
+    this.props.fetchDetailsVideo(
+      this.props.data.map(item => item.id.videoId).join()
+    );
+  }
+
+  render() {
+    const { data, togglePlayer, togglePlaylist } = this.props;
+    return (
+      <StyledUl>
+        {data.map((video, index) => (
+          <StyledLi key={video.id.videoId}>
+            <VideoImage>
+              <Img
+                src={video.snippet.thumbnails.medium.url}
+                alt={video.snippet.title}
+                loader={<div className="lds-dual-ring spinner" />}
               />
-              <PlayBtn
-                showVideo={video.showVideo}
-                togglePlayer={togglePlayer}
-                index={index}
-              />
-            </ContainerBtn>
-          </VideoDetails>
-          {video.showVideo && (
-            <LoadableVideoPlayer title={video.snippet.title} ids={video.id} />
-          )}
-        </StyledLi>
-      ))}
-    </StyledUl>
-  );
+            </VideoImage>
+            <VideoDetails>
+              <H3>{video.snippet.title}</H3>
+              <ContainerBtn>
+                <PlaylistBtn
+                  video={video}
+                  index={index}
+                  togglePlaylist={togglePlaylist}
+                />
+                <PlayBtn
+                  showVideo={video.showVideo}
+                  togglePlayer={togglePlayer}
+                  index={index}
+                />
+              </ContainerBtn>
+            </VideoDetails>
+            {video.showVideo && (
+              <LoadableVideoPlayer title={video.snippet.title} ids={video.id} />
+            )}
+          </StyledLi>
+        ))}
+      </StyledUl>
+    );
+  }
 }
 
 Results.propTypes = {

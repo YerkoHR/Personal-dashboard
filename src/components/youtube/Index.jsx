@@ -2,7 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
-import { togglePlayer, togglePlaylist } from "../../redux/ducks/fetchVideos";
+import {
+  togglePlayer,
+  togglePlaylist,
+  fetchDetailsVideo
+} from "../../redux/ducks/fetchVideos";
 
 const LoadableResults = Loadable({
   loader: () => import("./Results"),
@@ -18,18 +22,27 @@ const LoadableSearch = Loadable({
   loading: () => null
 });
 
-const Index = ({ results, togglePlayer, togglePlaylist }) => (
+const Index = ({
+  results,
+  togglePlayer,
+  togglePlaylist,
+  fetchDetailsVideo
+}) => (
   <div className="fade-in">
     <LoadableSearch />
-    <LoadableResults
-      data={results}
-      togglePlayer={togglePlayer}
-      togglePlaylist={togglePlaylist}
-    />
+    {results.length > 0 && (
+      <LoadableResults
+        data={results}
+        togglePlayer={togglePlayer}
+        togglePlaylist={togglePlaylist}
+        fetchDetailsVideo={fetchDetailsVideo}
+      />
+    )}
   </div>
 );
 Index.propTypes = {
-  results: PropTypes.arrayOf(PropTypes.object).isRequired
+  results: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchDetailsVideo: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   results: state.fetchVideos.results
@@ -37,5 +50,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { togglePlayer, togglePlaylist }
+  { togglePlayer, togglePlaylist, fetchDetailsVideo }
 )(Index);
