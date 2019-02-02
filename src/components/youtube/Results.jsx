@@ -67,11 +67,11 @@ const ContainerBtn = styled.div`
 `;
 
 export default class Results extends React.Component {
-  componentDidMount() {
+  /*componentDidMount() {
     this.props.fetchDetailsVideo(
       this.props.data.map(item => item.id.videoId).join()
     );
-  }
+  }*/
 
   render() {
     const { data, togglePlayer, togglePlaylist } = this.props;

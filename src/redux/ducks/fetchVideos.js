@@ -134,6 +134,12 @@ export function fetchDataVideo(input) {
     )
       .then(response => {
         dispatch(fetchVideoSuccess(response.data.items));
+        const ids = response.data.items.map(item => item.id.videoId).join();
+        return axios(
+          `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${ids}&key=${API_KEY}`
+        ).then(response => {
+          dispatch(fetchVideoDetailsSuccess(response.data.items));
+        });
       })
       .catch(error => {
         dispatch(fetchVideoFailure(error));
