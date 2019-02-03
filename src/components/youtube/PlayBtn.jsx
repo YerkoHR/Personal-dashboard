@@ -4,13 +4,17 @@ import { Eye, EyeOff } from "react-feather";
 
 export default function PlayBtn({ index, showVideo, togglePlayer }) {
   return (
-    <div>
+    <React.Fragment>
       {showVideo ? (
-        <EyeOff onClick={() => togglePlayer(index)} />
+        <div title="Close player">
+          <EyeOff onClick={() => togglePlayer(index)} />
+        </div>
       ) : (
-        <Eye onClick={() => togglePlayer(index)} />
+        <div title="Open player">
+          <Eye onClick={() => togglePlayer(index)} />
+        </div>
       )}
-    </div>
+    </React.Fragment>
   );
 }
 

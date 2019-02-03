@@ -31,6 +31,9 @@ const StyledList = styled.ul`
       background-color: #737272;
       border: 0;
     }
+    span {
+      font-size: 0.9rem;
+    }
     span,
     div:hover {
       visibility: visible;

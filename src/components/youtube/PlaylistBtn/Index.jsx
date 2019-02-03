@@ -16,7 +16,7 @@ const ShowPLContainer = styled.div`
 
 export default function Index({ video, index, togglePlaylist }) {
   return (
-    <ShowPLContainer>
+    <ShowPLContainer title="Add to Playlists">
       {video.showPlaylists && <Container video={video} index={index} />}
       <List
         className="show"

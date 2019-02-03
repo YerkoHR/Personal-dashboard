@@ -14,7 +14,7 @@ import {
 const PLContainer = styled.div`
   position: absolute;
   bottom: 28px;
-  left: 25px;
+  right: 25px;
   background: ${props => props.theme.backgroundSecundary};
   color: #fff;
   display: flex;
