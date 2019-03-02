@@ -5,25 +5,18 @@ import { PlusCircle, MinusCircle } from "react-feather";
 const StyledWatchedCounter = styled.div`
   display: flex;
   flex-direction: column;
-  select {
-    border-radius: 4px;
-    border-style: solid;
-    border-width: 1.2px;
-    &:focus {
-      outline: 0;
-    }
-  }
+
   .Watching {
-    border-color: blue;
-    color: blue;
+    border-color: ${props => props.theme.blue};
+    color: ${props => props.theme.blue};
   }
   .toWatch {
-    border-color: brown;
-    color: brown;
+    border-color: ${props => props.theme.red};
+    color: ${props => props.theme.red};
   }
   .Completed {
-    border-color: green;
-    color: green;
+    border-color: ${props => props.theme.green};
+    color: ${props => props.theme.green};
   }
 `;
 const StyledCounter = styled.div`

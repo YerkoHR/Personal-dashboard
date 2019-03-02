@@ -13,7 +13,9 @@ const darkTheme = {
   ternary: "#51525E",
   P: "#d1d1d1",
   border: "#3c3d4c",
-  danger: "red"
+  red: "#b74343",
+  green: "#36962a",
+  blue: "#486dc4"
 };
 
 const App = () => (

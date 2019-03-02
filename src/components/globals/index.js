@@ -66,6 +66,15 @@ export const GlobalStyle = createGlobalStyle`
   ul{
     list-style: none;
   }
+  select {
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1.2px;
+    background: ${props => props.theme.P};
+    &:focus {
+      outline: 0;
+    }
+  }
   .btn-delete:hover {
     stroke: brown;
     color: brown;
