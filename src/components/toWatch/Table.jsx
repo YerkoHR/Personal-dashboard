@@ -4,15 +4,15 @@ import Rows from "./Rows";
 import Head from "./Head";
 
 const StyledTable = styled.table`
-  table-layout: fixed;
   border-collapse: collapse;
-
-  background: #fcfbf6;
-  border-radius: 4px 4px 0 0;
+  background: ${props => props.theme.backgroundPrimary};
+  border-radius: 10px;
   th,
-  td {
+  td,
+  tr {
     padding: 0.5em;
-    border: 0.5px solid #ebedf0;
+    border: 0.5px solid ${props => props.theme.border};
+    color: ${props => props.theme.P};
   }
   tr {
     text-align: center;
@@ -20,7 +20,7 @@ const StyledTable = styled.table`
   tbody tr {
     transition: 0.3s ease-in;
     &:hover {
-      background: #e6f7ff;
+      background: ${props => props.theme.ternary};
     }
   }
 `;

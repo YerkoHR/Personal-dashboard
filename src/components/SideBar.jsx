@@ -1,66 +1,49 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import ResetStateBtn from "./ResetStateBtn";
-import { H2 } from "../components/globals";
 
-const StyledSideBar = styled.div`
+const StyledSideBar = styled.ul`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 2em 1.5em;
-  ul {
+  align-items: flex-start;
+  margin: 5em auto;
+  width: 75%;
+  svg {
+    stroke: ${props => props.theme.P};
+    width: 24px;
+    height: auto;
+    transition: 0.6s ease-in-out;
+  }
+  li {
+    padding: 1em 0;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 2.5em 0;
-    svg {
-      stroke: ${props => props.theme.font};
-      width: 24px;
-      height: auto;
-      transition: 0.6s ease-in-out;
+    flex-direction: row;
+    align-items: center;
+    max-width: fit-content;
+    transition: 0.6s ease-in-out;
+    &:hover {
+      color: #fff;
+      svg {
+        stroke: #fff;
+      }
     }
-    li {
-      padding: 1em 0;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      max-width: fit-content;
-      transition: 0.6s ease-in-out;
-      &:hover {
-        color: #fff;
-        svg {
-          stroke: #fff;
-        }
-      }
-      div {
-        margin-left: 0.8em;
-        font-size: 0.85em;
-        cursor: pointer;
-      }
+    div {
+      margin-left: 0.8em;
+      font-size: 0.85em;
+      cursor: pointer;
     }
   }
-`;
-
-const H2Aligned = styled(H2)`
-  text-align: center;
 `;
 
 export default function SideBar({ sideBar, loadComponent, resetState }) {
   return (
     <StyledSideBar>
-      <div>
-        <H2Aligned>Dashboard</H2Aligned>
-        <ul>
-          {sideBar.items.map(item => (
-            <li key={item.title} onClick={() => loadComponent(item.title)}>
-              {item.icon}
-              <div>{item.title}</div>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <ResetStateBtn resetState={resetState} />
+      {sideBar.items.map(item => (
+        <li key={item.title} onClick={() => loadComponent(item.title)}>
+          {item.icon}
+          <div>{item.title}</div>
+        </li>
+      ))}
     </StyledSideBar>
   );
 }

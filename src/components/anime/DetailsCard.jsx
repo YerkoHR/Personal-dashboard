@@ -14,6 +14,7 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  border-radius: 10px;
   background: ${props => props.theme.backgroundCard};
   box-shadow: 0 0 0 1px ${props => props.theme.backgroundCard};
   img {
@@ -62,8 +63,8 @@ const ContainerBtn = styled.div`
 export const SaveDeleteBtn = styled.button`
   background: #fff;
   padding: 0.5em 1em;
-  color: #000;
-  border: 2px solid #000;
+  color: ${props => props.theme.backgroundSecundary};
+  border: 2px solid ${props => props.theme.backgroundSecundary};
   outline: 0;
   transition: 0.3s ease-in-out;
 `;

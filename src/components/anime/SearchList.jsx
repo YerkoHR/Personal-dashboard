@@ -14,12 +14,13 @@ const StyledLi = styled.li`
   display: flex;
   flex-direction: row;
   padding: 0 0.2em;
-  border: 1px solid ${props => props.theme.backgroundPrimary};
+  border: 1px solid ${props => props.theme.border};
   border-radius: 3px;
   margin-bottom: 0.3em;
   transition: 0.6s ease-in-out;
   font-size: 0.8em;
-  background: #fff;
+  background: ${props => props.theme.backgroundPrimary};
+
   width: 100%;
   justify-content: center;
   cursor: pointer;

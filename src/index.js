@@ -8,10 +8,19 @@ import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "styled-components";
 
 const darkTheme = {
-  backgroundPrimary: "#343C49",
-  backgroundSecundary: "#232935",
-  backgroundCard: "#121923",
-  font: "#7C7A8F"
+  /*
+  backgroundPrimary: "#2B2C3B",
+  backgroundSecundary: "#3C3D4C",
+  backgroundCard: "#2B2C3B",
+  P: "#8F9391",
+  H: "#EEF0F2"
+  */
+  backgroundPrimary: "#3E3F4C",
+  backgroundSecundary: "#2b2c3b",
+  ternary: "#51525E",
+  P: "#d1d1d1",
+  border: "#3c3d4c",
+  danger: "red"
 };
 
 const App = () => (

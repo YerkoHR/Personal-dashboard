@@ -9,25 +9,25 @@ export const Content = styled.div`
 
 // No styled h1 currently in the app.
 export const H1 = styled.h1`
-  color: ${props => props.theme.font};
+  color: ${props => props.theme.H};
   font-weight: 900;
   font-size: 2rem;
 `;
 // 1 align center in sidebar.
 export const H2 = styled.h2`
-  color: ${props => props.theme.font};
+  color: ${props => props.theme.H};
   font-weight: 700;
   font-size: 1.5rem;
 `;
 
 export const H3 = styled.h3`
-  color: ${props => props.theme.font};
+  color: ${props => props.theme.H};
   font-weight: 500;
   font-size: 1.25rem;
 `;
 
 export const P = styled.p`
-  color: ${props => props.theme.font};
+  color: ${props => props.theme.P};
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 1.4;
@@ -38,7 +38,7 @@ export const Input = styled.input`
   background: ${props => props.theme.backgroundPrimary};
   border-color: transparent;
   border-radius: 2px;
-  color: ${props => props.theme.font};
+  color: ${props => props.theme.P};
   &:focus {
     outline: 0px;
   }
@@ -50,7 +50,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     font-family:  Roboto, sans-serif;
-    color: ${props => props.theme.font};
+    color: ${props => props.theme.P};
     background: ${props => props.theme.backgroundPrimary};
   }
   *{
