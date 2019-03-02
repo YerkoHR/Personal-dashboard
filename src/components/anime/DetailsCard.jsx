@@ -7,7 +7,6 @@ import Img from "react-image";
 const StyledCard = styled.div`
   position: relative;
   z-index: 1;
-  border-radius: 3px;
   min-height: 380px;
   margin: 1.5em auto;
   width: 70%;
@@ -16,7 +15,7 @@ const StyledCard = styled.div`
   align-items: flex-start;
   border-radius: 10px;
   background: ${props => props.theme.backgroundCard};
-  box-shadow: 0 0 0 1px ${props => props.theme.backgroundCard};
+  box-shadow: 0 0 0 1px ${props => props.theme.border};
   .card-spinner {
     display: flex;
     align-self: center;
