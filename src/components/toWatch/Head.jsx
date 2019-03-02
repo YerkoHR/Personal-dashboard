@@ -33,7 +33,7 @@ const HeadRow = styled.tr`
   svg {
     transition: 0.3s ease-in-out;
     &:hover {
-      fill: blue;
+      stroke: ${props => props.theme.blue};
     }
   }
 `;

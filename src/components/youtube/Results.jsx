@@ -22,7 +22,7 @@ const StyledUl = styled.ul`
 `;
 const StyledLi = styled.li`
   margin: 1rem auto;
-  box-shadow: 0 0 0 1px ${props => props.theme.backgroundCard};
+  box-shadow: 0 0 0 1px ${props => props.theme.border};
   width: 80%;
   border-radius: 4px;
   display: grid;

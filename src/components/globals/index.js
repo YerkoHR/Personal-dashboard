@@ -76,14 +76,14 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
   .btn-delete:hover {
-    stroke: brown;
-    color: brown;
-    border-color:brown;
+    stroke: ${props => props.theme.red};
+    color: ${props => props.theme.red};
+    border-color:${props => props.theme.red};
   }
   .btn-save:hover {
-    stroke: green;
-    color: green;
-    border-color:green;
+    stroke: ${props => props.theme.green};
+    color: ${props => props.theme.green};
+    border-color:${props => props.theme.green};
   }
   .lds-dual-ring {
     width: 32px;

@@ -11,10 +11,10 @@ const StyledResetContainer = styled.div`
     background: black;
   }
   .reset:hover {
-    background: red;
+    background: ${props => props.theme.red};
   }
   .cancel:hover {
-    background: blue;
+    background: ${props => props.theme.blue};
   }
 `;
 
