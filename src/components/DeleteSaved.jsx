@@ -15,7 +15,7 @@ export default class DeleteSaved extends Component {
     return (
       <React.Fragment>
         {this.state.showDeleteBtn ? (
-          <div>
+          <div className={svg ? "btn-container-column" : "btn-container-row"}>
             <CheckCircle
               className="btn-delete"
               onClick={() => removeItem(saved.map(x => x.id).indexOf(data.id))}

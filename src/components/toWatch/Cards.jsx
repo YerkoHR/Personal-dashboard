@@ -13,14 +13,14 @@ const StyledCardList = styled.ul`
 const StyledCard = styled.li`
   display: flex;
   flex-direction: row;
-  border: 1px solid grey;
+  border: 1px solid ${props => props.theme.border};
   border-radius: 4px;
 `;
 const MainInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #131921;
+  background: ${props => props.theme.backgroundSecundary};
   padding: 0.75rem;
   .scrollBox {
     height: 225px;
@@ -43,14 +43,13 @@ const PAligned = styled(P)`
 `;
 
 const ExtraInfo = styled.div`
-  border-top: 1px solid #0d0f13;
+  border-top: 1px solid ${props => props.theme.border};
   display: flex;
   flex-direction: column;
   font-size: 0.8em;
   justify-content: center;
   align-items: center;
   margin: 0.5rem 0;
-  color: #c4c6e6;
   ul {
     display: flex;
     flex-flow: row wrap;

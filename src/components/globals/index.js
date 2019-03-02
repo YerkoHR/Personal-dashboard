@@ -77,13 +77,23 @@ export const GlobalStyle = createGlobalStyle`
   }
   .btn-delete:hover {
     stroke: ${props => props.theme.red};
-    color: ${props => props.theme.red};
     border-color:${props => props.theme.red};
   }
   .btn-save:hover {
     stroke: ${props => props.theme.green};
-    color: ${props => props.theme.green};
     border-color:${props => props.theme.green};
+  }
+  .btn-container-row{
+    width: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  .btn-container-column{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
   }
   .lds-dual-ring {
     width: 32px;

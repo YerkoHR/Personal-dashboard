@@ -26,7 +26,6 @@ const StyledCard = styled.div`
       height: 450px;
     }
   }
-
   .placeholder {
     width: 450px;
     background-repeat: no-repeat;
@@ -68,10 +67,11 @@ const ContainerBtn = styled.div`
   }
 `;
 export const SaveDeleteBtn = styled.button`
-  background: #fff;
   padding: 0.5em 1em;
-  color: ${props => props.theme.backgroundSecundary};
-  border: 2px solid ${props => props.theme.backgroundSecundary};
+  background: ${props => props.theme.ternary};
+  border-radius: 10px;
+  color: ${props => props.theme.P};
+  border: 2px solid ${props => props.theme.border};
   outline: 0;
   transition: 0.3s ease-in-out;
 `;
