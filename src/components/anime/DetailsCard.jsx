@@ -17,9 +17,17 @@ const StyledCard = styled.div`
   border-radius: 10px;
   background: ${props => props.theme.backgroundCard};
   box-shadow: 0 0 0 1px ${props => props.theme.backgroundCard};
-  img {
-    height: 450px;
+  .card-spinner {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    width: 450px;
+    margin: auto;
+    img {
+      height: 450px;
+    }
   }
+
   .placeholder {
     width: 450px;
     background-repeat: no-repeat;
@@ -81,11 +89,12 @@ export default class DetailsCard extends React.Component {
     return (
       <React.Fragment>
         <StyledCard className="fade-in">
-          <Img
-            src={[data.coverImage.extraLarge]}
-            loader={<div className="lds-dual-ring" />}
-          />
-
+          <div className="card-spinner">
+            <Img
+              src={[data.coverImage.extraLarge]}
+              loader={<div className="lds-dual-ring spinner" />}
+            />
+          </div>
           <ContainerInfo>
             <H2>{data.title.romaji}</H2>
             <H3>
