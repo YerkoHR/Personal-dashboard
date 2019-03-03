@@ -33,8 +33,28 @@ const StyledUl = styled.ul`
 `;
 
 const StyledLi = styled.li`
-  padding: 2.5em 2em;
-  border: 2px solid grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 10px;
+  min-height: 120px;
+  border: 2px solid ${props => props.theme.border};
+  transition: 0.3s ease-in;
+  .pl-video {
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    .pl-video-name {
+      width: 300px;
+    }
+  }
+  &:hover {
+    border-color: ${props => props.theme.P};
+  }
 `;
 
 class Index extends React.Component {
@@ -49,27 +69,47 @@ class Index extends React.Component {
   handleChange(e) {
     this.setState({ input: e.target.value });
   }
+  componentDidMount() {
+    this.props.changeActivePlaylist("");
+  }
 
   render() {
     const { changeActivePlaylist, playlists } = this.props;
 
+    const keys = Object.keys(playlists).filter(key => key !== "active");
+    const activeIds =
+      playlists.active !== "" &&
+      playlists[playlists.active].map(id => id.id).join(", ");
     return (
       <Container>
-        <H2>Your current Playlists: </H2>
+        {keys.length > 0 ? (
+          <H2>Your current Playlists: </H2>
+        ) : (
+          <H2>You have no saved playlists :( </H2>
+        )}
         <StyledUl>
-          {Object.keys(playlists)
-            .filter(key => key !== "active")
-            .map(key => (
-              <StyledLi onClick={() => changeActivePlaylist(key)}>
-                <p>{key}</p>
-                <ul>
-                  {playlists[key].map(video => (
-                    <li key={video.id}>{video.title}</li>
-                  ))}
-                </ul>
-              </StyledLi>
-            ))}
+          {keys.map(key => (
+            <StyledLi key={key} onClick={() => changeActivePlaylist(key)}>
+              <p>{key}</p>
+              <ul>
+                {playlists[key].map((video, i) => (
+                  <li className="pl-video" key={video.id}>
+                    <span>{i}</span>
+                    <span className="pl-video-name">{video.title}</span>
+                    <span>{video.duration}</span>
+                  </li>
+                ))}
+              </ul>
+            </StyledLi>
+          ))}
         </StyledUl>
+        {playlists.active !== "" && (
+          <iframe
+            type="text/html"
+            title={playlists.active}
+            src={`https://www.youtube.com/embed?listType=playlist&playlist=${activeIds}`}
+          />
+        )}
       </Container>
     );
   }

@@ -28,7 +28,8 @@ export default function reducer(state = initialState, action) {
           ...state[action.key],
           {
             id: action.video.id.videoId,
-            title: action.video.snippet.title
+            title: action.video.snippet.title,
+            duration: action.video.contentDetails.duration
           }
         ]
       };

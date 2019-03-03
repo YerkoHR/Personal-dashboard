@@ -9,19 +9,19 @@ export const Content = styled.div`
 
 // No styled h1 currently in the app.
 export const H1 = styled.h1`
-  color: ${props => props.theme.H};
+  color: ${props => props.theme.P};
   font-weight: 900;
   font-size: 2rem;
 `;
 // 1 align center in sidebar.
 export const H2 = styled.h2`
-  color: ${props => props.theme.H};
+  color: ${props => props.theme.P};
   font-weight: 700;
   font-size: 1.5rem;
 `;
 
 export const H3 = styled.h3`
-  color: ${props => props.theme.H};
+  color: ${props => props.theme.P};
   font-weight: 500;
   font-size: 1.25rem;
 `;

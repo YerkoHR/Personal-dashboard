@@ -7,7 +7,7 @@ import rootReducer from "../redux/ducks";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["saved"]
+  whitelist: ["saved", "playlists"]
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
