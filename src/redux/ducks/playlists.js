@@ -16,11 +16,10 @@ export default function reducer(state = initialState, action) {
         [action.title]: []
       };
     case DELETE_PLAYLIST:
-      return Object.keys(state).reduce(
-        (acc, key) =>
-          key !== action.key ? { ...acc, [key]: state[key] } : acc,
-        {}
-      );
+      let clone = Object.assign({}, state);
+      clone.active = action.key === state.active ? "" : state.active;
+      delete clone[action.key];
+      return clone;
     case ADD_VIDEO:
       return {
         ...state,
