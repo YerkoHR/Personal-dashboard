@@ -1,14 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-//import Loadable from "react-loadable";
+import Loadable from "react-loadable";
 import styled from "styled-components";
-import { changeActivePlaylist } from "../../redux/ducks/playlists";
+import {
+  changeActivePlaylist,
+  deletePlaylist,
+  deleteVideo
+} from "../../redux/ducks/playlists";
 import { H2 } from "../globals";
+import Playlist from "./Playlist";
 
-/*
-const LoadablePlaylist = Loadable({
-  loader: () => import("./"),
+const LoadablePlayer = Loadable({
+  loader: () => import("./Player"),
   loading: () => null,
   render(loaded, props) {
     let Component = loaded.default;
@@ -16,13 +20,8 @@ const LoadablePlaylist = Loadable({
   }
 });
 
-const Loadable = Loadable({
-  loader: () => import("./"),
-  loading: () => null
-});
-*/
 const Playlists = styled.div`
-  margin: 2rem 0;
+  margin: 4rem 0;
 `;
 const StyledUl = styled.ul`
   display: grid;
@@ -33,43 +32,6 @@ const StyledUl = styled.ul`
   grid-gap: 1em;
 `;
 
-const StyledLi = styled.li`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  padding: 1rem;
-  border-radius: 10px;
-  min-height: 120px;
-  border-style: solid;
-  border-width: 2px;
-  border-color: ${props => (props.active ? props.theme.P : props.theme.border)};
-  transition: 0.3s ease-in;
-  .pl-video {
-    font-size: 0.8rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    .pl-video-name {
-      width: 300px;
-    }
-  }
-  &:hover {
-    border-color: ${props => props.theme.P};
-  }
-`;
-const Player = styled.div`
-  margin-top: 4rem;
-  border-top: 2px solid ${props => props.theme.border};
-  iframe {
-    margin-top: 2rem;
-    width: 900px;
-    height: 500px;
-    border-radius: 10px;
-    border: 1px solid ${props => props.theme.border};
-  }
-`;
 class Index extends React.Component {
   constructor(props) {
     super(props);
@@ -87,12 +49,18 @@ class Index extends React.Component {
   }
 
   render() {
-    const { changeActivePlaylist, playlists } = this.props;
+    const {
+      playlists,
+      changeActivePlaylist,
+      deletePlaylist,
+      deleteVideo
+    } = this.props;
 
     const keys = Object.keys(playlists).filter(key => key !== "active");
     const activeIds =
       playlists.active !== "" &&
       playlists[playlists.active].map(id => id.id).join(", ");
+
     return (
       <Playlists className="fade-in">
         {keys.length > 0 ? (
@@ -102,39 +70,26 @@ class Index extends React.Component {
         )}
         <StyledUl>
           {keys.map(key => (
-            <StyledLi
-              active={key === playlists.active ? true : false}
+            <Playlist
               key={key}
-              onClick={() => changeActivePlaylist(key)}
-            >
-              <p>{key}</p>
-              <ul>
-                {playlists[key].map((video, i) => (
-                  <li className="pl-video" key={video.id}>
-                    <span>{i + 1}</span>
-                    <span className="pl-video-name">{video.title}</span>
-                    <span>{video.duration}</span>
-                  </li>
-                ))}
-              </ul>
-            </StyledLi>
+              playlists={playlists}
+              changeActivePlaylist={changeActivePlaylist}
+              deletePlaylist={deletePlaylist}
+              deleteVideo={deleteVideo}
+              playlistKey={key}
+            />
           ))}
         </StyledUl>
-        {playlists.active !== "" && (
-          <Player>
-            <iframe
-              type="text/html"
-              title={playlists.active}
-              src={`https://www.youtube.com/embed?listType=playlist&playlist=${activeIds}`}
-            />
-          </Player>
-        )}
+        <LoadablePlayer active={playlists.active} activeIds={activeIds} />
       </Playlists>
     );
   }
 }
 Index.propTypes = {
-  playlists: PropTypes.object.isRequired
+  playlists: PropTypes.object.isRequired,
+  changeActivePlaylist: PropTypes.func.isRequired,
+  deletePlaylist: PropTypes.func.isRequired,
+  deleteVideo: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   playlists: state.playlists
@@ -142,5 +97,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { changeActivePlaylist }
+  { changeActivePlaylist, deletePlaylist, deleteVideo }
 )(Index);
