@@ -39,7 +39,10 @@ export default function reducer(state = initialState, action) {
         results: state.results.map((data, index) => {
           return {
             ...data,
-            contentDetails: action.data[index].contentDetails
+            contentDetails: {
+              ...action.data[index].contentDetails,
+              duration: formatTime(action.data[index].contentDetails.duration)
+            }
           };
         })
       };
@@ -145,4 +148,32 @@ export function fetchDataVideo(input) {
         dispatch(fetchVideoFailure(error));
       });
   };
+}
+
+function formatTime(duration) {
+  var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
+  var hours = 0,
+    minutes = 0,
+    seconds = 0,
+    totalSeconds;
+
+  if (reptms.test(duration)) {
+    var matches = reptms.exec(duration);
+    if (matches[1]) hours = Number(matches[1]);
+    if (matches[2]) minutes = Number(matches[2]);
+    if (matches[3]) seconds = Number(matches[3]);
+    totalSeconds = hours * 3600 + minutes * 60 + seconds;
+  }
+
+  hours = Math.floor(totalSeconds / 3600);
+  totalSeconds %= 3600;
+  minutes = Math.floor(totalSeconds / 60);
+  seconds = totalSeconds % 60;
+
+  minutes = String(minutes).padStart(2, "0");
+  hours = String(hours).padStart(2, "0");
+  seconds = String(seconds).padStart(2, "0");
+  const result = hours + ":" + minutes + ":" + seconds;
+
+  return result;
 }
