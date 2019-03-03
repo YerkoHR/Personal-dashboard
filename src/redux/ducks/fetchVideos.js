@@ -9,6 +9,8 @@ const TOGGLE_PLAYER = "TOGGLE_PLAYER";
 const TOGGLE_PLAYLIST = "TOGGLE_PLAYLIST";
 const TOGGLE_CREATE_PL = "TOGGLE_CREATE_PL";
 
+const API_KEY = "AIzaSyBf4oFVY1onlbBlOdBoUp5iXyrEOQFssv8";
+
 const initialState = {
   results: [],
   fetching: false,
@@ -112,8 +114,6 @@ export function toggleCreatePL(index) {
   return { type: TOGGLE_CREATE_PL, index };
 }
 
-const API_KEY = "AIzaSyBf4oFVY1onlbBlOdBoUp5iXyrEOQFssv8";
-
 export function fetchDetailsVideo(idArray) {
   return dispatch => {
     return axios(
@@ -151,29 +151,24 @@ export function fetchDataVideo(input) {
 }
 
 function formatTime(duration) {
-  var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
-  var hours = 0,
+  let reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
+  let hours = 0,
     minutes = 0,
-    seconds = 0,
-    totalSeconds;
+    seconds = 0;
 
   if (reptms.test(duration)) {
-    var matches = reptms.exec(duration);
+    let matches = reptms.exec(duration);
     if (matches[1]) hours = Number(matches[1]);
     if (matches[2]) minutes = Number(matches[2]);
     if (matches[3]) seconds = Number(matches[3]);
-    totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+    minutes = String(minutes).padStart(2, "0");
+    hours = String(hours).padStart(2, "0");
+    seconds = String(seconds).padStart(2, "0");
   }
-
-  hours = Math.floor(totalSeconds / 3600);
-  totalSeconds %= 3600;
-  minutes = Math.floor(totalSeconds / 60);
-  seconds = totalSeconds % 60;
-
-  minutes = String(minutes).padStart(2, "0");
-  hours = String(hours).padStart(2, "0");
-  seconds = String(seconds).padStart(2, "0");
-  const result = hours + ":" + minutes + ":" + seconds;
-
+  let result =
+    (hours !== "00" ? hours + ":" : "") +
+    (minutes !== "00" ? minutes + ":" : "") +
+    seconds;
   return result;
 }
