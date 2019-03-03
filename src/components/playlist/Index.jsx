@@ -111,7 +111,7 @@ class Index extends React.Component {
               <ul>
                 {playlists[key].map((video, i) => (
                   <li className="pl-video" key={video.id}>
-                    <span>{i}</span>
+                    <span>{i + 1}</span>
                     <span className="pl-video-name">{video.title}</span>
                     <span>{video.duration}</span>
                   </li>
