@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 //import Loadable from "react-loadable";
 import styled from "styled-components";
 import { changeActivePlaylist } from "../../redux/ducks/playlists";
-import Container from "../Container";
 import { H2 } from "../globals";
 
 /*
@@ -22,7 +21,9 @@ const Loadable = Loadable({
   loading: () => null
 });
 */
-
+const Playlists = styled.div`
+  margin: 2rem 0;
+`;
 const StyledUl = styled.ul`
   display: grid;
   width: 90%;
@@ -40,7 +41,9 @@ const StyledLi = styled.li`
   padding: 1rem;
   border-radius: 10px;
   min-height: 120px;
-  border: 2px solid ${props => props.theme.border};
+  border-style: solid;
+  border-width: 2px;
+  border-color: ${props => (props.active ? props.theme.P : props.theme.border)};
   transition: 0.3s ease-in;
   .pl-video {
     font-size: 0.8rem;
@@ -56,7 +59,17 @@ const StyledLi = styled.li`
     border-color: ${props => props.theme.P};
   }
 `;
-
+const Player = styled.div`
+  margin-top: 4rem;
+  border-top: 2px solid ${props => props.theme.border};
+  iframe {
+    margin-top: 2rem;
+    width: 900px;
+    height: 500px;
+    border-radius: 10px;
+    border: 1px solid ${props => props.theme.border};
+  }
+`;
 class Index extends React.Component {
   constructor(props) {
     super(props);
@@ -81,7 +94,7 @@ class Index extends React.Component {
       playlists.active !== "" &&
       playlists[playlists.active].map(id => id.id).join(", ");
     return (
-      <Container>
+      <Playlists className="fade-in">
         {keys.length > 0 ? (
           <H2>Your current Playlists: </H2>
         ) : (
@@ -89,7 +102,11 @@ class Index extends React.Component {
         )}
         <StyledUl>
           {keys.map(key => (
-            <StyledLi key={key} onClick={() => changeActivePlaylist(key)}>
+            <StyledLi
+              active={key === playlists.active ? true : false}
+              key={key}
+              onClick={() => changeActivePlaylist(key)}
+            >
               <p>{key}</p>
               <ul>
                 {playlists[key].map((video, i) => (
@@ -104,13 +121,15 @@ class Index extends React.Component {
           ))}
         </StyledUl>
         {playlists.active !== "" && (
-          <iframe
-            type="text/html"
-            title={playlists.active}
-            src={`https://www.youtube.com/embed?listType=playlist&playlist=${activeIds}`}
-          />
+          <Player>
+            <iframe
+              type="text/html"
+              title={playlists.active}
+              src={`https://www.youtube.com/embed?listType=playlist&playlist=${activeIds}`}
+            />
+          </Player>
         )}
-      </Container>
+      </Playlists>
     );
   }
 }
