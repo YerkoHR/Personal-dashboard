@@ -2,12 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const StyledSideBar = styled.ul`
+const StyledSideBar = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 5em auto;
+  margin: 2rem auto;
   width: 75%;
+  h2 {
+    margin-bottom: 4rem;
+    text-align: center;
+    width: 100%;
+  }
   svg {
     stroke: ${props => props.theme.P};
     width: 24px;
@@ -35,15 +40,18 @@ const StyledSideBar = styled.ul`
   }
 `;
 
-export default function SideBar({ sideBar, loadComponent, resetState }) {
+export default function SideBar({ sideBar, loadComponent }) {
   return (
     <StyledSideBar>
-      {sideBar.items.map(item => (
-        <li key={item.title} onClick={() => loadComponent(item.title)}>
-          {item.icon}
-          <div>{item.title}</div>
-        </li>
-      ))}
+      <h2>Dashboard</h2>
+      <ul>
+        {sideBar.items.map(item => (
+          <li key={item.title} onClick={() => loadComponent(item.title)}>
+            {item.icon}
+            <div>{item.title}</div>
+          </li>
+        ))}
+      </ul>
     </StyledSideBar>
   );
 }
