@@ -1,31 +1,72 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { X, MoreVertical } from "react-feather";
 
-const StyledLi = styled.li`
+const PlContainer = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
-  padding: 1rem;
-  border-radius: 10px;
-  min-height: 120px;
-  border-style: solid;
-  border-width: 2px;
-  border-color: ${props => (props.active ? props.theme.P : props.theme.border)};
+  border-radius: 7px;
+  border: solid 2px ${props => props.theme.border};
   transition: 0.3s ease-in;
+  .pl-title {
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+    border-bottom: 1px solid ${props => props.theme.border};
+  }
   .pl-video {
     font-size: 0.8rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 1rem;
-    .pl-video-name {
-      width: 300px;
+    align-items: center;
+    border-bottom: 1px solid ${props => props.theme.border};
+    position: relative;
+    height: 50px;
+    width: 100%;
+    .delete-video {
+      visibility: hidden;
+      position: absolute;
+      top: 0;
+      right: 0;
+      stroke: ${props => props.theme.P};
+      background: ${props => props.theme.backgroundPrimary};
+      width: 20px;
+      height: 20px;
+    }
+    &:hover {
+      .delete-video {
+        visibility: visible;
+      }
+      .draggable {
+        visibility: visible;
+        background: ${props => props.theme.backgroundPrimary};
+      }
     }
   }
-  &:hover {
-    border-color: ${props => props.theme.P};
+`;
+
+const VideoLeft = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  .draggable {
+    position: absolute;
+    visibility: hidden;
+    height: 100%;
+    left: 0;
+  }
+  span {
+    margin: 0 1.5rem;
+  }
+  .pl-video-name {
+    width: 300px;
   }
 `;
 
@@ -40,26 +81,40 @@ const Playlist = ({
   const playlist = playlists[playlistKey];
 
   return (
-    <StyledLi active={playlistKey === active ? true : false}>
-      {playlist.length > 0 && (
-        <button onClick={() => changeActivePlaylist(playlistKey)}>
-          Play all
-        </button>
-      )}
-      <button onClick={() => deletePlaylist(playlistKey)}>Delete</button>
-      <p>{playlistKey}</p>
-
+    <PlContainer active={playlistKey === active ? true : false}>
+      <div className="pl-title">
+        <h3>{playlistKey}</h3>
+        <div>
+          {playlist.length > 0 && (
+            <button onClick={() => changeActivePlaylist(playlistKey)}>
+              Play all
+            </button>
+          )}
+          <button onClick={() => deletePlaylist(playlistKey)}>Delete</button>
+        </div>
+      </div>
       <ul>
         {playlist.map((video, i) => (
           <li className="pl-video" key={video.id}>
-            <span>{i + 1}</span>
-            <span className="pl-video-name">{video.title}</span>
+            <VideoLeft>
+              <MoreVertical width="15" className="draggable" />
+              <span>{i + 1}</span>
+              <div className="pl-video-name">
+                {video.title.substring(0, 50) + "..."}
+              </div>
+            </VideoLeft>
+
             <span>{video.duration}</span>
-            <button onClick={() => deleteVideo(playlistKey, i)}>Delete</button>
+
+            <X
+              title="Remove"
+              className="delete-video"
+              onClick={() => deleteVideo(playlistKey, i)}
+            />
           </li>
         ))}
       </ul>
-    </StyledLi>
+    </PlContainer>
   );
 };
 
