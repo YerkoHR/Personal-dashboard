@@ -14,41 +14,44 @@ const PlContainer = styled.li`
   .pl-title {
     display: flex;
     flex-direction: column;
+    margin-top: 1rem;
+    border-bottom: 1px solid ${props => props.theme.border};
     height: 60px;
-    border-bottom: 1px solid ${props => props.theme.border};
   }
-  .pl-video {
-    font-size: 0.8rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid ${props => props.theme.border};
-    position: relative;
-    height: 50px;
-    width: 100%;
+`;
+const PlVideo = styled.li`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  height: 50px;
+  width: 100%;
+  border-bottom: 1px solid ${props => props.theme.border};
+  font-size: 0.8rem;
+  .delete-video {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    right: 0;
+    stroke: ${props => props.theme.P};
+    background: ${props => props.theme.backgroundPrimary};
+    width: 20px;
+    height: 20px;
+  }
+  .pl-duration {
+    margin-right: 1rem;
+  }
+  &:hover {
     .delete-video {
-      visibility: hidden;
-      position: absolute;
-      top: 0;
-      right: 0;
-      stroke: ${props => props.theme.P};
-      background: ${props => props.theme.backgroundPrimary};
-      width: 20px;
-      height: 20px;
+      visibility: visible;
     }
-    &:hover {
-      .delete-video {
-        visibility: visible;
-      }
-      .draggable {
-        visibility: visible;
-        background: ${props => props.theme.backgroundPrimary};
-      }
+    .draggable {
+      visibility: visible;
+      background: ${props => props.theme.backgroundPrimary};
     }
   }
 `;
-
 const VideoLeft = styled.div`
   display: flex;
   flex-direction: row;
@@ -57,10 +60,11 @@ const VideoLeft = styled.div`
   height: 100%;
   align-items: center;
   .draggable {
-    position: absolute;
     visibility: hidden;
-    height: 100%;
+    position: absolute;
     left: 0;
+    width: 15px;
+    height: 100%;
   }
   span {
     margin: 0 1.5rem;
@@ -95,23 +99,23 @@ const Playlist = ({
       </div>
       <ul>
         {playlist.map((video, i) => (
-          <li className="pl-video" key={video.id}>
+          <PlVideo className="pl-video" key={video.id}>
             <VideoLeft>
-              <MoreVertical width="15" className="draggable" />
+              <MoreVertical className="draggable" />
               <span>{i + 1}</span>
               <div className="pl-video-name">
                 {video.title.substring(0, 50) + "..."}
               </div>
             </VideoLeft>
 
-            <span>{video.duration}</span>
+            <span className="pl-duration">{video.duration}</span>
 
             <X
               title="Remove"
               className="delete-video"
               onClick={() => deleteVideo(playlistKey, i)}
             />
-          </li>
+          </PlVideo>
         ))}
       </ul>
     </PlContainer>

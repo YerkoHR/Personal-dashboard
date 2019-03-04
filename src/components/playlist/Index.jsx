@@ -26,7 +26,7 @@ const Playlists = styled.div`
 const StyledUl = styled.ul`
   display: grid;
   width: 90%;
-  margin: 2em auto;
+  margin: 4em auto;
   grid-template-columns: repeat(2, 1fr);
   justify-content: space-evenly;
   grid-gap: 1em;
