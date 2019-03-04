@@ -7,18 +7,38 @@ const PlContainer = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  cursor: pointer;
   border-radius: 7px;
   border: solid 2px ${props => props.theme.border};
   transition: 0.3s ease-in;
   .pl-title {
     display: flex;
     flex-direction: column;
-    margin-top: 1rem;
+    justify-content: space-around;
+    padding: 1rem 0;
     border-bottom: 1px solid ${props => props.theme.border};
-    height: 60px;
+    height: 80px;
+    .pl-btns {
+      display: flex;
+      justify-content: space-around;
+      width: 30%;
+      margin: 0 auto;
+      button {
+        padding: 0.5rem;
+        color: ${props => props.theme.P};
+        background: ${props => props.theme.backgroundPrimary};
+        border: 0.5px solid ${props => props.theme.border};
+        border-radius: 7px;
+        font-size: 0.8rem;
+        outline: 0;
+        transition: 0.3s ease-in-out;
+        &:hover {
+          opacity: 0.7;
+        }
+      }
+    }
   }
 `;
+
 const PlVideo = styled.li`
   display: flex;
   flex-direction: row;
@@ -29,6 +49,7 @@ const PlVideo = styled.li`
   width: 100%;
   border-bottom: 1px solid ${props => props.theme.border};
   font-size: 0.8rem;
+  cursor: pointer;
   .delete-video {
     visibility: hidden;
     position: absolute;
@@ -88,7 +109,7 @@ const Playlist = ({
     <PlContainer active={playlistKey === active ? true : false}>
       <div className="pl-title">
         <h3>{playlistKey}</h3>
-        <div>
+        <div className="pl-btns">
           {playlist.length > 0 && (
             <button onClick={() => changeActivePlaylist(playlistKey)}>
               Play all
