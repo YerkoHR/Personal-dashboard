@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { P } from "../../../../shared";
+import { P } from "../../../../shared/globals";
 
 export const PAligned = styled(P)`
   width: 80%;

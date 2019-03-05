@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import Img from "react-image";
 import PlaylistBtn from "./PlaylistBtn/Index";
 import PlayBtn from "./PlayBtn";
-import { H3 } from "../../shared";
+import { H3 } from "../../shared/globals";
 
 const LoadableVideoPlayer = Loadable({
   loader: () => import("./VideoPlayer"),

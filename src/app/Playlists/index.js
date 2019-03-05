@@ -8,7 +8,7 @@ import {
   deletePlaylist,
   deleteVideo
 } from "../../redux/ducks/playlists";
-import { H2 } from "../../shared";
+import { H2 } from "../../shared/globals";
 import Playlist from "./Playlist";
 
 const LoadablePlayer = Loadable({

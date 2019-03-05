@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { store, persistor } from "./redux/configureStore";
 import Index from "./app/index";
-import { dark } from "./themes";
-import { GlobalStyle } from "./shared/index";
+import { store, persistor } from "./redux/configureStore";
 import { PersistGate } from "redux-persist/integration/react";
+
+import { GlobalStyle } from "./shared/globals";
 import { ThemeProvider } from "styled-components";
+import { dark } from "./themes";
 
 const App = () => (
   <Provider store={store}>

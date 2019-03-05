@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Content } from "./index";
+import { Content } from "./globals";
 
 const Wrapper = styled(Content)`
   margin-top: 5em;

@@ -1,19 +1,16 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-// SEARCH WHAT STYLED OR COMPONENTS ARE BEING REPEATED THROUGH THE APP.
-
 export const Content = styled.div`
   margin: 2em auto;
   width: 90%;
 `;
 
-// No styled h1 currently in the app.
 export const H1 = styled.h1`
   color: ${props => props.theme.P};
   font-weight: 900;
   font-size: 2rem;
 `;
-// 1 align center in sidebar.
+
 export const H2 = styled.h2`
   color: ${props => props.theme.P};
   font-weight: 700;

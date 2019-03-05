@@ -6,7 +6,7 @@ import { fetchDataAnime } from "../../../redux/ducks/fetchAnime";
 import { fetchDetails } from "../../../redux/ducks/animeDetails";
 
 import ContainerSearch from "../../../shared/ContainerSearch";
-import { Input, H1 } from "../../../shared";
+import { Input, H1 } from "../../../shared/globals";
 import { InputContainer, InputList } from "./styles";
 
 const LoadableList = Loadable({

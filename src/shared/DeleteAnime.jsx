@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { CheckCircle, XCircle } from "react-feather";
 import { removeItem } from "../redux/ducks/saved";
+
+import { CheckCircle, XCircle } from "react-feather";
+
 const DeleteAnime = ({ removeItem, toggleShow, indexToDelete }) => {
   return (
     <>
