@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { fetchDataVideo } from "../../redux/ducks/fetchVideos";
-import ContainerSearch from "../ContainerSearch";
-import { Input, H1 } from "../globals";
+import ContainerSearch from "../../shared/ContainerSearch";
+import { Input, H1 } from "../../shared";
 
 export class SearchVideo extends Component {
   constructor(props) {

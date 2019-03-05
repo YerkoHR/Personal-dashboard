@@ -8,27 +8,27 @@ import { resetState } from "../redux/ducks/saved";
 import PropTypes from "prop-types";
 
 const LoadableAnimeComponent = Loadable({
-  loader: () => import("./anime/Index"),
+  loader: () => import("./AnimeSearch"),
   loading: () => null
 });
 
 const LoadableYoutubeComponent = Loadable({
-  loader: () => import("./youtube/Index"),
+  loader: () => import("./VideoSearch"),
   loading: () => null
 });
 
 const LoadableWatchList = Loadable({
-  loader: () => import("./toWatch/Index"),
+  loader: () => import("./AnimeList"),
   loading: () => null
 });
 
 const LoadablePlaylists = Loadable({
-  loader: () => import("./playlist/Index"),
+  loader: () => import("./Playlists"),
   loading: () => null
 });
 
 const LoadableSideBar = Loadable({
-  loader: () => import("./SideBar"),
+  loader: () => import("./Sidebar"),
   loading: () => null,
   render(loaded, props) {
     let Component = loaded.default;
@@ -47,14 +47,11 @@ const Content = styled.div`
   text-align: center;
   height: 100%;
 `;
+//<button onClick={() => resetState()}>RESET SAVED ANIME</button>;
 
 export const Index = ({ loadComponent, sideBar, resetState }) => (
   <Main>
-    <LoadableSideBar
-      loadComponent={loadComponent}
-      sideBar={sideBar}
-      resetState={resetState}
-    />
+    <LoadableSideBar loadComponent={loadComponent} sideBar={sideBar} />
     <Content>
       {sideBar.active === "SEARCH ANIME" && <LoadableAnimeComponent />}
       {sideBar.active === "SEARCH VIDEO" && <LoadableYoutubeComponent />}

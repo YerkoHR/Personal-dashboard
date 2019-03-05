@@ -22,7 +22,7 @@ const LoadableSearch = Loadable({
   loading: () => null
 });
 
-const Index = ({
+const VideoSearch = ({
   results,
   togglePlayer,
   togglePlaylist,
@@ -40,7 +40,7 @@ const Index = ({
     )}
   </div>
 );
-Index.propTypes = {
+VideoSearch.propTypes = {
   results: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchDetailsVideo: PropTypes.func.isRequired
 };
@@ -51,4 +51,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { togglePlayer, togglePlaylist, fetchDetailsVideo }
-)(Index);
+)(VideoSearch);

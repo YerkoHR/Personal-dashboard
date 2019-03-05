@@ -5,7 +5,7 @@ import Loadable from "react-loadable";
 import styled from "styled-components";
 import { changeListMode } from "../../redux/ducks/modes";
 import { fetchSavedAnime } from "../../redux/ducks/saved";
-import Container from "../Container";
+import Container from "../../shared/Container";
 
 const LoadableTable = Loadable({
   loader: () => import("./Table"),
@@ -58,7 +58,7 @@ const EmptyMessage = styled.div`
   color: #fff;
 `;
 
-class Index extends React.Component {
+class AnimeList extends React.Component {
   componentDidMount() {
     const { saved, fetchSavedAnime } = this.props;
     for (let i = 0; i < saved.length; i++) {
@@ -99,7 +99,7 @@ class Index extends React.Component {
   }
 }
 
-Index.propTypes = {
+AnimeList.propTypes = {
   saved: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
@@ -114,4 +114,4 @@ export default connect(
     changeListMode,
     fetchSavedAnime
   }
-)(Index);
+)(AnimeList);

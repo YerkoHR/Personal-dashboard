@@ -4,7 +4,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import MyScore from "./MyScore";
 import MyState from "./MyState";
-import DeleteSaved from "../DeleteSaved";
+import ToggleDeleteAnime from "../../shared/ToggleDeleteAnime";
 import {
   removeItem,
   changeScore,
@@ -27,7 +27,6 @@ const StyledTr = styled.tr`
 
 const Rows = ({
   saved,
-  removeItem,
   changeScore,
   changeState,
   incWatchedCounter,
@@ -54,12 +53,7 @@ const Rows = ({
           />
         </td>
         <td>
-          <DeleteSaved
-            removeItem={removeItem}
-            saved={saved}
-            data={anime}
-            svg={true}
-          />
+          <ToggleDeleteAnime data={anime} saved={saved} />
         </td>
       </StyledTr>
     ))}

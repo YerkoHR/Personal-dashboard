@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { H3, P } from "../globals";
+import { H3, P } from "../../shared";
 
 const StyledCardList = styled.ul`
   display: grid;

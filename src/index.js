@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { store, persistor } from "./redux/configureStore";
-import Index from "./components/Index";
-import { GlobalStyle } from "./components/globals";
+import Index from "./app/index";
+import { GlobalStyle } from "./shared/index";
 import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "styled-components";
 

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchDataAnime } from "../../redux/ducks/fetchAnime";
-import { fetchDetails } from "../../redux/ducks/animeDetails";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
 import styled from "styled-components";
-import ContainerSearch from "../ContainerSearch";
-import { Input, H1 } from "../globals";
+import { fetchDataAnime } from "../../../redux/ducks/fetchAnime";
+import { fetchDetails } from "../../../redux/ducks/animeDetails";
+import ContainerSearch from "../../../shared/ContainerSearch";
+import { Input, H1 } from "../../../shared";
 
 const LoadableList = Loadable({
-  loader: () => import("./SearchList"),
+  loader: () => import("../Results"),
   loading: () => null,
   render(loaded, props) {
     let Component = loaded.default;

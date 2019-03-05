@@ -5,7 +5,7 @@ import Loadable from "react-loadable";
 import { addItem, removeItem } from "../../redux/ducks/saved";
 
 const LoadableDetailsCard = Loadable({
-  loader: () => import("./DetailsCard"),
+  loader: () => import("./Card"),
   loading: () => null,
   render(loaded, props) {
     let Component = loaded.default;
@@ -14,21 +14,14 @@ const LoadableDetailsCard = Loadable({
 });
 
 const LoadableSearchSection = Loadable({
-  loader: () => import("./SearchSection"),
+  loader: () => import("./Search"),
   loading: () => null
 });
 
 const Index = ({ animeDetails, saved, addItem, removeItem }) => (
   <div className="fade-in">
     <LoadableSearchSection />
-    {animeDetails && (
-      <LoadableDetailsCard
-        data={animeDetails}
-        saved={saved}
-        addItem={addItem}
-        removeItem={removeItem}
-      />
-    )}
+    {animeDetails && <LoadableDetailsCard data={animeDetails} />}
   </div>
 );
 
