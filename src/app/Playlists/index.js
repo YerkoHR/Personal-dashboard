@@ -2,14 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
-import styled from "styled-components";
-import {
-  changeActivePlaylist,
-  deletePlaylist,
-  deleteVideo
-} from "../../redux/ducks/playlists";
-import { H2 } from "../../shared/globals";
-import Playlist from "./Playlist";
+import { changeActivePlaylist } from "../../redux/ducks/playlists";
+import Header from "./Header";
+import List from "./List";
+
+import { PlaylistsContainer } from "./styles";
 
 const LoadablePlayer = Loadable({
   loader: () => import("./Player"),
@@ -19,18 +16,6 @@ const LoadablePlayer = Loadable({
     return <Component {...props} />;
   }
 });
-
-const PlaylistsContainer = styled.div`
-  margin: 4rem 0;
-`;
-const StyledUl = styled.ul`
-  display: grid;
-  width: 90%;
-  margin: 4em auto;
-  grid-template-columns: repeat(2, 1fr);
-  justify-content: space-evenly;
-  grid-gap: 1em;
-`;
 
 class Playlists extends React.Component {
   constructor(props) {
@@ -49,12 +34,7 @@ class Playlists extends React.Component {
   }
 
   render() {
-    const {
-      playlists,
-      changeActivePlaylist,
-      deletePlaylist,
-      deleteVideo
-    } = this.props;
+    const { playlists } = this.props;
 
     const keys = Object.keys(playlists).filter(key => key !== "active");
     const activeIds =
@@ -63,33 +43,15 @@ class Playlists extends React.Component {
 
     return (
       <PlaylistsContainer className="fade-in">
-        {keys.length > 0 ? (
-          <H2>Your current Playlists: </H2>
-        ) : (
-          <H2>You have no saved playlists :( </H2>
-        )}
-        <StyledUl>
-          {keys.map(key => (
-            <Playlist
-              key={key}
-              playlists={playlists}
-              changeActivePlaylist={changeActivePlaylist}
-              deletePlaylist={deletePlaylist}
-              deleteVideo={deleteVideo}
-              playlistKey={key}
-            />
-          ))}
-        </StyledUl>
+        <Header keys={keys} />
+        <List keys={keys} />
         <LoadablePlayer active={playlists.active} activeIds={activeIds} />
       </PlaylistsContainer>
     );
   }
 }
 Playlists.propTypes = {
-  playlists: PropTypes.object.isRequired,
-  changeActivePlaylist: PropTypes.func.isRequired,
-  deletePlaylist: PropTypes.func.isRequired,
-  deleteVideo: PropTypes.func.isRequired
+  playlists: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   playlists: state.playlists
@@ -97,5 +59,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { changeActivePlaylist, deletePlaylist, deleteVideo }
+  { changeActivePlaylist }
 )(Playlists);
