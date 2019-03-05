@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
-import styled from "styled-components";
 import { fetchDataAnime } from "../../../redux/ducks/fetchAnime";
 import { fetchDetails } from "../../../redux/ducks/animeDetails";
+
 import ContainerSearch from "../../../shared/ContainerSearch";
 import { Input, H1 } from "../../../shared";
+import { InputContainer, InputList } from "./styles";
 
 const LoadableList = Loadable({
   loader: () => import("../Results"),
@@ -16,17 +17,6 @@ const LoadableList = Loadable({
     return <Component {...props} />;
   }
 });
-
-const InputList = styled.div`
-  position: relative;
-  width: 100%;
-`;
-
-const InputContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
 
 export class SearchSection extends Component {
   constructor() {

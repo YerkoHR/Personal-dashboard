@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
-import { addItem, removeItem } from "../../redux/ducks/saved";
 
 const LoadableDetailsCard = Loadable({
   loader: () => import("./Card"),
@@ -18,7 +17,7 @@ const LoadableSearchSection = Loadable({
   loading: () => null
 });
 
-const Index = ({ animeDetails, saved, addItem, removeItem }) => (
+const Index = ({ animeDetails }) => (
   <div className="fade-in">
     <LoadableSearchSection />
     {animeDetails && <LoadableDetailsCard data={animeDetails} />}
@@ -30,14 +29,10 @@ Index.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  animeDetails: state.animeDetails,
-  saved: state.saved
+  animeDetails: state.animeDetails
 });
 
 export default connect(
   mapStateToProps,
-  {
-    addItem,
-    removeItem
-  }
+  {}
 )(Index);

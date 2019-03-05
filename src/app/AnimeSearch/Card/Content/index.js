@@ -1,6 +1,6 @@
 import React from "react";
-import { H2, H3 } from "../../../../shared";
 
+import { H2, H3 } from "../../../../shared";
 import { ContentContainer, PAligned } from "./styles";
 
 const Content = ({ data }) => (

@@ -3,25 +3,15 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { store, persistor } from "./redux/configureStore";
 import Index from "./app/index";
+import { dark } from "./themes";
 import { GlobalStyle } from "./shared/index";
 import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "styled-components";
 
-const darkTheme = {
-  backgroundPrimary: "#3E3F4C",
-  backgroundSecundary: "#2b2c3b",
-  ternary: "#51525E",
-  P: "#d1d1d1",
-  border: "#3c3d4c",
-  red: "#b74343",
-  green: "#36962a",
-  blue: "#486dc4"
-};
-
 const App = () => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <ThemeProvider theme={darkTheme}>
+      <ThemeProvider theme={dark}>
         <div>
           <GlobalStyle />
           <Index />
