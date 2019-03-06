@@ -7,7 +7,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import { GlobalStyle } from "./shared/globals";
 import { ThemeProvider } from "styled-components";
-import { dark } from "./themes";
+import { dark } from "./themes/dark";
 
 const App = () => (
   <Provider store={store}>
