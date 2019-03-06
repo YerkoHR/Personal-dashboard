@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
@@ -17,39 +17,27 @@ const LoadablePlayer = Loadable({
   }
 });
 
-class Playlists extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      input: ""
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
+const Playlists = ({ changeActivePlaylist, playlists }) => {
+  //const [input, onInput] = useState('');
 
-  handleChange(e) {
-    this.setState({ input: e.target.value });
-  }
-  componentDidMount() {
-    this.props.changeActivePlaylist("");
-  }
+  useEffect(() => {
+    changeActivePlaylist("");
+  }, []);
 
-  render() {
-    const { playlists } = this.props;
+  const keys = Object.keys(playlists).filter(key => key !== "active");
+  const activeIds =
+    playlists.active !== "" &&
+    playlists[playlists.active].map(id => id.id).join(", ");
 
-    const keys = Object.keys(playlists).filter(key => key !== "active");
-    const activeIds =
-      playlists.active !== "" &&
-      playlists[playlists.active].map(id => id.id).join(", ");
+  return (
+    <PlaylistsContainer className="fade-in">
+      <Header keys={keys} />
+      <List keys={keys} />
+      <LoadablePlayer active={playlists.active} activeIds={activeIds} />
+    </PlaylistsContainer>
+  );
+};
 
-    return (
-      <PlaylistsContainer className="fade-in">
-        <Header keys={keys} />
-        <List keys={keys} />
-        <LoadablePlayer active={playlists.active} activeIds={activeIds} />
-      </PlaylistsContainer>
-    );
-  }
-}
 Playlists.propTypes = {
   playlists: PropTypes.object.isRequired
 };

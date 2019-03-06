@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
@@ -27,32 +27,27 @@ const LoadableCardList = Loadable({
   }
 });
 
-class AnimeList extends React.Component {
-  componentDidMount() {
-    const { saved, fetchSavedAnime } = this.props;
+const AnimeList = ({ saved, changeListMode, mode, fetchSavedAnime }) => {
+  useEffect(() => {
     for (let i = 0; i < saved.length; i++) {
       fetchSavedAnime(saved[i].id);
     }
-  }
+  }, []);
 
-  render() {
-    const { saved, changeListMode, mode } = this.props;
-
-    return (
-      <Container>
-        {saved.length > 0 ? (
-          <div>
-            <Buttons changeListMode={changeListMode} mode={mode} />
-            {mode === "card" && <LoadableCardList saved={saved} />}
-            {mode === "table" && <LoadableTable />}
-          </div>
-        ) : (
-          <EmptyMessage>No anime saved</EmptyMessage>
-        )}
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      {saved.length > 0 ? (
+        <div>
+          <Buttons changeListMode={changeListMode} mode={mode} />
+          {mode === "card" && <LoadableCardList saved={saved} />}
+          {mode === "table" && <LoadableTable />}
+        </div>
+      ) : (
+        <EmptyMessage>No anime saved</EmptyMessage>
+      )}
+    </Container>
+  );
+};
 
 AnimeList.propTypes = {
   saved: PropTypes.arrayOf(PropTypes.object).isRequired

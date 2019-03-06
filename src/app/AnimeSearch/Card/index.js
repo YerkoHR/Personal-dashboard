@@ -6,19 +6,15 @@ import Image from "./Image";
 import { StyledCard } from "./styles";
 import { ContainerInfo } from "./styles";
 
-export default class DetailsCard extends React.Component {
-  render() {
-    const { data } = this.props;
-    return (
-      <>
-        <StyledCard className="fade-in">
-          <Image image={data.coverImage.extraLarge} />
-          <ContainerInfo>
-            <Content data={data} />
-            <Buttons data={data} />
-          </ContainerInfo>
-        </StyledCard>
-      </>
-    );
-  }
-}
+const Card = ({ data }) => (
+  <>
+    <StyledCard className="fade-in">
+      <Image image={data.coverImage.extraLarge} />
+      <ContainerInfo>
+        <Content data={data} />
+        <Buttons data={data} />
+      </ContainerInfo>
+    </StyledCard>
+  </>
+);
+export default Card;

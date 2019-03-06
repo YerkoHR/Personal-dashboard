@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
@@ -18,64 +18,58 @@ const LoadableList = Loadable({
   }
 });
 
-export class SearchSection extends Component {
-  constructor() {
-    super();
-    this.state = {
-      input: ""
-    };
-    this.handleBlur = this.handleBlur.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
+const Search = ({
+  animeList,
+  error,
+  loading,
+  fetchDetails,
+  fetchDataAnime
+}) => {
+  const [input, onInput] = useState("");
 
-  handleChange(e) {
-    this.setState({ input: e.target.value }, () => {
-      this.props.fetchDataAnime(this.state.input);
-    });
-  }
-  handleBlur(e) {
+  const handleBlur = e => {
     if (!e.currentTarget.contains(document.activeElement)) {
-      this.setState({ input: "" });
+      onInput("");
     }
+  };
+  async function fetch(input) {
+    onInput(input);
+    await fetchDataAnime(input);
   }
 
-  render() {
-    const { animeList, error, loading, fetchDetails } = this.props;
+  return (
+    <ContainerSearch>
+      <H1>Anilist API</H1>
+      <InputContainer>
+        <InputList>
+          <Input
+            type="text"
+            placeholder="Search an anime ..."
+            onChange={e => fetch(e.target.value)}
+            value={input}
+          />
 
-    return (
-      <ContainerSearch>
-        <H1>Anilist API</H1>
-        <InputContainer>
-          <InputList>
-            <Input
-              type="text"
-              placeholder="Search an anime ..."
-              onChange={this.handleChange}
-              value={this.state.input}
+          {animeList.length > 0 && input !== "" && (
+            <LoadableList
+              data={animeList}
+              fetchDetails={fetchDetails}
+              blur={e => handleBlur(e)}
             />
-
-            {animeList.length > 0 && this.state.input !== "" && (
-              <LoadableList
-                data={animeList}
-                fetchDetails={fetchDetails}
-                blur={this.handleBlur}
-              />
-            )}
-          </InputList>
-          {error && <div>Error {error}, please try again later.</div>}
-
-          {loading && !error ? <div className="lds-dual-ring" /> : <div />}
-
-          {animeList.length < 1 && this.state.input !== "" && !loading && (
-            <div>No results found.</div>
           )}
-        </InputContainer>
-      </ContainerSearch>
-    );
-  }
-}
+        </InputList>
+        {error && <div>Error {error}, please try again later.</div>}
 
-SearchSection.propTypes = {
+        {loading && !error ? <div className="lds-dual-ring" /> : <div />}
+
+        {animeList.length < 1 && input !== "" && !loading && (
+          <div>No results found.</div>
+        )}
+      </InputContainer>
+    </ContainerSearch>
+  );
+};
+
+Search.propTypes = {
   fetchDataAnime: PropTypes.func.isRequired,
   animeList: PropTypes.arrayOf(PropTypes.object).isRequired,
   loading: PropTypes.bool.isRequired,
@@ -94,4 +88,4 @@ export default connect(
     fetchDataAnime,
     fetchDetails
   }
-)(SearchSection);
+)(Search);
