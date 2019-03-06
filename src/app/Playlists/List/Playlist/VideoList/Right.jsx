@@ -1,7 +1,7 @@
 import React from "react";
 
 import { X } from "react-feather";
-import { RightContainer } from "./styles";
+import { RightContainer } from "./styles/rightStyles";
 
 const Right = ({ duration, playlistKey, deleteVideo, index }) => (
   <RightContainer>

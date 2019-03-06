@@ -2,7 +2,7 @@ import React from "react";
 import Left from "./Left";
 import Right from "./Right";
 
-import { PlVideo } from "./styles";
+import { PlVideo } from "./styles/indexStyles";
 
 const VideoList = ({ playlist, deleteVideo, playlistKey }) => {
   return (

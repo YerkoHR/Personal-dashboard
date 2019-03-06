@@ -1,7 +1,7 @@
 import React from "react";
 
 import { MoreVertical } from "react-feather";
-import { VideoLeft } from "./styles";
+import { VideoLeft } from "./styles/leftStyles";
 
 const Left = ({ index, title }) => (
   <VideoLeft>

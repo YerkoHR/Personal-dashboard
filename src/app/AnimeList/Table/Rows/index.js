@@ -1,29 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
 import PropTypes from "prop-types";
-import MyScore from "./MyScore";
-import MyState from "./MyState";
-import ToggleDeleteAnime from "../../shared/ToggleDeleteAnime";
+import Score from "./Score";
+import State from "./State";
+import ToggleDeleteAnime from "../../../../shared/ToggleDeleteAnime";
 import {
   removeItem,
   changeScore,
   changeState,
   incWatchedCounter,
   decWatchedCounter
-} from "../../redux/ducks/saved";
+} from "../../../../redux/ducks/saved";
 
-// Code splitting of components that define an UI shape will produce
-// an initial size adjustment on component import/mount, it doesn't look
-// good specially in a table.
-
-const StyledTr = styled.tr`
-  padding: 1em;
-  margin: 1em;
-  svg {
-    transition: 0.3s ease-in-out;
-  }
-`;
+import { StyledTr } from "./styles";
 
 const Rows = ({
   saved,
@@ -41,10 +30,10 @@ const Rows = ({
         <td>{anime.source}</td>
         <td>{anime.averageScore ? anime.averageScore : "TBD"}</td>
         <td>
-          <MyScore anime={anime} index={index} changeScore={changeScore} />
+          <Score anime={anime} index={index} changeScore={changeScore} />
         </td>
         <td>
-          <MyState
+          <State
             anime={anime}
             index={index}
             changeState={changeState}
