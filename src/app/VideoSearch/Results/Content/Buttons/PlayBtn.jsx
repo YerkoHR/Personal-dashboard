@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import { Eye, EyeOff } from "react-feather";
 
 export default function PlayBtn({ index, showVideo, togglePlayer }) {
   return (
-    <React.Fragment>
+    <>
       {showVideo ? (
         <div title="Close player">
           <EyeOff onClick={() => togglePlayer(index)} />
@@ -14,7 +15,7 @@ export default function PlayBtn({ index, showVideo, togglePlayer }) {
           <Eye onClick={() => togglePlayer(index)} />
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 }
 

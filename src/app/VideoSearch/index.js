@@ -5,7 +5,8 @@ import Loadable from "react-loadable";
 import {
   togglePlayer,
   togglePlaylist,
-  fetchDetailsVideo
+  fetchDetailsVideo,
+  fetchDataVideo
 } from "../../redux/ducks/fetchVideos";
 
 const LoadableResults = Loadable({
@@ -18,7 +19,7 @@ const LoadableResults = Loadable({
 });
 
 const LoadableSearch = Loadable({
-  loader: () => import("./SearchVideo"),
+  loader: () => import("./Search"),
   loading: () => null
 });
 
@@ -26,10 +27,11 @@ const VideoSearch = ({
   results,
   togglePlayer,
   togglePlaylist,
-  fetchDetailsVideo
+  fetchDetailsVideo,
+  fetchDataVideo
 }) => (
   <div className="fade-in">
-    <LoadableSearch />
+    <LoadableSearch fetchDataVideo={fetchDataVideo} />
     {results.length > 0 && (
       <LoadableResults
         data={results}
@@ -50,5 +52,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { togglePlayer, togglePlaylist, fetchDetailsVideo }
+  { togglePlayer, togglePlaylist, fetchDetailsVideo, fetchDataVideo }
 )(VideoSearch);
