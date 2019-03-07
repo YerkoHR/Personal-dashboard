@@ -3,6 +3,7 @@ const DELETE_PLAYLIST = "DELETE_PLAYLIST";
 const ADD_VIDEO = "ADD_VIDEO";
 const DELETE_VIDEO = "DELETE_VIDEO";
 const CHANGE_PLAYLIST = "CHANGE_PLAYLIST";
+const REORDER_PLAYLIST = "REORDER_PLAYLIST";
 
 const initialState = {
   active: ""
@@ -46,6 +47,11 @@ export default function reducer(state = initialState, action) {
         ...state,
         active: action.title
       };
+    case REORDER_PLAYLIST:
+      return {
+        ...state,
+        [action.key]: action.playlist
+      };
     default:
       return state;
   }
@@ -64,4 +70,7 @@ export function deleteVideo(key, index) {
 }
 export function changeActivePlaylist(title) {
   return { type: CHANGE_PLAYLIST, title };
+}
+export function reOrderPlaylist(key, playlist) {
+  return { type: REORDER_PLAYLIST, key, playlist };
 }

@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import {
   changeActivePlaylist,
   deletePlaylist,
-  deleteVideo
+  deleteVideo,
+  reOrderPlaylist
 } from "../../../../redux/ducks/playlists";
 import Title from "./Title";
 import VideoList from "./VideoList";
@@ -16,7 +17,8 @@ const Playlist = ({
   changeActivePlaylist,
   deletePlaylist,
   deleteVideo,
-  playlistKey
+  playlistKey,
+  reOrderPlaylist
 }) => {
   const playlist = playlists[playlistKey];
 
@@ -33,6 +35,7 @@ const Playlist = ({
         playlist={playlist}
         deleteVideo={deleteVideo}
         playlistKey={playlistKey}
+        reOrderPlaylist={reOrderPlaylist}
       />
     </PlContainer>
   );
@@ -50,5 +53,5 @@ const mapStateToProps = state => ({ playlists: state.playlists });
 
 export default connect(
   mapStateToProps,
-  { changeActivePlaylist, deletePlaylist, deleteVideo }
+  { changeActivePlaylist, deletePlaylist, deleteVideo, reOrderPlaylist }
 )(Playlist);

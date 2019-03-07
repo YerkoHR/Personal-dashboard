@@ -13,6 +13,7 @@ export const VideoLeft = styled.div`
     left: 0;
     width: 15px;
     height: 100%;
+    cursor: move;
   }
   span {
     margin: 0 1.5rem;
