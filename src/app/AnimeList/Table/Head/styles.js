@@ -26,6 +26,8 @@ export const HeadRow = styled.tr`
     width: 15%;
   }
   svg {
+    width: 20px;
+    height: 20px;
     transition: 0.3s ease-in-out;
     &:hover {
       stroke: ${props => props.theme.blue};

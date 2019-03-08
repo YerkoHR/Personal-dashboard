@@ -12,33 +12,42 @@ import {
 
 import { StyledTr } from "./styles";
 
-const Rows = ({ saved, changeScore, changeState }) => (
-  <React.Fragment>
-    {saved.map((anime, index) => (
-      <StyledTr key={anime.id}>
-        <td>{anime.title}</td>
-        <td>{anime.format ? anime.format : "Unknown"}</td>
-        <td>{anime.status ? anime.status : "Unknown"}</td>
-        <td>{anime.source}</td>
-        <td>{anime.averageScore ? anime.averageScore : "TBD"}</td>
-        <td>
-          <Score anime={anime} index={index} changeScore={changeScore} />
-        </td>
-        <td>
-          <State
-            state={anime.myState}
-            index={index}
-            changeState={changeState}
-            anime={anime}
-          />
-        </td>
-        <td>
-          <ToggleDeleteAnime data={anime} saved={saved} />
-        </td>
-      </StyledTr>
-    ))}
-  </React.Fragment>
-);
+const Rows = ({ saved, changeScore, changeState, filter }) => {
+  const filteredSaved = saved.filter(anime => {
+    if (filter === "All") {
+      return anime;
+    }
+    return anime.myState === filter;
+  });
+
+  return (
+    <>
+      {filteredSaved.map((anime, index) => (
+        <StyledTr key={anime.id}>
+          <td>{anime.title}</td>
+          <td>{anime.format ? anime.format : "Unknown"}</td>
+          <td>{anime.status ? anime.status : "Unknown"}</td>
+          <td>{anime.source}</td>
+          <td>{anime.averageScore ? anime.averageScore : "TBD"}</td>
+          <td>
+            <Score anime={anime} index={index} changeScore={changeScore} />
+          </td>
+          <td>
+            <State
+              state={anime.myState}
+              index={index}
+              changeState={changeState}
+              anime={anime}
+            />
+          </td>
+          <td>
+            <ToggleDeleteAnime data={anime} saved={saved} />
+          </td>
+        </StyledTr>
+      ))}
+    </>
+  );
+};
 
 Rows.propTypes = {
   removeItem: PropTypes.func.isRequired,

@@ -1,5 +1,6 @@
 import React from "react";
 import Counter from "./Counter";
+import { myStates } from "./myStates";
 
 import { StyledWatchedCounter } from "./styles";
 
@@ -11,8 +12,6 @@ const State = ({ state, index, changeState, anime }) => {
     (state === "Dropped" && "Dropped") ||
     (state === "Stand By" && "standBy");
 
-  const options = ["To watch", "Watching", "Completed", "Dropped", "Stand By"];
-
   return (
     <StyledWatchedCounter>
       <select
@@ -20,7 +19,7 @@ const State = ({ state, index, changeState, anime }) => {
         value={state}
         onChange={e => changeState(index, e.target.value)}
       >
-        {options.map((option, i) => (
+        {myStates.map((option, i) => (
           <option value={option} key={i}>
             {option}
           </option>
