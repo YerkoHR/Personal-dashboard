@@ -7,20 +7,12 @@ import ToggleDeleteAnime from "../../../../shared/ToggleDeleteAnime";
 import {
   removeItem,
   changeScore,
-  changeState,
-  incWatchedCounter,
-  decWatchedCounter
+  changeState
 } from "../../../../redux/ducks/saved";
 
 import { StyledTr } from "./styles";
 
-const Rows = ({
-  saved,
-  changeScore,
-  changeState,
-  incWatchedCounter,
-  decWatchedCounter
-}) => (
+const Rows = ({ saved, changeScore, changeState }) => (
   <React.Fragment>
     {saved.map((anime, index) => (
       <StyledTr key={anime.id}>
@@ -34,11 +26,10 @@ const Rows = ({
         </td>
         <td>
           <State
-            anime={anime}
+            state={anime.myState}
             index={index}
             changeState={changeState}
-            incWatchedCounter={incWatchedCounter}
-            decWatchedCounter={decWatchedCounter}
+            anime={anime}
           />
         </td>
         <td>
@@ -53,8 +44,6 @@ Rows.propTypes = {
   removeItem: PropTypes.func.isRequired,
   changeScore: PropTypes.func.isRequired,
   changeState: PropTypes.func.isRequired,
-  incWatchedCounter: PropTypes.func.isRequired,
-  decWatchedCounter: PropTypes.func.isRequired,
   saved: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -81,8 +70,6 @@ export default connect(
   {
     removeItem,
     changeScore,
-    changeState,
-    incWatchedCounter,
-    decWatchedCounter
+    changeState
   }
 )(Rows);
