@@ -20,7 +20,7 @@ function saveAnime(state, action) {
       ...action.item,
       title: action.item.title.romaji,
       myScore: 1,
-      myState: "To watch",
+      myState: "To Watch",
       source: action.item.source ? action.item.source : "UNKNOWN",
       episodesWatched: 0,
       nextAiringEpisode: action.item.nextAiringEpisode && {

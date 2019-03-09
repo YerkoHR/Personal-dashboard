@@ -1,5 +1,5 @@
 export const myStates = [
-  "To watch",
+  "To Watch",
   "Watching",
   "Completed",
   "Dropped",

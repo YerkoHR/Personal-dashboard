@@ -17,11 +17,13 @@ const Counter = ({ anime, index, incWatchedCounter, decWatchedCounter }) => {
 
   return (
     <StyledCounter>
-      <div>
-        {state === "Completed" ? episodes || nextEpisode : watched}
-        <span>/</span>
-        {episodes || nextEpisode}
-      </div>
+      {state !== "To Watch" && (
+        <div>
+          {state === "Completed" ? episodes || nextEpisode : watched}
+          <span>/</span>
+          {episodes || nextEpisode}
+        </div>
+      )}
       {state === "Watching" && (
         <div>
           <MinusCircle

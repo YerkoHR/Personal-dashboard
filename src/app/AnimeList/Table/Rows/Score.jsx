@@ -2,7 +2,7 @@ import React from "react";
 
 const Score = ({ anime, index, changeScore }) => (
   <>
-    {anime.myState !== "To watch" ? (
+    {anime.myState !== "To Watch" ? (
       <select
         value={anime.myScore}
         onChange={e => changeScore(index, e.target.value)}

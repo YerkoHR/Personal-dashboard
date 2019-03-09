@@ -6,7 +6,7 @@ import { StyledWatchedCounter } from "./styles";
 
 const State = ({ state, index, changeState, anime }) => {
   const myStateClass =
-    (state === "To watch" && "toWatch") ||
+    (state === "To Watch" && "toWatch") ||
     (state === "Watching" && "Watching") ||
     (state === "Completed" && "Completed") ||
     (state === "Dropped" && "Dropped") ||
