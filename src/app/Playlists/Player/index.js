@@ -9,7 +9,7 @@ const Player = ({ active, activeIds }) => (
         <iframe
           type="text/html"
           title={active}
-          src={`https://www.youtube.com/embed?listType=playlist&playlist=${activeIds}`}
+          src={`https://www.youtube.com/embed?listType=playlist&playlist=${activeIds}&loop=1`}
         />
       </ContainerPlayer>
     ) : (
