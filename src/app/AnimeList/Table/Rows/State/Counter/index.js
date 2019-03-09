@@ -22,7 +22,7 @@ const Counter = ({ anime, index, incWatchedCounter, decWatchedCounter }) => {
         <span>/</span>
         {episodes || nextEpisode}
       </div>
-      {state !== "Completed" && (
+      {state === "Watching" && (
         <div>
           <MinusCircle
             className={watched === 0 ? "disabled" : ""}

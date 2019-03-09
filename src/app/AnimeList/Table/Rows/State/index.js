@@ -25,11 +25,16 @@ const State = ({ state, index, changeState, anime }) => {
           </option>
         ))}
       </select>
-      {(state === "Watching" || state === "Completed") && (
-        <Counter index={index} anime={anime} />
-      )}
+
+      <Counter index={index} anime={anime} />
     </StyledWatchedCounter>
   );
 };
 
 export default State;
+/*
+{(state === "Watching" || state === "Completed") && (
+        <Counter index={index} anime={anime} />
+      )}
+
+*/
