@@ -92,6 +92,9 @@ export const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     justify-content: space-evenly;
   }
+  .active {
+    background: ${props => props.theme.backgroundSecundary} !important;
+  }
   .lds-dual-ring {
     width: 32px;
     height: 32px;

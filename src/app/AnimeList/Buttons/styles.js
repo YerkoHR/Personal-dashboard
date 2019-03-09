@@ -13,17 +13,4 @@ export const BtnContainer = styled.div`
     right: 0;
     bottom: 10px;
   }
-  button {
-    border-radius: 4px;
-    border: 0.5px solid ${props => props.theme.backgroundPrimary};
-    background: ${props => props.theme.backgroundPrimary};
-    color: ${props => props.theme.P};
-    padding: 0.5em;
-    &:focus {
-      outline: 0;
-    }
-  }
-  .active {
-    background: ${props => props.theme.backgroundSecundary};
-  }
 `;

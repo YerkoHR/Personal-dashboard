@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
@@ -27,7 +27,9 @@ const LoadableCardList = Loadable({
   }
 });
 
-const AnimeList = ({ saved, changeListMode, mode, fetchSavedAnime }) => {
+const AnimeList = ({ saved, fetchSavedAnime }) => {
+  const [listMode, onListMode] = useState("Table");
+
   useEffect(() => {
     for (let i = 0; i < saved.length; i++) {
       fetchSavedAnime(saved[i].id);
@@ -37,11 +39,11 @@ const AnimeList = ({ saved, changeListMode, mode, fetchSavedAnime }) => {
   return (
     <Container>
       {saved.length > 0 ? (
-        <div>
-          <Buttons changeListMode={changeListMode} mode={mode} />
-          {mode === "card" && <LoadableCardList saved={saved} />}
-          {mode === "table" && <LoadableTable />}
-        </div>
+        <>
+          <Buttons onListMode={onListMode} listMode={listMode} />
+          {listMode === "Card" && <LoadableCardList saved={saved} />}
+          {listMode === "Table" && <LoadableTable />}
+        </>
       ) : (
         <EmptyMessage>No anime saved</EmptyMessage>
       )}

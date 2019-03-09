@@ -1,21 +1,22 @@
 import React from "react";
 
 import { BtnContainer } from "./styles";
+import { BtnTable } from "../../../shared/buttons";
 
-const Buttons = ({ changeListMode, mode }) => (
+const Buttons = ({ onListMode, listMode }) => (
   <BtnContainer>
-    <button
-      className={mode === "table" ? "active" : ""}
-      onClick={() => changeListMode("table")}
+    <BtnTable
+      className={listMode === "Table" ? "active" : ""}
+      onClick={() => onListMode("Table")}
     >
       TABLE
-    </button>
-    <button
-      className={mode === "card" ? "active" : ""}
-      onClick={() => changeListMode("card")}
+    </BtnTable>
+    <BtnTable
+      className={listMode === "Card" ? "active" : ""}
+      onClick={() => onListMode("Card")}
     >
       CARD
-    </button>
+    </BtnTable>
   </BtnContainer>
 );
 

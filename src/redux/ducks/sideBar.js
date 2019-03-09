@@ -4,7 +4,7 @@ import { Search, List, Youtube } from "react-feather";
 export const LOAD_COMPONENT = "LOAD_COMPONENT";
 
 const initialState = {
-  active: "PLAYLIST",
+  active: "ANIME LIST",
   items: [
     {
       title: "SEARCH ANIME",

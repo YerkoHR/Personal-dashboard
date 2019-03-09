@@ -6,5 +6,7 @@ export const dark = {
   border: "#3c3d4c",
   red: "#b74343",
   green: "#36962a",
-  blue: "#486dc4"
+  blue: "#486dc4",
+  calipso: "#22A394",
+  orange: "#CE8D31"
 };

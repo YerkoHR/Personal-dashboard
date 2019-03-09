@@ -3,19 +3,31 @@ import Rows from "./Rows";
 import Head from "./Head";
 import { myStates } from "./Rows/State/myStates";
 
-import { StyledTable } from "./styles";
+import { StyledTable, TableContainer } from "./styles";
+import { BtnTable } from "../../../shared/buttons";
 
 const Table = () => {
   const [filter, onFilter] = useState("All");
 
   return (
-    <div>
-      <button onClick={() => onFilter("All")}>All</button>
-      {myStates.map((state, i) => (
-        <button onClick={() => onFilter(state)} key={i}>
-          {state}
-        </button>
-      ))}
+    <TableContainer>
+      <div className="filter-btns">
+        <BtnTable
+          className={filter === "All" ? "active" : ""}
+          onClick={() => onFilter("All")}
+        >
+          All
+        </BtnTable>
+        {myStates.map((state, i) => (
+          <BtnTable
+            className={filter === state ? "active" : ""}
+            onClick={() => onFilter(state)}
+            key={i}
+          >
+            {state}
+          </BtnTable>
+        ))}
+      </div>
       <StyledTable className="fade-in">
         <thead>
           <Head />
@@ -24,7 +36,7 @@ const Table = () => {
           <Rows filter={filter} />
         </tbody>
       </StyledTable>
-    </div>
+    </TableContainer>
   );
 };
 

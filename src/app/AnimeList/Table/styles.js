@@ -1,9 +1,20 @@
 import styled from "styled-components";
 
+export const TableContainer = styled.div`
+  position: relative;
+
+  .filter-btns {
+    position: absolute;
+    top: -40px;
+    button {
+      text-transform: uppercase;
+    }
+  }
+`;
+
 export const StyledTable = styled.table`
   border-collapse: collapse;
   background: ${props => props.theme.backgroundPrimary};
-  border-radius: 10px;
   th,
   td,
   tr {
