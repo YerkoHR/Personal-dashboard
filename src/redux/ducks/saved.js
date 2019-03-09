@@ -57,15 +57,23 @@ function updateAnime(state, action) {
 function updateState(state, action) {
   return state.map((x, index) => {
     if (index === action.index) {
-      return action.state === "Completed"
-        ? {
-            ...x,
-            myState: action.state,
-            episodesWatched:
-              state[action.index].episodes ||
-              state[action.index].nextAiringEpisode.episode - 1
-          }
-        : { ...x, myState: action.state };
+      if (action.state === "Completed") {
+        return {
+          ...x,
+          myState: action.state,
+          episodesWatched:
+            state[action.index].episodes ||
+            state[action.index].nextAiringEpisode.episode - 1
+        };
+      }
+      if (action.state === "Watching") {
+        return {
+          ...x,
+          myState: action.state,
+          episodesWatched: 0
+        };
+      }
+      return { ...x, myState: action.state };
     }
     return x;
   });
