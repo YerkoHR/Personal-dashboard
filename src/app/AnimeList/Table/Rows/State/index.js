@@ -32,9 +32,3 @@ const State = ({ state, index, changeState, anime }) => {
 };
 
 export default State;
-/*
-{(state === "Watching" || state === "Completed") && (
-        <Counter index={index} anime={anime} />
-      )}
-
-*/
