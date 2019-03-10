@@ -4,6 +4,7 @@ const ADD_VIDEO = "ADD_VIDEO";
 const DELETE_VIDEO = "DELETE_VIDEO";
 const CHANGE_PLAYLIST = "CHANGE_PLAYLIST";
 const REORDER_PLAYLIST = "REORDER_PLAYLIST";
+const EDIT_TITLE = "EDIT_TITLE";
 
 const initialState = {
   active: ""
@@ -21,6 +22,7 @@ export default function reducer(state = initialState, action) {
       clone.active = action.key === state.active ? "" : state.active;
       delete clone[action.key];
       return clone;
+
     case ADD_VIDEO:
       return {
         ...state,
@@ -50,7 +52,14 @@ export default function reducer(state = initialState, action) {
     case REORDER_PLAYLIST:
       return {
         ...state,
-        [action.key]: action.playlist
+        [action.newKey]: action.playlist
+      };
+    case EDIT_TITLE:
+      let obj = Object.assign({}, state);
+      delete obj[action.oldKey];
+      return {
+        ...obj,
+        [action.newKey]: state[action.oldKey]
       };
     default:
       return state;
@@ -73,4 +82,7 @@ export function changeActivePlaylist(title) {
 }
 export function reOrderPlaylist(key, playlist) {
   return { type: REORDER_PLAYLIST, key, playlist };
+}
+export function editPlaylistTitle(newKey, oldKey) {
+  return { type: EDIT_TITLE, newKey, oldKey };
 }

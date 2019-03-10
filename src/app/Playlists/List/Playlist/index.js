@@ -5,7 +5,8 @@ import {
   changeActivePlaylist,
   deletePlaylist,
   deleteVideo,
-  reOrderPlaylist
+  reOrderPlaylist,
+  editPlaylistTitle
 } from "../../../../redux/ducks/playlists";
 import Title from "./Title";
 import VideoList from "./VideoList";
@@ -18,7 +19,8 @@ const Playlist = ({
   deletePlaylist,
   deleteVideo,
   playlistKey,
-  reOrderPlaylist
+  reOrderPlaylist,
+  editPlaylistTitle
 }) => {
   const playlist = playlists[playlistKey];
 
@@ -29,6 +31,7 @@ const Playlist = ({
         deletePlaylist={deletePlaylist}
         playlistKey={playlistKey}
         playlist={playlist}
+        editPlaylistTitle={editPlaylistTitle}
       />
 
       <VideoList
@@ -46,12 +49,19 @@ Playlist.propTypes = {
   changeActivePlaylist: PropTypes.func.isRequired,
   deletePlaylist: PropTypes.func.isRequired,
   deleteVideo: PropTypes.func.isRequired,
-  playlistKey: PropTypes.string.isRequired
+  playlistKey: PropTypes.string.isRequired,
+  editPlaylistTitle: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({ playlists: state.playlists });
 
 export default connect(
   mapStateToProps,
-  { changeActivePlaylist, deletePlaylist, deleteVideo, reOrderPlaylist }
+  {
+    changeActivePlaylist,
+    deletePlaylist,
+    deleteVideo,
+    reOrderPlaylist,
+    editPlaylistTitle
+  }
 )(Playlist);
