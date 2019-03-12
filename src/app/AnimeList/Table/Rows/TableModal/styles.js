@@ -10,10 +10,12 @@ export const TableModalContainer = styled.div`
     }
   }
   input {
+    text-align: center;
     border: 0;
     outline: 0;
     background: transparent;
     color: ${props => props.theme.P};
+    width: 500px;
   }
   .open-modal:hover {
     stroke: ${props => props.theme.blue};

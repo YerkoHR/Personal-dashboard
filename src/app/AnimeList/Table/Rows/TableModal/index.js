@@ -7,7 +7,9 @@ import { TableModalContainer } from "./styles";
 const TableModal = ({ updateReason, id, reason }) => {
   const [show, onShow] = useState(false);
   const [showInput, onShowInput] = useState(false);
-  const [input, onInput] = useState("Put your reasons to drop here...");
+  const [input, onInput] = useState("");
+
+  const reasonContent = reason || "Put the reason to drop here...";
 
   const keyPress = e => {
     if (e.keyCode === 13) {
@@ -30,7 +32,7 @@ const TableModal = ({ updateReason, id, reason }) => {
               onChange={e => onInput(e.target.value)}
             />
           ) : (
-            <p>{reason}</p>
+            <p>{reasonContent}</p>
           )}
           <Edit2 className="modal-edit" onClick={() => onShowInput(true)} />
         </Modal>

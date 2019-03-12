@@ -46,7 +46,7 @@ const Rows = ({ saved, changeScore, changeState, filter, updateReason }) => {
               <TableModal
                 updateReason={updateReason}
                 id={anime.id}
-                reason={anime.reason || ""}
+                reason={anime.reason}
               />
               <ToggleDeleteAnime data={anime} saved={saved} />
             </td>
