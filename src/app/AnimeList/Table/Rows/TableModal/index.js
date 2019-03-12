@@ -4,7 +4,7 @@ import Modal from "../../../../../shared/Modal";
 import { Clipboard, Edit2 } from "react-feather";
 import { TableModalContainer } from "./styles";
 
-const TableModal = ({ updateReason, id }) => {
+const TableModal = ({ updateReason, id, reason }) => {
   const [show, onShow] = useState(false);
   const [showInput, onShowInput] = useState(false);
   const [input, onInput] = useState("Put your reasons to drop here...");
@@ -30,7 +30,7 @@ const TableModal = ({ updateReason, id }) => {
               onChange={e => onInput(e.target.value)}
             />
           ) : (
-            <p>{input}</p>
+            <p>{reason}</p>
           )}
           <Edit2 className="modal-edit" onClick={() => onShowInput(true)} />
         </Modal>

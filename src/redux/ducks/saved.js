@@ -44,7 +44,7 @@ function updateAnime(state, action) {
       return {
         ...data,
         nextAiringEpisode: data.nextAiringEpisode && {
-          episode: nextAiringEpisode.episode,
+          episode: nextAiringEpisode.episode && nextAiringEpisode.episode,
           timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
         },
         averageScore: averageScore,
