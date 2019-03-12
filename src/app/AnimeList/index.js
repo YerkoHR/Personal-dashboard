@@ -27,6 +27,10 @@ const LoadableCardList = Loadable({
   }
 });
 
+//CHANGE FILTER STATE TO THIS LEVEL TO PASS FILTERS TO CARD LIST.
+
+//CHANGE REASON MODAL TO TRIGGER ACTION IONSTEAD OF LOCAL STATE.
+
 const AnimeList = ({ saved, fetchSavedAnime }) => {
   const [listMode, onListMode] = useState("Table");
 

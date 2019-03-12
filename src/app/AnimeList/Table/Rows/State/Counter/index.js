@@ -8,7 +8,7 @@ import {
 import { PlusCircle, MinusCircle } from "react-feather";
 import { StyledCounter } from "./styles";
 
-const Counter = ({ anime, index, incWatchedCounter, decWatchedCounter }) => {
+const Counter = ({ anime, incWatchedCounter, decWatchedCounter }) => {
   const state = anime.myState;
   const episodes = anime.episodes;
   const nextEpisode =
@@ -28,11 +28,11 @@ const Counter = ({ anime, index, incWatchedCounter, decWatchedCounter }) => {
         <div>
           <MinusCircle
             className={watched === 0 ? "disabled" : ""}
-            onClick={() => decWatchedCounter(index)}
+            onClick={() => decWatchedCounter(anime.id)}
           />
           <PlusCircle
             className={(episodes || nextEpisode) === watched ? "disabled" : ""}
-            onClick={() => incWatchedCounter(index)}
+            onClick={() => incWatchedCounter(anime.id)}
           />
         </div>
       )}

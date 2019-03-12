@@ -4,7 +4,7 @@ import { myStates } from "./myStates";
 
 import { StyledWatchedCounter } from "./styles";
 
-const State = ({ state, index, changeState, anime }) => {
+const State = ({ state, changeState, anime }) => {
   const myStateClass =
     (state === "To Watch" && "toWatch") ||
     (state === "Watching" && "Watching") ||
@@ -17,7 +17,7 @@ const State = ({ state, index, changeState, anime }) => {
       <select
         className={myStateClass}
         value={state}
-        onChange={e => changeState(index, e.target.value)}
+        onChange={e => changeState(anime.id, e.target.value)}
       >
         {myStates.map((option, i) => (
           <option value={option} key={i}>
@@ -26,7 +26,7 @@ const State = ({ state, index, changeState, anime }) => {
         ))}
       </select>
 
-      <Counter index={index} anime={anime} />
+      <Counter anime={anime} />
     </StyledWatchedCounter>
   );
 };

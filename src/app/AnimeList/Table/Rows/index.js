@@ -3,16 +3,18 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Score from "./Score";
 import State from "./State";
+import TableModal from "./TableModal";
 import ToggleDeleteAnime from "../../../../shared/ToggleDeleteAnime";
 import {
   removeItem,
   changeScore,
-  changeState
+  changeState,
+  updateReason
 } from "../../../../redux/ducks/saved";
 
 import { StyledTr } from "./styles";
 
-const Rows = ({ saved, changeScore, changeState, filter }) => {
+const Rows = ({ saved, changeScore, changeState, filter, updateReason }) => {
   const filteredSaved = saved.filter(anime => {
     if (filter === "All") {
       return anime;
@@ -22,7 +24,7 @@ const Rows = ({ saved, changeScore, changeState, filter }) => {
 
   return (
     <>
-      {filteredSaved.map((anime, index) => (
+      {filteredSaved.map(anime => (
         <StyledTr key={anime.id}>
           <td>{anime.title}</td>
           <td>{anime.format ? anime.format : "Unknown"}</td>
@@ -30,19 +32,25 @@ const Rows = ({ saved, changeScore, changeState, filter }) => {
           <td>{anime.source}</td>
           <td>{anime.averageScore ? anime.averageScore : "TBD"}</td>
           <td>
-            <Score anime={anime} index={index} changeScore={changeScore} />
+            <Score anime={anime} changeScore={changeScore} />
           </td>
           <td>
             <State
               state={anime.myState}
-              index={index}
               changeState={changeState}
               anime={anime}
             />
           </td>
-          <td>
-            <ToggleDeleteAnime data={anime} saved={saved} />
-          </td>
+          {anime.myState === "Dropped" ? (
+            <td>
+              <TableModal updateReason={updateReason} id={anime.id} />
+              <ToggleDeleteAnime data={anime} saved={saved} />
+            </td>
+          ) : (
+            <td>
+              <ToggleDeleteAnime data={anime} saved={saved} />
+            </td>
+          )}
         </StyledTr>
       ))}
     </>
@@ -53,6 +61,7 @@ Rows.propTypes = {
   removeItem: PropTypes.func.isRequired,
   changeScore: PropTypes.func.isRequired,
   changeState: PropTypes.func.isRequired,
+  updateReason: PropTypes.func.isRequired,
   saved: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -79,6 +88,7 @@ export default connect(
   {
     removeItem,
     changeScore,
-    changeState
+    changeState,
+    updateReason
   }
 )(Rows);
