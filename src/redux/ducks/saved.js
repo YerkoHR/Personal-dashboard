@@ -43,10 +43,12 @@ function updateAnime(state, action) {
     if (data.id === id) {
       return {
         ...data,
-        nextAiringEpisode: data.nextAiringEpisode && {
-          episode: nextAiringEpisode.episode && nextAiringEpisode.episode,
-          timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
-        },
+        nextAiringEpisode: data.nextAiringEpisode
+          ? {
+              episode: nextAiringEpisode.episode,
+              timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
+            }
+          : null,
         averageScore: averageScore,
         status: status
       };
