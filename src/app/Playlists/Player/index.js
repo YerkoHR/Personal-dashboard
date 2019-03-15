@@ -3,8 +3,10 @@ import React, { useEffect } from "react";
 import { ContainerPlayer } from "./styles";
 
 const Player = ({ active, activeIds }) => {
+  const renderCondition = (active !== "") & (activeIds !== "");
+
   useEffect(() => {
-    if ((active !== "") & (activeIds !== "")) {
+    if (renderCondition) {
       document
         .getElementById("pl-player")
         .scrollIntoView({ behavior: "smooth" });
@@ -13,7 +15,7 @@ const Player = ({ active, activeIds }) => {
 
   return (
     <div id="pl-player">
-      {(active !== "") & (activeIds !== "") ? (
+      {renderCondition ? (
         <ContainerPlayer>
           <iframe
             type="text/html"
