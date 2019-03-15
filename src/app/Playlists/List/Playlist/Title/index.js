@@ -19,7 +19,11 @@ const Title = ({
     </div>
     <div className="pl-btns">
       {playlist.length > 0 && (
-        <button onClick={() => changeActivePlaylist(playlistKey)}>
+        <button
+          onClick={() => {
+            changeActivePlaylist(playlistKey);
+          }}
+        >
           Play all
         </button>
       )}
