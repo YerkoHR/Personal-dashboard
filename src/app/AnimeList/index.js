@@ -27,12 +27,9 @@ const LoadableCardList = Loadable({
   }
 });
 
-//CHANGE FILTER STATE TO THIS LEVEL TO PASS FILTERS TO CARD LIST.
-
-//CHANGE REASON MODAL TO TRIGGER ACTION IONSTEAD OF LOCAL STATE.
-
 const AnimeList = ({ saved, fetchSavedAnime }) => {
   const [listMode, onListMode] = useState("Table");
+  const [filter, onFilter] = useState("All");
 
   useEffect(() => {
     for (let i = 0; i < saved.length; i++) {
@@ -40,13 +37,25 @@ const AnimeList = ({ saved, fetchSavedAnime }) => {
     }
   }, []);
 
+  const filteredSaved = saved.filter(anime => {
+    if (filter === "All") {
+      return anime;
+    }
+    return anime.myState === filter;
+  });
+
   return (
     <Container>
       {saved.length > 0 ? (
         <>
-          <Buttons onListMode={onListMode} listMode={listMode} />
-          {listMode === "Card" && <LoadableCardList saved={saved} />}
-          {listMode === "Table" && <LoadableTable />}
+          <Buttons
+            onListMode={onListMode}
+            listMode={listMode}
+            filter={filter}
+            onFilter={onFilter}
+          />
+          {listMode === "Card" && <LoadableCardList saved={filteredSaved} />}
+          {listMode === "Table" && <LoadableTable saved={filteredSaved} />}
         </>
       ) : (
         <EmptyMessage>No anime saved</EmptyMessage>
@@ -60,8 +69,7 @@ AnimeList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  saved: state.saved,
-  mode: state.modes.listMode
+  saved: state.saved
 });
 
 export default connect(

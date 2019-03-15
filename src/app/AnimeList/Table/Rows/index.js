@@ -14,17 +14,10 @@ import {
 
 import { StyledTr } from "./styles";
 
-const Rows = ({ saved, changeScore, changeState, filter, updateReason }) => {
-  const filteredSaved = saved.filter(anime => {
-    if (filter === "All") {
-      return anime;
-    }
-    return anime.myState === filter;
-  });
-
+const Rows = ({ saved, changeScore, changeState, updateReason }) => {
   return (
     <>
-      {filteredSaved.map(anime => (
+      {saved.map(anime => (
         <StyledTr key={anime.id}>
           <td>{anime.title}</td>
           <td>{anime.format ? anime.format : "Unknown"}</td>
@@ -65,30 +58,11 @@ Rows.propTypes = {
   removeItem: PropTypes.func.isRequired,
   changeScore: PropTypes.func.isRequired,
   changeState: PropTypes.func.isRequired,
-  updateReason: PropTypes.func.isRequired,
-  saved: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      nextAiringEpisode: PropTypes.shape({ episode: PropTypes.number }),
-      averageScore: PropTypes.number,
-      myScore: PropTypes.number.isRequired,
-      myState: PropTypes.string.isRequired,
-      episodes: PropTypes.number,
-      episodesWatched: PropTypes.number.isRequired,
-      status: PropTypes.string,
-      source: PropTypes.string,
-      format: PropTypes.string
-    })
-  ).isRequired
+  updateReason: PropTypes.func.isRequired
 };
 
-const mapStateToProps = state => ({
-  saved: state.saved
-});
-
 export default connect(
-  mapStateToProps,
+  null,
   {
     removeItem,
     changeScore,
