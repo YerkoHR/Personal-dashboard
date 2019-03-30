@@ -29,7 +29,7 @@ const LoadableCardList = Loadable({
 
 const AnimeList = ({ saved, fetchSavedAnime }) => {
   const [listMode, onListMode] = useState("Table");
-  const [filter, onFilter] = useState("All");
+  const [filter, onFilter] = useState("Watching");
 
   useEffect(() => {
     for (let i = 0; i < saved.length; i++) {
