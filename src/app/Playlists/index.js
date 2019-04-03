@@ -18,8 +18,6 @@ const LoadablePlayer = Loadable({
 });
 
 const Playlists = ({ changeActivePlaylist, playlists }) => {
-  //const [input, onInput] = useState('');
-
   useEffect(() => {
     changeActivePlaylist("");
   }, []);

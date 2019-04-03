@@ -9,11 +9,19 @@ export const StyledWatchedCounter = styled.div`
     color: ${props => props.theme.blue};
   }
   .toWatch {
-    border-color: ${props => props.theme.red};
-    color: ${props => props.theme.red};
+    border-color: ${props => props.theme.orange};
+    color: ${props => props.theme.orange};
   }
   .Completed {
     border-color: ${props => props.theme.green};
     color: ${props => props.theme.green};
+  }
+  .Dropped {
+    border-color: ${props => props.theme.red};
+    color: ${props => props.theme.red};
+  }
+  .standBy {
+    border-color: ${props => props.theme.calipso};
+    color: ${props => props.theme.calipso};
   }
 `;

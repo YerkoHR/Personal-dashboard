@@ -4,15 +4,19 @@ import Head from "./Head";
 
 import { StyledTable } from "./styles";
 
-const Table = () => (
-  <StyledTable className="fade-in">
-    <thead>
-      <Head />
-    </thead>
-    <tbody>
-      <Rows />
-    </tbody>
-  </StyledTable>
-);
+const Table = ({ saved }) => {
+  return (
+    <>
+      <StyledTable className="fade-in">
+        <thead>
+          <Head />
+        </thead>
+        <tbody>
+          <Rows saved={saved} />
+        </tbody>
+      </StyledTable>
+    </>
+  );
+};
 
 export default Table;

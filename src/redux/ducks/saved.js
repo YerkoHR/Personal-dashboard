@@ -10,6 +10,7 @@ const INC_WATCHED_COUNTER = "INC_WATCHED_COUNTER";
 const DEC_WATCHED_COUNTER = "DEC_WATCHED_COUNTER";
 const UPDATE_ANIME = "UPDATE_ANIME";
 const RESET_STATE = "RESET_STATE";
+const UPDATE_REASON = "UPDATE_REASON";
 
 const defaultState = {
   myScore: 1,
@@ -26,9 +27,10 @@ function saveAnime(state, action) {
       ...action.item,
       title: action.item.title.romaji,
       myScore: 1,
-      myState: "To watch",
+      myState: "To Watch",
       source: action.item.source ? action.item.source : "UNKNOWN",
       episodesWatched: 0,
+      reason: "",
       nextAiringEpisode: action.item.nextAiringEpisode && {
         ...action.item.nextAiringEpisode,
         timeUntilAiring: secondsToDhm(
@@ -47,10 +49,12 @@ function updateAnime(state, action) {
     if (data.id === id) {
       return {
         ...data,
-        nextAiringEpisode: data.nextAiringEpisode && {
-          episode: nextAiringEpisode.episode,
-          timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
-        },
+        nextAiringEpisode: data.nextAiringEpisode
+          ? {
+              episode: nextAiringEpisode.episode,
+              timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
+            }
+          : null,
         averageScore: averageScore,
         status: status
       };
@@ -61,19 +65,25 @@ function updateAnime(state, action) {
 // Change myState (watching, to watch, completed) and updates
 // your watched episodes.
 function updateState(state, action) {
-  return state.map((x, index) => {
-    if (index === action.index) {
-      return action.state === "Completed"
-        ? {
-            ...x,
-            myState: action.state,
-            episodesWatched:
-              state[action.index].episodes ||
-              state[action.index].nextAiringEpisode.episode - 1
-          }
-        : { ...x, myState: action.state };
+  return state.map(item => {
+    if (item.id === action.id) {
+      if (action.state === "Completed") {
+        return {
+          ...item,
+          myState: action.state,
+          episodesWatched: item.episodes || item.nextAiringEpisode.episode - 1
+        };
+      }
+      if (action.state === "Watching") {
+        return {
+          ...item,
+          myState: action.state,
+          episodesWatched: 0
+        };
+      }
+      return { ...item, myState: action.state };
     }
-    return x;
+    return item;
   });
 }
 
@@ -98,21 +108,28 @@ export default function reducer(state = [], action) {
       return updateOrder(state, action.head, "des");
 
     case CHANGE_SCORE:
-      return state.map((x, index) => {
-        if (index === action.index) {
-          return { ...x, myScore: Number(action.score) };
+      return state.map(item => {
+        if (item.id === action.id) {
+          return { ...item, myScore: Number(action.score) };
         }
-        return x;
+        return item;
       });
 
     case CHANGE_STATE:
       return updateState(state, action);
 
     case INC_WATCHED_COUNTER:
-      return updateCounter(state, action.index, "add");
+      return updateCounter(state, action.id, "add");
 
     case DEC_WATCHED_COUNTER:
-      return updateCounter(state, action.index, "substract");
+      return updateCounter(state, action.id, "substract");
+    case UPDATE_REASON:
+      return state.map(item => {
+        if (item.id === action.id) {
+          return { ...item, reason: action.reason };
+        }
+        return item;
+      });
     case RESET_STATE:
       return [];
     default:
@@ -135,17 +152,20 @@ export function orderAsc(head) {
 export function orderDes(head) {
   return { type: ORDER_DES, head };
 }
-export function changeScore(index, score) {
-  return { type: CHANGE_SCORE, index, score };
+export function changeScore(id, score) {
+  return { type: CHANGE_SCORE, id, score };
 }
-export function changeState(index, state) {
-  return { type: CHANGE_STATE, index, state };
+export function changeState(id, state) {
+  return { type: CHANGE_STATE, id, state };
 }
-export function incWatchedCounter(index) {
-  return { type: INC_WATCHED_COUNTER, index };
+export function incWatchedCounter(id) {
+  return { type: INC_WATCHED_COUNTER, id };
 }
-export function decWatchedCounter(index) {
-  return { type: DEC_WATCHED_COUNTER, index };
+export function decWatchedCounter(id) {
+  return { type: DEC_WATCHED_COUNTER, id };
+}
+export function updateReason(reason, id) {
+  return { type: UPDATE_REASON, reason, id };
 }
 export function resetState() {
   return { type: RESET_STATE };
@@ -163,13 +183,13 @@ function secondsToDhm(seconds) {
   var mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes") : "";
   return dDisplay + hDisplay + mDisplay;
 }
-function updateCounter(array, indexToChange, operation) {
+function updateCounter(array, id, operation) {
   if (operation === "add") {
-    return array.map((item, index) => {
-      if (index === indexToChange) {
+    return array.map(item => {
+      if (item.id === id) {
         return {
           ...item,
-          episodesWatched: array[indexToChange].episodesWatched + 1
+          episodesWatched: item.episodesWatched + 1
         };
       }
       return item;
@@ -177,11 +197,11 @@ function updateCounter(array, indexToChange, operation) {
   }
 
   if (operation === "substract") {
-    return array.map((item, index) => {
-      if (index === indexToChange) {
+    return array.map(item => {
+      if (item.id === id) {
         return {
           ...item,
-          episodesWatched: array[indexToChange].episodesWatched - 1
+          episodesWatched: item.episodesWatched - 1
         };
       }
       return item;

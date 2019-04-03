@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledTable = styled.table`
   border-collapse: collapse;
   background: ${props => props.theme.backgroundPrimary};
-  border-radius: 10px;
   th,
   td,
   tr {

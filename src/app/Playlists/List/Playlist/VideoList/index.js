@@ -3,7 +3,7 @@ import Left from "./Left";
 import Right from "./Right";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import { PlVideo } from "./styles/indexStyles";
+import { PlVideo, PlVideoContainer } from "./styles/indexStyles";
 
 const VideoList = ({ playlist, deleteVideo, playlistKey, reOrderPlaylist }) => {
   const onDragEnd = result => {
@@ -31,12 +31,11 @@ const VideoList = ({ playlist, deleteVideo, playlistKey, reOrderPlaylist }) => {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {provided => (
-          <ul ref={provided.innerRef}>
+          <PlVideoContainer ref={provided.innerRef}>
             {playlist.map((video, i) => (
               <Draggable draggableId={video.id} index={i} key={video.id}>
                 {provided => (
                   <PlVideo
-                    className="pl-video"
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
@@ -53,7 +52,7 @@ const VideoList = ({ playlist, deleteVideo, playlistKey, reOrderPlaylist }) => {
               </Draggable>
             ))}
             {provided.placeholder}
-          </ul>
+          </PlVideoContainer>
         )}
       </Droppable>
     </DragDropContext>

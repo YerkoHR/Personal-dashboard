@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Loadable from "react-loadable";
@@ -27,21 +27,36 @@ const LoadableCardList = Loadable({
   }
 });
 
-const AnimeList = ({ saved, changeListMode, mode, fetchSavedAnime }) => {
+const AnimeList = ({ saved, fetchSavedAnime }) => {
+  const [listMode, onListMode] = useState("Table");
+  const [filter, onFilter] = useState("Watching");
+
   useEffect(() => {
     for (let i = 0; i < saved.length; i++) {
       fetchSavedAnime(saved[i].id);
     }
   }, []);
 
+  const filteredSaved = saved.filter(anime => {
+    if (filter === "All") {
+      return anime;
+    }
+    return anime.myState === filter;
+  });
+
   return (
     <Container>
       {saved.length > 0 ? (
-        <div>
-          <Buttons changeListMode={changeListMode} mode={mode} />
-          {mode === "card" && <LoadableCardList saved={saved} />}
-          {mode === "table" && <LoadableTable />}
-        </div>
+        <>
+          <Buttons
+            onListMode={onListMode}
+            listMode={listMode}
+            filter={filter}
+            onFilter={onFilter}
+          />
+          {listMode === "Card" && <LoadableCardList saved={filteredSaved} />}
+          {listMode === "Table" && <LoadableTable saved={filteredSaved} />}
+        </>
       ) : (
         <EmptyMessage>No anime saved</EmptyMessage>
       )}
@@ -54,8 +69,7 @@ AnimeList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  saved: state.saved,
-  mode: state.modes.listMode
+  saved: state.saved
 });
 
 export default connect(
