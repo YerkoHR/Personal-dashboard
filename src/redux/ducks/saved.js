@@ -11,6 +11,12 @@ const DEC_WATCHED_COUNTER = "DEC_WATCHED_COUNTER";
 const UPDATE_ANIME = "UPDATE_ANIME";
 const RESET_STATE = "RESET_STATE";
 
+const defaultState = {
+  myScore: 1,
+  myState: "To Watch",
+  episodesWatched: 0
+};
+
 // Push a new object with anime information from the API,
 // in adition it initializes some states for future operations.
 function saveAnime(state, action) {
