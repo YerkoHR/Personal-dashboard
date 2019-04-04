@@ -52,7 +52,7 @@ export default function reducer(state = initialState, action) {
     case REORDER_PLAYLIST:
       return {
         ...state,
-        [action.newKey]: action.playlist
+        [action.key]: action.playlist
       };
     case EDIT_TITLE:
       let obj = Object.assign({}, state);
