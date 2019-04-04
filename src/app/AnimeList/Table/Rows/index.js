@@ -15,15 +15,17 @@ import {
 import { StyledTr } from "./styles";
 
 const Rows = ({ saved, changeScore, changeState, updateReason }) => {
+  const handleUnknown = head => (head ? head : "Unknown");
+
   return (
     <>
       {saved.map(anime => (
         <StyledTr key={anime.id}>
           <td>{anime.title}</td>
-          <td>{anime.format ? anime.format : "Unknown"}</td>
-          <td>{anime.status ? anime.status : "Unknown"}</td>
-          <td>{anime.source}</td>
-          <td>{anime.averageScore ? anime.averageScore : "TBD"}</td>
+          <td>{handleUnknown(anime.format)}</td>
+          <td>{handleUnknown(anime.status)}</td>
+          <td>{handleUnknown(anime.source)}</td>
+          <td>{handleUnknown(anime.averageScore)}</td>
           <td>
             <Score anime={anime} changeScore={changeScore} />
           </td>

@@ -12,10 +12,11 @@ const UPDATE_ANIME = "UPDATE_ANIME";
 const RESET_STATE = "RESET_STATE";
 const UPDATE_REASON = "UPDATE_REASON";
 
-const defaultState = {
+const defaultData = {
   myScore: 1,
   myState: "To Watch",
-  episodesWatched: 0
+  episodesWatched: 0,
+  reason: ""
 };
 
 // Push a new object with anime information from the API,
@@ -25,18 +26,8 @@ function saveAnime(state, action) {
     ...state,
     {
       ...action.item,
-      title: action.item.title.romaji,
-      myScore: 1,
-      myState: "To Watch",
-      source: action.item.source ? action.item.source : "UNKNOWN",
-      episodesWatched: 0,
-      reason: "",
-      nextAiringEpisode: action.item.nextAiringEpisode && {
-        ...action.item.nextAiringEpisode,
-        timeUntilAiring: secondsToDhm(
-          action.item.nextAiringEpisode.timeUntilAiring
-        )
-      }
+      ...defaultData,
+      title: action.item.title.romaji
     }
   ];
 }
