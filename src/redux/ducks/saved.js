@@ -42,11 +42,10 @@ function updateAnime(state, action) {
         ...data,
         averageScore,
         status,
-        nextAiringEpisode:
-          {
-            ...nextAiringEpisode,
-            timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
-          } || null
+        nextAiringEpisode: nextAiringEpisode && {
+          ...nextAiringEpisode,
+          timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
+        }
       };
     }
     return data;
