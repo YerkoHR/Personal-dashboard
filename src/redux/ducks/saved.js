@@ -37,17 +37,15 @@ function updateAnime(state, action) {
   const { id, nextAiringEpisode, averageScore, status } = action.data;
 
   return state.map(data => {
-    if (data.id === id) {
+    if ((data.id === id) & (data.nextAiringEpisode !== null)) {
       return {
         ...data,
-        nextAiringEpisode: data.nextAiringEpisode
-          ? {
-              episode: nextAiringEpisode.episode,
-              timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
-            }
-          : null,
-        averageScore: averageScore,
-        status: status
+        averageScore,
+        status,
+        nextAiringEpisode: {
+          ...nextAiringEpisode,
+          timeUntilAiring: secondsToDhm(nextAiringEpisode.timeUntilAiring)
+        }
       };
     }
     return data;
