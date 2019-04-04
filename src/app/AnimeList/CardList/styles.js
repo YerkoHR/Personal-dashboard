@@ -6,11 +6,11 @@ export const StyledCardList = styled.ul`
   grid-template-rows: 350px;
   grid-gap: 1em;
   width: 95%;
-  margin: 2em auto;
+  margin: 4em auto;
 `;
 export const StyledCard = styled.li`
   display: flex;
   flex-direction: row;
   border: 1px solid ${props => props.theme.border};
-  border-radius: 4px;
+  border-radius: 6px;
 `;

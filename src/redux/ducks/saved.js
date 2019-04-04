@@ -168,8 +168,8 @@ function secondsToDhm(seconds) {
   var m = Math.floor((seconds % 3600) / 60);
 
   var dDisplay = d > 0 ? d + (d === 1 ? " day, " : " days, ") : "";
-  var hDisplay = h > 0 ? h + (h === 1 ? " hour, " : " hours, ") : "";
-  var mDisplay = m > 0 ? m + (m === 1 ? " minute, " : " minutes") : "";
+  var hDisplay = h > 0 ? h + (h === 1 ? " hr, " : " hrs, ") : "";
+  var mDisplay = m > 0 ? m + (m === 1 ? " min, " : " mins") : "";
   return dDisplay + hDisplay + mDisplay;
 }
 function updateCounter(array, id, operation) {

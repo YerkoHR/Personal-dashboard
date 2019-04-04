@@ -36,20 +36,17 @@ const Rows = ({ saved, changeScore, changeState, updateReason }) => {
               anime={anime}
             />
           </td>
-          {anime.myState === "Dropped" ? (
-            <td>
+
+          <td>
+            {anime.myState === "Dropped" && (
               <TableModal
                 updateReason={updateReason}
                 id={anime.id}
                 reason={anime.reason}
               />
-              <ToggleDeleteAnime data={anime} saved={saved} />
-            </td>
-          ) : (
-            <td>
-              <ToggleDeleteAnime data={anime} saved={saved} />
-            </td>
-          )}
+            )}
+            <ToggleDeleteAnime data={anime} saved={saved} />
+          </td>
         </StyledTr>
       ))}
     </>

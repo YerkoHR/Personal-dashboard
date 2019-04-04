@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const BtnContainer = styled.div`
   position: relative;
-
+  margin-bottom: 1rem;
   .list-btns,
   .filter-btns {
     position: absolute;
