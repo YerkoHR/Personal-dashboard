@@ -67,7 +67,7 @@ function updateState(state, action) {
         return {
           ...item,
           myState: action.state,
-          episodesWatched: 0
+          episodesWatched: item.episodesWatched | 0
         };
       }
       return { ...item, myState: action.state };
